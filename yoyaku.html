@@ -47,14 +47,19 @@
 
     .note-box { border: 0.5px solid rgba(200,169,110,0.2); padding: 1.2rem 1.5rem; background: rgba(200,169,110,0.04); font-size: 0.8rem; line-height: 2.1; color: var(--silver); margin-bottom: 2rem; }
     .note-box strong { color: var(--pale-gold); }
+    .note-box a { color: var(--gold); }
 
-    .submit-btn { width: 100%; padding: 1.1rem; border: 1px solid var(--gold); background: rgba(200,169,110,0.08); color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 0.95rem; letter-spacing: 0.25em; cursor: pointer; transition: all 0.3s; }
+    .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .submit-btn { width: 100%; padding: 1.1rem; border: 1px solid var(--gold); background: rgba(200,169,110,0.08); color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 0.88rem; letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s; }
     .submit-btn:hover { background: rgba(200,169,110,0.18); }
+    .calendar-btn { display: block; width: 100%; padding: 1.1rem; border: 0.5px solid rgba(200,169,110,0.4); background: transparent; color: var(--silver); font-family: 'Shippori Mincho', serif; font-size: 0.88rem; letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s; text-align: center; text-decoration: none; }
+    .calendar-btn:hover { border-color: var(--gold); color: var(--pale-gold); background: rgba(200,169,110,0.06); }
 
     @media (max-width: 480px) {
       .nav { padding: 1rem 1.2rem; }
       .birth-grid { grid-template-columns: 1fr; }
       .radio-group { flex-direction: column; }
+      .btn-group { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -71,15 +76,13 @@
     <div class="divider"></div>
     <p class="page-desc">
       以下のフォームにご記入の上、送信してください。<br>
-      送信後、ご予約時間の選択画面へご案内します。<br>
-      入金確認後に予約確定のご連絡をいたします。
+      あわせてご希望の日時もお選びください。
     </p>
 
     <form id="reservationForm" action="https://formspree.io/f/xpqbkkba" method="POST">
 
       <input type="hidden" name="_subject" value="【月のしずく】鑑定予約を受け付けました">
-      <input type="hidden" name="_autoresponse" value="このたびは月のしずくへのご予約ありがとうございます。&#13;&#10;&#13;&#10;以下のお支払い方法にてお振込みをお願いいたします。&#13;&#10;&#13;&#10;【銀行振込】&#13;&#10;りそな銀行　江坂支店&#13;&#10;普通　0042555&#13;&#10;マツオアツコ&#13;&#10;&#13;&#10;【PayPay】&#13;&#10;ID：matsuo_atsuko20&#13;&#10;表示名：マツオアツコ&#13;&#10;&#13;&#10;入金確認後、予約確定のご連絡をいたします。&#13;&#10;&#13;&#10;占い師　月のしずく">
-      <input type="hidden" name="_next" value="https://calendar.app.google/RKjr5zDFR9QqWDR69">
+      <input type="hidden" name="_autoresponse" value="このたびは月のしずくへのご予約ありがとうございます。&#13;&#10;&#13;&#10;以下のお支払い方法にてお振込みをお願いいたします。&#13;&#10;3営業日以内にお支払いをお願いいたします。&#13;&#10;&#13;&#10;【銀行振込】&#13;&#10;りそな銀行　江坂支店&#13;&#10;普通　0042555&#13;&#10;マツオアツコ&#13;&#10;&#13;&#10;【PayPay】&#13;&#10;ID：matsuo_atsuko20&#13;&#10;表示名：マツオアツコ&#13;&#10;&#13;&#10;入金確認後、予約確定のご連絡をいたします。&#13;&#10;&#13;&#10;占い師　月のしずく">
 
       <div class="form-group">
         <label class="form-label">お名前<span>必須</span></label>
@@ -145,13 +148,16 @@
 
       <div class="note-box">
         <strong>ご予約の流れ</strong><br>
-        ① このフォームを送信<br>
+        ① このフォームを送信 ＋ ご希望の日時を選択<br>
         ② 自動返信メールにてお支払い方法をご案内<br>
-        ③ ご希望の日時を選択<br>
-        ④ ご入金後、予約確定のご連絡をいたします
+        ③ お支払い（3営業日以内）<br>
+        ④ 入金確認後、予約確定のご連絡をいたします
       </div>
 
-      <button class="submit-btn" type="submit">送信して予約時間を選択する →</button>
+      <div class="btn-group">
+        <button class="submit-btn" type="submit">送信する →</button>
+        <a class="calendar-btn" href="https://calendar.app.google/RKjr5zDFR9QqWDR69" target="_blank">日時を選択する →</a>
+      </div>
 
     </form>
   </div>
