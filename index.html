@@ -25,7 +25,7 @@
     .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s); }
     @keyframes twinkle { 0%,100%{opacity:.2} 50%{opacity:1} }
 
-    .hero-moon { width: 115px; height: 115px; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto 1.6rem; opacity: 0.95; filter: saturate(0.9) brightness(1.02) contrast(0.96); box-shadow: 0 0 18px rgba(220,200,255,0.18), 0 0 34px rgba(120,80,210,0.18); }
+    .hero-moon { width: 115px; height: 115px; border-radius: 50%; background-image: url("moon.png"); background-size: cover; background-position: center; background-repeat: no-repeat; margin: 0 auto 1.6rem; box-shadow: 0 0 14px rgba(220,200,255,0.16), 0 0 28px rgba(120,80,210,0.12); }
 
     .site-title { font-family: 'Shippori Mincho', serif; font-size: clamp(2rem,6vw,3.5rem); font-weight: 500; letter-spacing: 0.15em; color: var(--pale-gold); margin-bottom: 0.5rem; }
     .site-subtitle { font-size: clamp(0.85rem,2vw,1rem); letter-spacing: 0.3em; color: var(--silver); margin-bottom: 2.5rem; }
@@ -79,14 +79,7 @@
 
     .star-image { width: 100%; max-width: 520px; display: block; margin: 0 auto; border-radius: 18px; box-shadow: 0 18px 45px rgba(0,0,0,0.35); }
 
-    .diagnosis-section {
-      background: linear-gradient(to left, rgba(10,6,32,0.08), rgba(10,6,32,0.22)), url("meihai.png");
-      background-repeat: no-repeat;
-      background-position: right center;
-      background-size: 78% auto;
-      background-color: #0a0620;
-      border-top: 0.5px solid rgba(200,169,110,0.1);
-    }
+    .diagnosis-section { background: linear-gradient(to left, rgba(10,6,32,0.08), rgba(10,6,32,0.22)), url("meihai.png"); background-repeat: no-repeat; background-position: right center; background-size: 78% auto; background-color: #0a0620; border-top: 0.5px solid rgba(200,169,110,0.1); }
 
     .shindan-wrap { max-width: 680px; margin: 0 auto; }
     .opt-btn { border: 0.5px solid rgba(200,169,110,0.25); background: rgba(255,255,255,0.02); color: #c4b8d8; padding: 1rem 1.2rem; cursor: pointer; transition: all 0.2s; display: flex; gap: 0.8rem; align-items: flex-start; width: 100%; text-align: left; font-family: 'Noto Serif JP', serif; font-size: 0.88rem; line-height: 1.7; margin-bottom: 0.7rem; }
@@ -99,8 +92,6 @@
     .shindan-cta-btn:hover { background: rgba(200,169,110,0.2); }
     @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
     .fade-in { animation: fadeInUp 0.5s ease forwards; }
-    @keyframes moonGlowAnim { 0%,100%{filter:drop-shadow(0 0 8px rgba(200,169,110,0.4))} 50%{filter:drop-shadow(0 0 24px rgba(200,169,110,0.7))} }
-    .moon-anim { animation: moonGlowAnim 4s ease-in-out infinite; display: inline-block; }
 
     .footer { border-top: 0.5px solid rgba(200,169,110,0.15); padding: 2.5rem 2rem; text-align: center; font-size: 0.72rem; color: var(--silver); letter-spacing: 0.2em; background: #080418; }
 
@@ -130,7 +121,7 @@
 
 <section class="hero">
   <div class="stars" id="stars"></div>
-  <img src="moon.png" alt="月" class="hero-moon">
+  <div class="hero-moon"></div>
   <h1 class="site-title">月のしずく</h1>
   <p class="site-subtitle">紫微斗数 ｜ 占い師</p>
   <div class="divider"></div>
@@ -138,7 +129,6 @@
   <a class="hero-cta" href="yoyaku.html">鑑定を予約する</a>
 </section>
 
-<!-- 星タイプ診断セクション -->
 <div class="diagnosis-section" id="shindan">
   <div class="section">
     <p class="section-label">Diagnosis</p>
@@ -209,7 +199,7 @@
         <div class="menu-name">スポット鑑定</div>
         <div class="price-row"><span class="price-num">¥ 5,000</span><span class="price-time">／ 60分</span></div>
         <div class="divider-thin"></div>
-        <div class="menu-desc">今年の運気・恋愛・仕事・人間関係など、気になることをお気軽にご相談いただけます。初回鑑定を受けた方が対象です。</div>
+        <div class="menu-desc">今年の運気・恋愛・仕事・人間関係など、気になるテーマに絞ってご相談いただけます。初回鑑定を受けた方が対象です。</div>
       </div>
     </div>
     <div class="note-box">
