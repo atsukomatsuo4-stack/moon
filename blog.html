@@ -138,6 +138,15 @@
       </div>
       <div class="card-arrow">→</div>
     </div>
+    <div class="article-card" onclick="showArticle(3)">
+      <div>
+        <div class="card-no">No.04 ／ 2026.05.18</div>
+        <div class="card-title">思考が増えたとき、私がすること</div>
+        <div class="card-excerpt">思考が増えていることに気づいたとき、私はシンキングボウルを鳴らします。止めるのではなく、思考を下げる。その先にあるものを書きました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">実践</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
   </div>
 </div>
 
@@ -205,6 +214,35 @@
     </div>
     <div class="article-footer">
       <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>自己理解</span></div>
+      <div class="next-article" onclick="showArticle(3)"><div class="next-label">次の記事 →</div><div class="next-title">思考が増えたとき、私がすること</div></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+
+  <div class="article-view article-page" id="article3">
+    <p class="article-no">No.04 ／ 2026.05.18</p>
+    <h1 class="article-title">思考が増えたとき、私がすること</h1>
+    <p class="article-date">2026年5月18日</p>
+    <div class="article-body">
+      <p>気づくと、頭の中がにぎやかになっている。<br>決めなきゃいけないことがある。でも答えが出ない。<br>そういう状態が、私にはあります。</p>
+      <h2>まず、気づく</h2>
+      <p>最初にすることは、止めることではなく、気づくことです。</p>
+      <p>「あ、今また増えてるな」</p>
+      <p>命盤を見ると、自分が思考の増えやすい構造を持っていることがわかります。だからこそ、気づいたときに責めなくてよくなりました。これは自分の性質だ、と。</p>
+      <h2>シンキングボウルを鳴らす</h2>
+      <p>気づいたあと、私はシンキングボウルを鳴らします。</p>
+      <p>シンキングボウルを軽く叩くと、静かな音が広がっていきます。その音に意識を向けている間、思考が少しずつ静まっていく。</p>
+      <p>止めようとするのではなく、思考そのものが下がっていくイメージです。</p>
+      <h2>瞑想の中で起きること</h2>
+      <p>シンキングボウルの音の中にいると、自分の感情に気づくことがあります。</p>
+      <p>不安だったのか、焦っていたのか。それとも、ただ疲れていただけなのか。</p>
+      <p>ふっと手放せることもあります。手放せないときは、そのまま置いておく。</p>
+      <p>どちらでも、気づいた時点で少し変わっています。プラスでもマイナスでもない、0の位置の私に戻っていく感覚です。</p>
+      <h2>答えを出さない時間も、選択のひとつ</h2>
+      <p>今すぐ解決しなくていい。考えないのではなく、今は保留する。それも思考の、ひとつの使い方です。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>実践</span></div>
       <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
     </div>
   </div>
@@ -214,12 +252,12 @@
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
