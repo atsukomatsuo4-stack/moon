@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月のしずく｜紫微斗数占い師</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --indigo: #1a1035; --deep-purple: #2d1b5e; --violet: #4a2d8a;
+      --lavender: #7c5cb8; --silver: #c4b8d8; --gold: #c8a96e;
+      --pale-gold: #e8d5a3; --moon-white: #f5f0e8; --text-light: #ece6f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0620; font-family: 'Noto Serif JP', serif; color: var(--text-light); }
+
+    .nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(26,16,53,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(200,169,110,0.15); }
+    .nav-logo { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; color: var(--pale-gold); letter-spacing: 0.15em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a { color: var(--silver); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.15em; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--pale-gold); }
+
+    .hero { min-height: 92vh; background: radial-gradient(ellipse at 30% 20%, #3d1f7a 0%, #1a1035 50%, #0a0620 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+    .stars { position: absolute; inset: 0; pointer-events: none; }
+    .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s); }
+    @keyframes twinkle { 0%,100%{opacity:.2} 50%{opacity:1} }
+    .moon-circle { width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #f5f0e8 0%, #e8d5a3 40%, #c8a96e 80%, #a07840 100%); margin-bottom: 2rem; animation: moonGlow 4s ease-in-out infinite; }
+    @keyframes moonGlow { 0%,100%{box-shadow:0 0 40px rgba(200,169,110,0.4),0 0 80px rgba(200,169,110,0.15)} 50%{box-shadow:0 0 60px rgba(200,169,110,0.6),0 0 120px rgba(200,169,110,0.25)} }
+    .site-title { font-family: 'Shippori Mincho', serif; font-size: clamp(2rem,6vw,3.5rem); font-weight: 500; letter-spacing: 0.15em; color: var(--pale-gold); margin-bottom: 0.5rem; }
+    .site-subtitle { font-size: clamp(0.85rem,2vw,1rem); letter-spacing: 0.3em; color: var(--silver); margin-bottom: 2.5rem; }
+    .divider { width: 120px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0 auto 2.5rem; }
+    .hero-copy { font-size: clamp(0.88rem,2.2vw,1rem); line-height: 2.4; color: var(--silver); max-width: 520px; letter-spacing: 0.05em; }
+    .hero-cta { display: inline-block; margin-top: 3rem; padding: 1rem 2.5rem; border: 1px solid var(--gold); color: var(--pale-gold); letter-spacing: 0.2em; font-family: 'Shippori Mincho', serif; font-size: 0.9rem; cursor: pointer; transition: all 0.4s ease; text-decoration: none; background: rgba(200,169,110,0.06); }
+    .hero-cta:hover { background: rgba(200,169,110,0.18); }
+
+    .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+    .section-title { font-family: 'Shippori Mincho', serif; font-size: clamp(1.4rem,4vw,2rem); color: var(--pale-gold); letter-spacing: 0.1em; margin-bottom: 0.8rem; font-weight: 500; }
+    .section-lead { font-size: 0.88rem; line-height: 2.2; color: var(--silver); margin-bottom: 2.5rem; }
+
+    .about-bg { background: linear-gradient(180deg, #0a0620 0%, #150d38 50%, #0a0620 100%); border-top: 0.5px solid rgba(200,169,110,0.1); border-bottom: 0.5px solid rgba(200,169,110,0.1); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+
+    .meihai-grid { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid rgba(200,169,110,0.25); margin-top: 2.5rem; font-size: 0.75rem; }
+    .meihai-cell { border: 0.5px solid rgba(200,169,110,0.18); padding: 1rem 0.75rem; min-height: 90px; transition: background 0.3s; }
+    .meihai-cell:hover { background: rgba(200,169,110,0.06); }
+    .cell-palace { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 0.4rem; }
+    .cell-stars { color: var(--pale-gold); font-size: 0.72rem; line-height: 1.6; }
+    .cell-stars .main-star { color: #f0d888; font-weight: 500; }
+    .center-logo { grid-column: 2/4; grid-row: 2/4; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 0.5px solid rgba(200,169,110,0.3); background: rgba(200,169,110,0.04); }
+    .center-logo-text { font-family: 'Shippori Mincho', serif; font-size: 1.3rem; color: var(--pale-gold); letter-spacing: 0.15em; }
+    .center-logo-sub { font-size: 0.65rem; color: var(--silver); letter-spacing: 0.25em; margin-top: 0.4rem; }
+
+    .menu-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 1.5rem; }
+    .menu-card { border: 0.5px solid rgba(200,169,110,0.25); padding: 2rem 1.5rem; background: rgba(255,255,255,0.02); position: relative; }
+    .menu-card.featured { border: 1px solid var(--gold); background: rgba(200,169,110,0.06); }
+    .badge { position: absolute; top: -1px; right: 1.5rem; background: var(--gold); color: #1a1035; font-size: 0.62rem; letter-spacing: 0.15em; padding: 3px 10px; font-family: 'Shippori Mincho', serif; }
+    .menu-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .menu-name { font-family: 'Shippori Mincho', serif; font-size: 1.05rem; color: var(--pale-gold); margin-bottom: 0.6rem; letter-spacing: 0.1em; }
+    .price-row { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 1rem; }
+    .price-num { font-size: 1rem; color: var(--gold); font-family: 'Shippori Mincho', serif; }
+    .price-num.highlight { font-size: 1.15rem; color: var(--pale-gold); }
+    .price-time { font-size: 0.7rem; color: var(--silver); }
+    .divider-thin { height: 0.5px; background: rgba(200,169,110,0.18); margin: 1rem 0; }
+    .menu-desc { font-size: 0.8rem; line-height: 1.9; color: var(--silver); }
+    .note-box { border: 0.5px solid rgba(200,169,110,0.2); padding: 1.2rem 1.5rem; margin-top: 2rem; background: rgba(200,169,110,0.04); font-size: 0.8rem; line-height: 2; color: var(--silver); }
+    .note-box strong { color: var(--pale-gold); font-weight: 500; }
+
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .testimonial { border-left: 2px solid var(--gold); padding: 1.5rem; background: rgba(200,169,110,0.04); }
+    .testimonial-text { font-size: 0.85rem; line-height: 2; color: var(--silver); font-style: italic; margin-bottom: 1rem; }
+    .testimonial-author { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.2em; }
+
+    .contact-box { border: 0.5px solid rgba(200,169,110,0.3); padding: 3rem; margin-top: 2.5rem; text-align: center; }
+    .contact-box p { color: var(--silver); font-size: 0.88rem; line-height: 2.4; margin-bottom: 2rem; }
+    .contact-btn { display: inline-block; padding: 1rem 3rem; border: 1px solid var(--gold); color: var(--pale-gold); letter-spacing: 0.25em; font-family: 'Shippori Mincho', serif; font-size: 0.9rem; cursor: pointer; background: rgba(200,169,110,0.08); transition: all 0.3s; text-decoration: none; }
+    .contact-btn:hover { background: rgba(200,169,110,0.2); }
+
+    .footer { border-top: 0.5px solid rgba(200,169,110,0.15); padding: 2.5rem 2rem; text-align: center; font-size: 0.72rem; color: var(--silver); letter-spacing: 0.2em; background: #080418; }
+
+    @media (max-width: 640px) {
+      .nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .meihai-grid { font-size: 0.68rem; }
+      .meihai-cell { padding: 0.6rem; min-height: 70px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">月のしずく</a>
+  <div class="nav-links">
+    <a href="#about">紫微斗数とは</a>
+    <a href="#menu">鑑定メニュー</a>
+    <a href="blog.html">ブログ</a>
+    <a href="yoyaku.html">ご予約</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="moon-circle"></div>
+  <h1 class="site-title">月のしずく</h1>
+  <p class="site-subtitle">紫微斗数 ｜ 占い師</p>
+  <div class="divider"></div>
+  <p class="hero-copy">あなたの命盤には、生まれた瞬間の星の配置が刻まれています。<br>紫微斗数という東洋最古の占術で、<br>あなただけの人生の地図を読み解きます。</p>
+  <a class="hero-cta" href="yoyaku.html">鑑定を予約する</a>
+</section>
+
+<div class="about-bg" id="about">
+  <div class="section about-inner">
+    <div>
+      <p class="section-label">About</p>
+      <h2 class="section-title">紫微斗数とは</h2>
+      <p class="section-lead">紫微斗数（しびとすう）は、中国・唐代に生まれた命理学の最高峰とも称される占術です。<br><br>生年月日と時刻をもとに12の「宮」で構成された命盤を作成し、144の星が織り成すパターンから、その人の才能・宿命・運気の流れを読み解きます。</p>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;">
+      <img src="メイハイ.png" alt="紫微斗数命盤イメージ" style="width:100%;max-width:460px;border-radius:4px;opacity:0.92;">
+    </div>
+  </div>
+</div>
+
+<div style="background:#0a0620;">
+  <div class="section">
+    <p class="section-label">命盤</p>
+    <h2 class="section-title">命盤のイメージ</h2>
+    <p class="section-lead">あなたの生年月日・時刻から12宮の命盤を作成します。</p>
+    <div class="meihai-grid">
+      <div class="meihai-cell"><div class="cell-palace">巳宮 ／ 田宅宮</div><div class="cell-stars"><span class="main-star">天同星</span><br>文昌・右弼</div></div>
+      <div class="meihai-cell"><div class="cell-palace">午宮 ／ 官禄宮</div><div class="cell-stars"><span class="main-star">武曲星</span><br>天魁・龍池</div></div>
+      <div class="meihai-cell"><div class="cell-palace">未宮 ／ 奴僕宮</div><div class="cell-stars"><span class="main-star">太陽星</span><br>天鉞・鳳閣</div></div>
+      <div class="meihai-cell"><div class="cell-palace">申宮 ／ 遷移宮</div><div class="cell-stars"><span class="main-star">天機星</span><br>左輔・三台</div></div>
+      <div class="meihai-cell"><div class="cell-palace">辰宮 ／ 福徳宮</div><div class="cell-stars"><span class="main-star">廉貞星</span><br>文曲・天壽</div></div>
+      <div class="center-logo"><div class="center-logo-text">月のしずく</div><div class="center-logo-sub">紫微斗数命盤</div></div>
+      <div class="meihai-cell"><div class="cell-palace">酉宮 ／ 疾厄宮</div><div class="cell-stars"><span class="main-star">七殺星</span><br>天刑・陀羅</div></div>
+      <div class="meihai-cell"><div class="cell-palace">卯宮 ／ 父母宮</div><div class="cell-stars"><span class="main-star">紫微星</span><br>天貴・八座</div></div>
+      <div class="meihai-cell"><div class="cell-palace">戌宮 ／ 財帛宮</div><div class="cell-stars"><span class="main-star">天梁星</span><br>祿存・天馬</div></div>
+      <div class="meihai-cell"><div class="cell-palace">寅宮 ／ 命宮</div><div class="cell-stars"><span class="main-star">貪狼星</span><br>天才・解神</div></div>
+      <div class="meihai-cell"><div class="cell-palace">丑宮 ／ 兄弟宮</div><div class="cell-stars"><span class="main-star">巨門星</span><br>恩光・天貴</div></div>
+      <div class="meihai-cell"><div class="cell-palace">子宮 ／ 夫妻宮</div><div class="cell-stars"><span class="main-star">天府星</span><br>火星・地劫</div></div>
+      <div class="meihai-cell"><div class="cell-palace">亥宮 ／ 子女宮</div><div class="cell-stars"><span class="main-star">太陰星</span><br>擎羊・截空</div></div>
+    </div>
+  </div>
+</div>
+
+<div style="background:#0a0620;border-top:0.5px solid rgba(200,169,110,0.1);" id="menu">
+  <div class="section">
+    <p class="section-label">Menu</p>
+    <h2 class="section-title">鑑定メニュー</h2>
+    <p class="section-lead">初回は命盤の作成・全体読み解きを含むため、じっくりお時間をとっております。<br>スポット鑑定はその時々のテーマに絞ってご相談いただけます。</p>
+    <div class="menu-cards">
+      <div class="menu-card featured">
+        <div class="badge">はじめての方</div>
+        <div class="menu-icon">🌙</div>
+        <div class="menu-name">初回鑑定</div>
+        <div class="price-row"><span class="price-num highlight">¥ 12,000</span><span class="price-time">／ 90分</span></div>
+        <div class="divider-thin"></div>
+        <div class="menu-desc">命盤の作成から始まり、命宮・身宮・大限・流年まで、あなたの全体像を丁寧に読み解きます。初めて紫微斗数に触れる方も安心してご参加ください。</div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-icon">✨</div>
+        <div class="menu-name">スポット鑑定</div>
+        <div class="price-row"><span class="price-num">¥ 5,000</span><span class="price-time">／ 60分</span></div>
+        <div class="divider-thin"></div>
+        <div class="menu-desc">今年の運気・恋愛・仕事・人間関係など、気になるテーマに絞ってご相談いただけます。初回鑑定を受けた方が対象です。</div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>ご予約の際のお願い</strong><br>
+      初回の方は <strong>生年月日・出生時刻・出生地</strong> をご用意ください。出生時刻が不明な場合もご相談いただけます。<br>
+      鑑定はオンライン（Zoom）または対面にて承っております。
+    </div>
+  </div>
+</div>
+
+<div style="background:linear-gradient(180deg,#0a0620,#150d38,#0a0620);border-top:0.5px solid rgba(200,169,110,0.1);">
+  <div class="section">
+    <p class="section-label">Voice</p>
+    <h2 class="section-title">お客様の声</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-text">「命盤を見ていただいて、自分でも気づいていなかった強みを教えていただきました。転職のタイミングも的確で、今は新しい仕事がとても充実しています。」</div>
+        <div class="testimonial-author">30代 女性 ／ 東京</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">「星の配置から人生のパターンを読み解いてもらえるのが新鮮でした。相性鑑定では彼との関係が深まるヒントをたくさんいただけて感謝しています。」</div>
+        <div class="testimonial-author">20代 女性 ／ 名古屋</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">「大限の変わり目に相談したところ、今後の展開をほぼ正確に教えていただき驚きました。不安が安心に変わる鑑定でした。」</div>
+        <div class="testimonial-author">40代 男性 ／ 大阪</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">「落ち着かない息子のことを相談しました。親として不安だったのが、見守るだけでいいと気持ちが楽になりました。占いの力を借りてよかったです。」</div>
+        <div class="testimonial-author">50代 女性</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background:#0a0620;border-top:0.5px solid rgba(200,169,110,0.1);">
+  <div class="section">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">ご予約・お問い合わせ</h2>
+    <div class="contact-box">
+      <p>鑑定はオンライン（Zoom）または対面にて承っております。<br>初回鑑定90分、スポット鑑定60分です。<br><br>初回の方は生年月日・出生時刻・出生地をご用意の上、<br>下記よりご予約ください。</p>
+      <a class="contact-btn" href="yoyaku.html">予約フォームへ</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>占い師　月のしずく ／ 紫微斗数</p>
+  <p style="margin-top:0.5rem;opacity:0.5;">© 2026 Tsuki no Shizuku All Rights Reserved.</p>
+</footer>
+
+<script>
+const s = document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const el=document.createElement('div');
+  el.className='star';
+  el.style.left=Math.random()*100+'%';
+  el.style.top=Math.random()*100+'%';
+  el.style.setProperty('--dur',(2+Math.random()*4)+'s');
+  el.style.setProperty('--delay',(-Math.random()*4)+'s');
+  const sz=Math.random()<0.2?3:2;
+  el.style.width=el.style.height=sz+'px';
+  s.appendChild(el);
+}
+</script>
+</body>
+</html>
