@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イベント情報｜月のしずく</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --indigo: #1a1035; --deep-purple: #2d1b5e; --violet: #4a2d8a;
+      --lavender: #7c5cb8; --silver: #c4b8d8; --gold: #c8a96e;
+      --pale-gold: #e8d5a3; --moon-white: #f5f0e8; --text-light: #ece6f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0620; font-family: 'Noto Serif JP', serif; color: var(--text-light); }
+
+    /* ナビ */
+    .nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(26,16,53,0.92); backdrop-filter: blur(12px); border-bottom: 0.5px solid rgba(200,169,110,0.15); }
+    .nav-logo { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; color: var(--pale-gold); letter-spacing: 0.15em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a { color: var(--silver); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.15em; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--pale-gold); }
+
+    /* ページヘッダー */
+    .page-hero { padding: 5rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at 50% 0%, #2d1b5e 0%, #0a0620 70%); border-bottom: 0.5px solid rgba(200,169,110,0.1); }
+    .stars { position: absolute; inset: 0; pointer-events: none; }
+    .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s); }
+    @keyframes twinkle { 0%,100%{opacity:.2} 50%{opacity:1} }
+    .page-label { font-size: 0.7rem; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; position: relative; }
+    .page-title { font-family: 'Shippori Mincho', serif; font-size: clamp(1.8rem,5vw,2.8rem); color: var(--pale-gold); letter-spacing: 0.1em; position: relative; }
+    .page-divider { width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 1.5rem auto; }
+
+    /* セクション共通 */
+    .section-wrap { max-width: 860px; margin: 0 auto; padding: 4rem 2rem; }
+
+    /* カテゴリラベル */
+    .category-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.68rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; }
+    .category-label::before, .category-label::after { content: ''; display: inline-block; width: 24px; height: 0.5px; background: var(--gold); }
+
+    /* ─── 移動式占い館 ─── */
+    .idou-section { background: linear-gradient(180deg, #0f0828 0%, #150d38 50%, #0f0828 100%); border-top: 0.5px solid rgba(200,169,110,0.15); border-bottom: 0.5px solid rgba(200,169,110,0.15); }
+
+    .idou-heading { font-family: 'Shippori Mincho', serif; font-size: clamp(1.4rem,4vw,2rem); color: var(--pale-gold); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+    .idou-sub { font-size: 0.82rem; color: var(--silver); letter-spacing: 0.15em; margin-bottom: 2.5rem; line-height: 2; }
+
+    .event-card { border: 1px solid rgba(200,169,110,0.35); background: rgba(200,169,110,0.04); padding: 2.5rem; position: relative; }
+    .event-card-badge { position: absolute; top: -1px; left: 2rem; background: var(--gold); color: #1a1035; font-size: 0.62rem; letter-spacing: 0.15em; padding: 3px 12px; font-family: 'Shippori Mincho', serif; }
+
+    .event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+    .event-info-block {}
+    .event-info-title { font-size: 0.68rem; letter-spacing: 0.4em; color: var(--gold); margin-bottom: 1rem; }
+    .event-info-list { list-style: none; }
+    .event-info-list li { display: flex; align-items: baseline; gap: 0.8rem; font-size: 0.85rem; line-height: 2.2; color: var(--silver); border-bottom: 0.5px solid rgba(200,169,110,0.1); padding: 0.3rem 0; }
+    .event-info-list li .label { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.15em; white-space: nowrap; min-width: 4em; }
+    .event-info-list li .value { color: var(--text-light); }
+
+    .highlight-date { font-family: 'Shippori Mincho', serif; font-size: clamp(1.6rem,5vw,2.4rem); color: var(--pale-gold); letter-spacing: 0.05em; line-height: 1.3; }
+    .highlight-date span { font-size: 0.75em; color: var(--gold); }
+
+    .coupon-box { margin-top: 1.5rem; border: 1px dashed rgba(200,169,110,0.5); padding: 1rem 1.5rem; background: rgba(200,169,110,0.06); display: flex; align-items: center; gap: 1rem; }
+    .coupon-icon { font-size: 1.2rem; }
+    .coupon-text { font-size: 0.82rem; color: var(--silver); line-height: 1.8; }
+    .coupon-text strong { color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 1rem; }
+
+    .contact-row { display: flex; gap: 1rem; margin-top: 1.8rem; flex-wrap: wrap; }
+    .contact-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--silver); }
+    .contact-item .ci-label { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.15em; }
+    .contact-item a { color: var(--pale-gold); text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    .idou-note { margin-top: 2rem; font-size: 0.78rem; line-height: 2.2; color: rgba(196,184,216,0.65); border-left: 2px solid rgba(200,169,110,0.25); padding-left: 1rem; }
+
+    /* ─── 出店イベント ─── */
+    .guest-section { background: #0a0620; }
+
+    .guest-card { border: 0.5px solid rgba(200,169,110,0.22); padding: 2.5rem; background: rgba(255,255,255,0.015); position: relative; margin-bottom: 1.5rem; transition: border-color 0.3s; }
+    .guest-card:hover { border-color: rgba(200,169,110,0.45); }
+    .guest-event-name { font-family: 'Shippori Mincho', serif; font-size: 1.15rem; color: var(--pale-gold); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .guest-event-sub { font-size: 0.75rem; color: var(--silver); letter-spacing: 0.15em; margin-bottom: 1.5rem; }
+
+    .guest-meta { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .guest-meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
+    .guest-meta-item .ml { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.2em; white-space: nowrap; }
+    .guest-meta-item .mv { color: var(--text-light); }
+
+    .menu-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1.5rem; }
+    .menu-table th { text-align: left; padding: 0.6rem 1rem; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--gold); border-bottom: 0.5px solid rgba(200,169,110,0.25); font-weight: 400; }
+    .menu-table td { padding: 0.65rem 1rem; border-bottom: 0.5px solid rgba(200,169,110,0.1); color: var(--silver); line-height: 1.8; }
+    .menu-table tr:last-child td { border-bottom: none; }
+    .menu-table .price { color: var(--pale-gold); font-family: 'Shippori Mincho', serif; white-space: nowrap; }
+
+    .guest-link-btn { display: inline-block; padding: 0.7rem 1.8rem; border: 0.5px solid rgba(200,169,110,0.5); color: var(--pale-gold); font-size: 0.78rem; letter-spacing: 0.2em; font-family: 'Shippori Mincho', serif; text-decoration: none; background: rgba(200,169,110,0.05); transition: all 0.3s; }
+    .guest-link-btn:hover { background: rgba(200,169,110,0.15); border-color: var(--gold); }
+
+    /* TBDカード */
+    .tbd-card { border: 0.5px dashed rgba(200,169,110,0.2); padding: 2rem; text-align: center; color: rgba(196,184,216,0.4); font-size: 0.82rem; letter-spacing: 0.2em; }
+
+    /* フッター */
+    .footer { border-top: 0.5px solid rgba(200,169,110,0.15); padding: 2.5rem 2rem; text-align: center; font-size: 0.72rem; color: var(--silver); letter-spacing: 0.2em; background: #080418; }
+
+    @media (max-width: 640px) {
+      .nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1rem; font-size: 0.75rem; }
+      .event-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .guest-meta { flex-direction: column; gap: 0.6rem; }
+      .section-wrap { padding: 3rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">月のしずく</a>
+  <div class="nav-links">
+    <a href="index.html#about">紫微斗数とは</a>
+    <a href="event.html">イベント</a>
+    <a href="hoshi_shindan.html">星タイプ診断</a>
+    <a href="blog.html">ブログ</a>
+    <a href="index.html#menu">鑑定メニュー</a>
+    <a href="yoyaku.html">ご予約</a>
+  </div>
+</nav>
+
+<!-- ページヘッダー -->
+<div class="page-hero">
+  <div class="stars" id="stars"></div>
+  <p class="page-label">Events</p>
+  <h1 class="page-title">イベント情報</h1>
+  <div class="page-divider"></div>
+</div>
+
+<!-- ━━━━━ 移動式占い館 ━━━━━ -->
+<div class="idou-section">
+  <div class="section-wrap">
+    <div class="category-label">月のしずく 主催</div>
+    <h2 class="idou-heading">移動式一日占い館</h2>
+    <p class="idou-sub">
+      少人数・完全予約制で、静かな時間の中で丁寧に命盤を読み解きます。<br>
+      今後も各地で不定期開催予定です。
+    </p>
+
+    <!-- 7月11日イベントカード -->
+    <div class="event-card">
+      <div class="event-card-badge">次回開催</div>
+
+      <div class="highlight-date">
+        7月11日<span>（土）</span>
+      </div>
+
+      <div class="event-grid">
+        <div class="event-info-block">
+          <p class="event-info-title">開催情報</p>
+          <ul class="event-info-list">
+            <li><span class="label">時間</span><span class="value">11:00 〜 21:00</span></li>
+            <li><span class="label">定員</span><span class="value">3名限定</span></li>
+            <li><span class="label">料金</span><span class="value">90分 ｜ ¥12,000</span></li>
+            <li><span class="label">形式</span><span class="value">完全予約制・個人鑑定</span></li>
+          </ul>
+        </div>
+        <div class="event-info-block">
+          <p class="event-info-title">場所・アクセス</p>
+          <ul class="event-info-list">
+            <li><span class="label">会場</span><span class="value">T's Cube 東淀川 レンタルスペース</span></li>
+            <li><span class="label">住所</span><span class="value">大阪府大阪市東淀川区西淡路2-14-3-101</span></li>
+            <li><span class="label">最寄り</span><span class="value">JR東淀川駅 徒歩4分<br>JR新大阪駅 徒歩10分</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="coupon-box">
+        <div class="coupon-icon">✦</div>
+        <div class="coupon-text">このページをご提示で <strong>2,000円 OFF</strong><br>ご予約時にお知らせください</div>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-item">
+          <span class="ci-label">Instagram DM</span>
+          <a href="https://www.instagram.com/super_moon999/" target="_blank">@super_moon999</a>
+        </div>
+        <div class="contact-item">
+          <span class="ci-label">メール</span>
+          <a href="mailto:supermoon20260216@gmail.com">supermoon20260216@gmail.com</a>
+        </div>
+      </div>
+
+      <p class="idou-note">
+        ※ ご予約後、生年月日（西暦）・出生時刻・出生地をお伝えください。<br>
+        ※ お支払いは銀行振込またはPayPayにて承ります。入金確認後に予約確定となります。
+      </p>
+
+      <div style="margin-top:2rem;">
+        <img src="1日占い館7月11日.png" alt="移動式一日占い館 7月11日 チラシ" style="width:100%;max-width:480px;display:block;margin:0 auto;border:0.5px solid rgba(200,169,110,0.2);">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ━━━━━ 出店イベント ━━━━━ -->
+<div class="guest-section">
+  <div class="section-wrap">
+    <div class="category-label">出店イベント</div>
+    <p style="font-size:0.85rem;color:var(--silver);line-height:2.2;margin-bottom:2.5rem;">
+      他のイベントへの出展情報です。<br>
+      イベント詳細・チケット購入は各公式サイトをご確認ください。
+    </p>
+
+    <!-- 神戸ヒーリングマーケット -->
+    <div class="guest-card">
+      <div class="guest-event-name">第7回 神戸ヒーリングマーケット in ミネラルマルシェ</div>
+      <div class="guest-event-sub">Kobe Healing Market</div>
+
+      <div class="guest-meta">
+        <div class="guest-meta-item"><span class="ml">出展日</span><span class="mv">9月5日（土）のみ</span></div>
+        <div class="guest-meta-item"><span class="ml">時間</span><span class="mv">10:00 〜 18:00</span></div>
+        <div class="guest-meta-item"><span class="ml">会場</span><span class="mv">三宮・神戸サンボーホール</span></div>
+      </div>
+
+      <table class="menu-table">
+        <thead>
+          <tr><th>メニュー</th><th>時間</th><th class="price">料金</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>タロット</td><td>10分</td><td class="price">¥1,000</td></tr>
+          <tr><td>タロット ＋ 数秘術</td><td>15分</td><td class="price">¥2,000</td></tr>
+          <tr><td>紫微斗数</td><td>20分</td><td class="price">¥3,000</td></tr>
+          <tr><td>紫微斗数</td><td>30分</td><td class="price">¥5,000</td></tr>
+          <tr><td>紫微斗数</td><td>60分</td><td class="price">¥8,000</td></tr>
+          <tr><td>姓名判断（吉凶判断のみ）</td><td>—</td><td class="price">¥4,000</td></tr>
+          <tr><td>姓名判断（改名）</td><td>—</td><td class="price">¥8,000</td></tr>
+        </tbody>
+      </table>
+
+      <div style="margin-bottom:1.5rem;">
+        <img src="ChatGPT_Image_2026年6月12日_13_01_16.png" alt="神戸ヒーリングマーケット チラシ" style="width:100%;max-width:480px;display:block;margin:0 auto;border:0.5px solid rgba(200,169,110,0.2);">
+      </div>
+
+      <a class="guest-link-btn" href="https://healingmarket.jp/07koube/" target="_blank">イベント公式サイトへ →</a>
+    </div>
+
+    <!-- 3件目 TBD -->
+    <div class="tbd-card">
+      ＋ もう1件のイベント情報、近日公開予定
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <p>占い師　月のしずく ／ 紫微斗数</p>
+  <p style="margin-top:0.5rem;opacity:0.5;">© 2026 Tsuki no Shizuku All Rights Reserved.</p>
+</footer>
+
+<script>
+const s = document.getElementById('stars');
+for(let i=0;i<60;i++){
+  const el=document.createElement('div');
+  el.className='star';
+  el.style.left=Math.random()*100+'%';
+  el.style.top=Math.random()*100+'%';
+  el.style.setProperty('--dur',(2+Math.random()*4)+'s');
+  el.style.setProperty('--delay',(-Math.random()*4)+'s');
+  const sz=Math.random()<0.2?3:2;
+  el.style.width=el.style.height=sz+'px';
+  s.appendChild(el);
+}
+</script>
+</body>
+</html>
