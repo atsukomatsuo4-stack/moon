@@ -159,6 +159,15 @@
       </div>
       <div class="card-arrow">→</div>
     </div>
+    <div class="article-card" onclick="showArticle(5)">
+      <div>
+        <div class="card-no">No.06 ／ 2026.06.10</div>
+        <div class="card-title">遷移宮に天機星が入る人</div>
+        <div class="card-excerpt">遷移宮に天機星が入ると、外の世界で「考える」が動きやすくなります。対外的な印象と、命宮という主軸の関係について書きました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">天機星</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
   </div>
 </div>
 
@@ -374,22 +383,43 @@
     </div>
     <div class="article-footer">
       <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>命盤</span></div>
+      <div class="next-article" onclick="showArticle(5)"><div class="next-label">次の記事 →</div><div class="next-title">遷移宮に天機星が入る人</div></div>
       <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
       <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
     </div>
   </div>
-</div>
+
+  <div class="article-view article-page" id="article5">
+    <p class="article-no">No.06 ／ 2026.06.10</p>
+    <h1 class="article-title">遷移宮に天機星が入る人</h1>
+    <p class="article-date">2026年6月10日</p>
+    <div class="article-body">
+      <p>遷移宮に天機星が入ると、外の世界で「考える」が動きやすくなります。</p>
+      <p>人と話すと情報が増え、環境が変わると思考が広がる。<br>外に出るだけで、頭の中がにぎやかになっていく。</p>
+      <p>対外的には、優しくて誠実な印象を持たれることが多いです。<br>頭の回転も速く、場の空気を読みながら動ける。</p>
+      <p>ただ、その分だけ神経も細かく動いています。<br>精神性を大切にする傾向があり、少々せっかちな面も顔を出します。</p>
+      <p>遷移宮と命宮は対宮の関係にあります。<br>対外的な宮があれば、主軸となる宮がある。</p>
+      <p>命宮はその人の主軸となる命盤の中心です。<br>遷移宮がどれだけ外の世界と接していても、主軸となる命宮がその人の対外的な姿にも影響します。</p>
+      <p>外に見える星だけで、その人を語ることはできません。</p>
+      <p>次回は、遷移宮に太陰星が入る人について書いていきます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>天機星</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
 <script>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2','article3','article4'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2','article3','article4'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
