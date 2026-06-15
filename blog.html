@@ -185,6 +185,15 @@
       </div>
       <div class="card-arrow">→</div>
     </div>
+    <div class="article-card" onclick="showArticle(7)">
+      <div>
+        <div class="card-no">No.08 ／ 2026.06.15</div>
+        <div class="card-title">6月21日、すまいるマルシェに出店します</div>
+        <div class="card-excerpt">大阪・玉造のすまいるマルシェに出店します。紫微斗数の30分鑑定をご用意。気になった方は個人鑑定へのご案内もしています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">すまいるマルシェ</span><span class="card-tag">イベント</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
   </div>
 </div>
 
@@ -467,16 +476,40 @@
     </div>
   </div>
 
-<script>
+  <div class="article-view article-page" id="article7">
+    <p class="article-no">No.08 ／ 2026.06.15</p>
+    <h1 class="article-title">6月21日、すまいるマルシェに出店します</h1>
+    <p class="article-date">2026年6月15日</p>
+    <div class="article-body">
+      <p>6月21日（日）、大阪・玉造の学研リープ玉造元町教室で開催される「すまいるマルシェ vol.37」に出店します。</p>
+      <h2>当日のメニューについて</h2>
+      <p>紫微斗数の30分鑑定（¥5,000）をメインにご用意しています。</p>
+      <p>当日はその場で命盤を出してお伝えする形になります。</p>
+      <p>事前に時間をかけて読み解く個人鑑定とは異なり、30分という限られた時間の中でのご案内になりますが、命盤を通じて自分の本質や流れに触れる入口として活用していただければと思います。</p>
+      <h2>気になった方へ</h2>
+      <p>マルシェで命盤を見た方には、紫微斗数の個人鑑定（通常¥12,000）を¥10,000でお受けします。</p>
+      <p>続きをじっくり読み解きたい、もっと深く知りたいという方はぜひご相談ください。</p>
+      <p>大阪・玉造で紫微斗数を体験できる機会です。お気軽にお立ち寄りください。</p>
+      <h2>イベント詳細</h2>
+      <p>日時：6月21日（日）11:00〜17:00</p>
+      <p>会場：学研リープ玉造元町教室（玉造・鶴橋駅から各7分）</p>
+      <p>入場無料</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>すまいるマルシェ</span><span>イベント</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>イベント情報・ご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
+    </div>
+  </div>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2','article3','article4','article5','article6'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2','article3','article4','article5','article6'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
