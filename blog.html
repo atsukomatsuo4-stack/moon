@@ -194,6 +194,15 @@
       </div>
       <div class="card-arrow">→</div>
     </div>
+    <div class="article-card" onclick="showArticle(8)">
+      <div>
+        <div class="card-no">No.09 ／ 2026.06.22</div>
+        <div class="card-title">遷移宮に太陰星が入る人</div>
+        <div class="card-excerpt">遷移宮に太陰星が入ると、外の世界で「感じる」が動きやすくなります。感受性と消耗の関係について書きました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">太陰星</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
   </div>
 </div>
 
@@ -476,7 +485,27 @@
     </div>
   </div>
 
-  <div class="article-page" id="article7">
+  <div class="article-page" id="article8">
+    <p class="article-no">No.09 ／ 2026.06.22</p>
+    <h1 class="article-title">遷移宮に太陰星が入る人</h1>
+    <p class="article-date">2026年6月22日</p>
+    <div class="article-body">
+      <p>遷移宮に太陰星が入ると、外の世界で「感じる」が動きやすくなります。</p>
+      <p>人と話すと相手の気持ちが伝わってきて、場の空気を敏感に受け取る。<br>外に出るだけで、心の中がにぎやかになっていく。</p>
+      <p>対外的には、穏やかで思いやりのある印象を持たれることが多いです。<br>清らかで気位が高く、どこか品のある雰囲気を自然に漂わせます。</p>
+      <p>ただ、その感受性はとても細かく動いています。<br>相手の言葉の裏を読みすぎたり、場の空気を抱え込みすぎたりすることも。<br>神経過敏になりやすく、人間関係で消耗しやすい面があります。</p>
+      <p>精神的に傷つくことを極端に恐れる傾向もあります。<br>だから、無意識に人との距離を測りながら動いていることが多いです。</p>
+      <p>外の世界がにぎやかであればあるほど、内側にたまるものも増えていく。<br>思考が増えるというより、感情が増えていく感覚に近いかもしれません。</p>
+      <p>天機星が「考える」で外の世界と接するとすれば、<br>太陰星は「感じる」で外の世界と接しています。</p>
+      <p>ただ、命宮によって内側の性質は変わります。</p>
+      <p>次回は、遷移宮に入る星によって、思考過多の現れ方がどう変わるかを整理していきます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>太陰星</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
     <p class="article-no">No.08 ／ 2026.06.15</p>
     <h1 class="article-title">6月21日、すまいるマルシェに出店します</h1>
     <p class="article-date">2026年6月15日</p>
@@ -501,17 +530,16 @@
       <div class="cta-box"><p>イベント情報・ご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
     </div>
   </div>
-</div>
 <script>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2','article3','article4','article5','article6','article7'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2','article3','article4','article5','article6','article7'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
