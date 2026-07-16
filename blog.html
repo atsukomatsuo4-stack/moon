@@ -230,6 +230,15 @@
       </div>
       <div class="card-arrow">→</div>
     </div>
+    <div class="article-card" onclick="showArticle(12)">
+      <div>
+        <div class="card-no">No.13 ／ 2026.07.17</div>
+        <div class="card-title">家族だから仲良くしなければならない、という話</div>
+        <div class="card-excerpt">「家族だからこうあるべき」という固定概念から少し自由になるために。紫微斗数の命盤から、その人らしい距離感を一緒に考えます。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">家族</span><span class="card-tag">鑑定</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
   </div>
 </div>
 
@@ -627,17 +636,38 @@
       <div class="cta-box"><p>あなたの命盤から、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
     </div>
   </div>
+  <div class="article-page" id="article12">
+    <p class="article-no">No.13 ／ 2026.07.17</p>
+    <h1 class="article-title">家族だから仲良くしなければならない、という話</h1>
+    <p class="article-date">2026年7月17日</p>
+    <div class="article-body">
+      <p>「家族だから仲良くしなければならない。」</p>
+      <p>私たちは、幼い頃からそんな価値観に触れながら育ってきました。</p>
+      <p>もちろん、家族との関係が良好で、お互いを支え合えることは素敵なことです。<br>でも、すべての人に同じ形が当てはまるとは限りません。</p>
+      <p>紫微斗数で命盤を見ていると、人によって心地よい距離感は違います。<br>近くにいることで安心できる方もいれば、少し距離を保つことで、お互いを尊重し合える関係になる方もいます。</p>
+      <p>そこには、誰が悪いという話ではありません。<br>相談者様が悪いわけでもなく、ご家族が悪いわけでもない。<br>ただ、生まれ持った性質や価値観、物事の受け止め方が違うだけなのです。</p>
+      <p>だから私は、「家族だからこうあるべき」という一般論だけで判断することはありません。<br>命盤を通して、その方がどんな環境で力を発揮し、どんな距離感で人と関わると心が穏やかでいられるのかを一緒に考えていきます。</p>
+      <p>占いは、誰かを責めるためのものでも、人生を決めつけるためのものでもありません。<br>「こうあるべき」という固定概念から少し自由になり、その人らしい生き方を見つけるためのきっかけ。</p>
+      <p>大阪を拠点に、紫微斗数の鑑定を通してそんなお手伝いができればと思っています。</p>
+      <p>私は、そこに紫微斗数の魅力があると感じています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>家族</span><span>鑑定</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から、その人らしい生き方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 </div>
 <script>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
