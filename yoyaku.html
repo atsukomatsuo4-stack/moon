@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/otsum/Downloads/yoyaku_2.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>鑑定予約フォーム｜月のしずく</title>
   <meta name="description" content="紫微斗数占い師・月のしずくの鑑定予約フォーム。初回鑑定90分¥12,000、スポット鑑定60分¥5,000。オンライン・対面対応。">
@@ -58,6 +57,7 @@
 
     .submit-btn { width: 100%; padding: 1.1rem; border: 1px solid var(--gold); background: rgba(200,169,110,0.08); color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 0.95rem; letter-spacing: 0.25em; cursor: pointer; transition: all 0.3s; }
     .submit-btn:hover { background: rgba(200,169,110,0.18); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
     @media (max-width: 480px) {
       .nav { padding: 1rem 1.2rem; }
@@ -92,7 +92,7 @@
       入金確認後に予約確定のご連絡をいたします。
     </p>
 
-    <form id="reservationForm" action="https://formspree.io/f/xpqbkkba" method="POST">
+    <form id="reservationForm">
 
       <input type="hidden" name="_subject" value="【月のしずく】鑑定予約を受け付けました">
       <input type="hidden" name="_autoresponse" value="このたびは月のしずくへのご予約ありがとうございます。
@@ -111,7 +111,6 @@ ID：matsuo_atsuko20
 入金確認後、予約確定のご連絡をいたします。
 
 占い師　月のしずく">
-      <input type="hidden" name="_next" value="https://calendar.app.google/RKjr5zDFR9QqWDR69">
 
       <div class="form-group">
         <label class="form-label">お名前<span>必須</span></label>
@@ -189,7 +188,31 @@ ID：matsuo_atsuko20
   </div>
 </div>
 
+<script>
+  document.getElementById('reservationForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = this.querySelector('.submit-btn');
+    btn.textContent = '送信中...';
+    btn.disabled = true;
+    try {
+      var response = await fetch('https://formspree.io/f/xpqbkkba', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        window.location.href = 'https://calendar.app.google/RKjr5zDFR9QqWDR69';
+      } else {
+        btn.textContent = '送信して予約時間を選択する →';
+        btn.disabled = false;
+        alert('送信に失敗しました。もう一度お試しください。');
+      }
+    } catch(err) {
+      btn.textContent = '送信して予約時間を選択する →';
+      btn.disabled = false;
+      alert('通信エラーが発生しました。もう一度お試しください。');
+    }
+  });
+</script>
 
-
-  <script defer src="/_vercel/insights/script.js"></script>
 </body></html>
