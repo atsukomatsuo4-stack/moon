@@ -13,14 +13,74 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.moon-shizuku.com/blog.html">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css">
   <style>
-    /* Keep blog copy aligned as in the previous version. */
-    #listView .section-label, #listView .section-title,
-    #listView .insta-banner, #listView .insta-text,
-    #listView .insta-sub, #listView .articles,
-    #articleView .article-page {
-      text-align: left;
+    :root { --gold: #c8a96e; --pale-gold: #e8d5a3; --silver: #c4b8d8; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #08182a; font-family: 'Noto Serif JP', serif; color: #ece6f5; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(5,17,31,0.96); border-bottom: 0.5px solid rgba(200,169,110,0.15); }
+    .nav-logo { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; color: var(--pale-gold); letter-spacing: 0.15em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--silver); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.15em; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--pale-gold); }
+
+    .list-view { display: block; }
+    #articleView { display: none; }
+
+    .blog-header { padding: 4rem 2rem 1.5rem; max-width: 860px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+    .section-title { font-family: 'Shippori Mincho', serif; font-size: clamp(1.4rem,4vw,2rem); color: var(--pale-gold); letter-spacing: 0.1em; font-weight: 500; margin-bottom: 0.5rem; }
+    .divider { width: 60px; height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin: 1.5rem 0; }
+
+    .insta-banner { max-width: 860px; margin: 0 auto 1rem; padding: 0 2rem; }
+    .insta-inner { display: flex; align-items: center; justify-content: space-between; border: 0.5px solid rgba(200,169,110,0.2); background: rgba(200,169,110,0.04); padding: 1rem 1.5rem; gap: 1rem; }
+    .insta-left { display: flex; align-items: center; gap: 1rem; }
+    .insta-icon { font-size: 1.4rem; }
+    .insta-text strong { color: var(--pale-gold); font-weight: 500; font-size: 0.85rem; display: block; margin-bottom: 0.2rem; }
+    .insta-text p { font-size: 0.78rem; color: var(--silver); line-height: 1.7; }
+    .insta-btn { display: inline-block; padding: 0.5rem 1.2rem; border: 0.5px solid var(--gold); color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 0.75rem; letter-spacing: 0.15em; text-decoration: none; white-space: nowrap; background: rgba(200,169,110,0.06); transition: all 0.3s; }
+    .insta-btn:hover { background: rgba(200,169,110,0.15); }
+    .insta-sub { margin-top: 0.8rem; padding-top: 0.8rem; border-top: 0.5px solid rgba(200,169,110,0.1); font-size: 0.72rem; color: rgba(196,184,216,0.6); }
+    .insta-sub a { color: rgba(200,169,110,0.6); text-decoration: none; }
+    .insta-sub a:hover { color: var(--gold); }
+
+    .articles { max-width: 860px; margin: 0 auto; padding: 0 2rem 5rem; }
+    .article-card { border-bottom: 0.5px solid rgba(200,169,110,0.15); padding: 2.2rem 0; cursor: pointer; transition: all 0.3s; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; }
+    .article-card:first-child { border-top: 0.5px solid rgba(200,169,110,0.15); }
+    .article-card:hover .card-title { color: var(--pale-gold); }
+    .article-card:hover .card-arrow { opacity: 1; transform: translateX(4px); }
+    .card-no { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 0.6rem; }
+    .card-title { font-family: 'Shippori Mincho', serif; font-size: clamp(1rem,2.5vw,1.15rem); color: var(--silver); letter-spacing: 0.08em; margin-bottom: 0.7rem; transition: color 0.3s; line-height: 1.6; }
+    .card-excerpt { font-size: 0.8rem; line-height: 2; color: rgba(196,184,216,0.7); }
+    .card-arrow { font-size: 1rem; color: var(--gold); opacity: 0.4; transition: all 0.3s; margin-top: 0.4rem; }
+    .card-tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); border: 0.5px solid rgba(200,169,110,0.3); padding: 2px 8px; margin-right: 4px; margin-top: 0.8rem; }
+
+    .article-page { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--gold); letter-spacing: 0.15em; cursor: pointer; margin-bottom: 3rem; border: none; background: none; }
+    .article-no { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.35em; margin-bottom: 1rem; }
+    .article-title { font-family: 'Shippori Mincho', serif; font-size: clamp(1.3rem,4vw,1.8rem); color: var(--pale-gold); letter-spacing: 0.1em; line-height: 1.6; margin-bottom: 1rem; font-weight: 500; }
+    .article-date { font-size: 0.7rem; color: rgba(200,169,110,0.6); letter-spacing: 0.2em; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 0.5px solid rgba(200,169,110,0.15); }
+    .article-body h2 { font-family: 'Shippori Mincho', serif; font-size: 1.05rem; color: var(--pale-gold); letter-spacing: 0.08em; margin: 2.5rem 0 1rem; font-weight: 500; padding-left: 0.8rem; border-left: 2px solid var(--gold); }
+    .article-body p { font-size: 0.88rem; line-height: 2.4; color: var(--silver); margin-bottom: 1rem; }
+    .item { margin-bottom: 1.5rem; }
+    .item-no { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 0.3rem; }
+    .item-title { font-family: 'Shippori Mincho', serif; font-size: 0.95rem; color: var(--pale-gold); margin-bottom: 0.5rem; }
+    .article-footer { margin-top: 4rem; padding-top: 2rem; border-top: 0.5px solid rgba(200,169,110,0.15); }
+    .article-tags span { display: inline-block; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); border: 0.5px solid rgba(200,169,110,0.3); padding: 3px 10px; margin-right: 6px; margin-bottom: 1.5rem; }
+    .next-article { background: rgba(200,169,110,0.04); border: 0.5px solid rgba(200,169,110,0.2); padding: 1.5rem; cursor: pointer; transition: all 0.3s; margin-bottom: 2rem; }
+    .next-article:hover { background: rgba(200,169,110,0.08); }
+    .next-label { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 0.5rem; }
+    .next-title { font-family: 'Shippori Mincho', serif; font-size: 0.95rem; color: var(--silver); }
+    .cta-box { text-align: center; border: 0.5px solid rgba(200,169,110,0.25); padding: 2rem; background: rgba(200,169,110,0.03); }
+    .cta-box p { font-size: 0.82rem; color: var(--silver); line-height: 2; margin-bottom: 1.2rem; }
+    .cta-btn { display: inline-block; padding: 0.75rem 2rem; border: 1px solid var(--gold); color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 0.82rem; letter-spacing: 0.2em; text-decoration: none; background: rgba(200,169,110,0.06); transition: all 0.3s; }
+    .cta-btn:hover { background: rgba(200,169,110,0.15); }
+
+    @media (max-width: 600px) {
+      .nav { padding: 1rem 1.2rem; }
+      .insta-inner { flex-direction: column; align-items: flex-start; }
+      .article-card { grid-template-columns: 1fr; }
+      .card-arrow { display: none; }
     }
   </style>
 </head>
@@ -40,608 +100,969 @@
 </nav>
 
 <div class="list-view" id="listView">
-  <div class="page-band">
-    <div class="section">
-      <p class="section-label">Blog</p>
-      <h1 class="section-title">月のしずく ブログ</h1>
+  <div class="blog-header">
+    <p class="section-label">Blog</p>
+    <h1 class="section-title">月のしずく ブログ</h1>
+    <div class="divider"></div>
+  </div>
 
-      <div class="insta-banner">
-        <div class="insta-inner">
-          <div class="insta-left">
-            <div class="insta-icon">📸</div>
-            <div class="insta-text">
-              <strong>最新情報はInstagramで</strong>
-              <p>鑑定の空き情報・星の話を更新中</p>
-            </div>
-          </div>
-          <a class="insta-btn" href="https://www.instagram.com/super_moon999" target="_blank">@super_moon999 をフォロー →</a>
-        </div>
-        <div class="insta-sub">
-          対面鑑定のご案内は <a href="https://www.instagram.com/moon20251121" target="_blank">@moon20251121</a> でも発信中
+  <div class="insta-banner">
+    <div class="insta-inner">
+      <div class="insta-left">
+        <div class="insta-icon">📸</div>
+        <div class="insta-text">
+          <strong>最新情報はInstagramで</strong>
+          <p>鑑定の空き情報・星の話を更新中</p>
         </div>
       </div>
+      <a class="insta-btn" href="https://www.instagram.com/super_moon999" target="_blank">@super_moon999 をフォロー →</a>
+    </div>
+    <div class="insta-sub" style="padding:0.8rem 1.5rem;border:0.5px solid rgba(200,169,110,0.2);border-top:none;background:rgba(200,169,110,0.04);">
+      対面鑑定のご案内は <a href="https://www.instagram.com/moon20251121" target="_blank">@moon20251121</a> でも発信中
+    </div>
+  </div>
 
-      <div class="articles">
-        <div class="article-card" onclick="showArticle(21)">
-          <div><div class="card-no">No.22 ／ 2026.09.21</div><div class="card-title">命盤と現実を照らし合わせて見えてきたこと</div><div class="card-excerpt">休職された方の命盤に見えた、父母宮の生年化忌と疾厄宮への影響。生年・大限・太歳の化忌が重なる時期の心身への注意について、紫微斗数の視点から綴っています。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">化忌</span><span class="card-tag">疾厄宮</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(20)">
-          <div><div class="card-no">No.21 ／ 2026.09.07</div><div class="card-title">考えすぎる私が、"0の自分"に戻るまで ―福徳宮から見る心の休ませ方―</div><div class="card-excerpt">大阪で紫微斗数の鑑定をする私自身、福徳宮に巨門星を持つ、考え続けてしまうタイプです。運動という「動くマインドフルネス」と、シンギングボウルによる脱力、二つの回復方法を綴っています。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">福徳宮</span><span class="card-tag">巨門</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(19)">
-          <div><div class="card-no">No.20 ／ 2026.08.31</div><div class="card-title">分かり合えない夫婦は、別れるしかない？ ―夫妻宮の化忌から考える―</div><div class="card-excerpt">夫妻宮に化忌がある方のご相談を例に、離婚か我慢かだけではない夫婦の形について、紫微斗数の視点から考えます。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">夫妻宮</span><span class="card-tag">化忌</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(18)">
-          <div><div class="card-no">No.19 ／ 2026.08.24</div><div class="card-title">命宮に破軍星がある人</div><div class="card-excerpt">紫微斗数の命宮に破軍星がある人の特徴について。波乱の多さや目上との衝突だけでなく、壊して作り直す力、独立や起業に向く働き方について綴っています。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">破軍</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(17)">
-          <div><div class="card-no">No.18 ／ 2026.08.17</div><div class="card-title">天機・太陰という組み合わせについて</div><div class="card-excerpt">自分の命宮(天機・太陰)を見返して納得したこと。先読み・感受性・境界線の大切さ、そして地劫による動きの鈍さを運動で克服してきた話を、紫微斗数の視点から綴っています。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">天機</span><span class="card-tag">太陰</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(16)">
-          <div><div class="card-no">No.17 ／ 2026.08.10</div><div class="card-title">ハッピーマルシェ、ありがとうございました</div><div class="card-excerpt">大阪・扇町のハッピーマルシェに紫微斗数の鑑定師として出店しました。Instagramを見て来てくださった方との出会いから、自分の遷移宮(無主星)についてふと思ったことを綴っています。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">扇町</span><span class="card-tag">イベント</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(15)">
-          <div><div class="card-no">No.16 ／ 2026.08.07</div><div class="card-title">縁結びの祈祷に行ってきました</div><div class="card-excerpt">鑑定を受けてくださった皆さんの今後を願って、神社へ行ってきました。縁結びは絵馬に、良縁成就と疾病平穏はお炊き上げにして、合わせて15組ほどお願いしてきました。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(14)">
-          <div><div class="card-no">No.15 ／ 2026.08.06</div><div class="card-title">8月9日、扇町 HAPPY MARCHEに出店します</div><div class="card-excerpt">大阪・扇町の「扇町 HAPPY MARCHE」に出店します。紫微斗数の20分鑑定をご用意しています。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">扇町</span><span class="card-tag">イベント</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(13)">
-          <div><div class="card-no">No.14 ／ 2026.07.24</div><div class="card-title">天空と地劫の話 ─ 私自身の命盤から</div><div class="card-excerpt">命宮に地劫、遷移宮に天空。この星を実際に持っている占い師として、崩れることと手放すことについて、自分の体験を書いてみます。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">天空</span><span class="card-tag">地劫</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(12)">
-          <div><div class="card-no">No.13 ／ 2026.07.17</div><div class="card-title">家族だから仲良くしなければならない、という話</div><div class="card-excerpt">「家族だからこうあるべき」という固定概念から少し自由になるために。紫微斗数の命盤から、その人らしい距離感を一緒に考えます。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">家族</span><span class="card-tag">鑑定</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(11)">
-          <div><div class="card-no">No.12 ／ 2026.07.11</div><div class="card-title">財帛宮に化忌がある人</div><div class="card-excerpt">稼げないのではなく、与えすぎている。財帛宮に化忌がある方のご相談から、報酬と提供のバランスについて考えました。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">財帛宮</span><span class="card-tag">化忌</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(10)">
-          <div><div class="card-no">No.11 ／ 2026.07.05</div><div class="card-title">高津宮で、目が合った</div><div class="card-excerpt">出展先で目が合った占い師さんに鑑定をお願いしました。直感が動いたとき、後回しにしない。縁結びの場所で不思議な縁をいただいた一日の話。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">高津宮</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(9)">
-          <div><div class="card-no">No.10 ／ 2026.06.29</div><div class="card-title">ご相談内容と、本当の苦しさ</div><div class="card-excerpt">ご相談内容と、本当の苦しさが違うことがあります。命盤には、その人自身を理解するためのヒントがたくさんあります。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">鑑定</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(8)">
-          <div><div class="card-no">No.09 ／ 2026.06.22</div><div class="card-title">遷移宮に太陰星が入る人</div><div class="card-excerpt">遷移宮に太陰星が入ると、外の世界で「感じる」が動きやすくなります。感受性と消耗の関係について書きました。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">太陰星</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(7)">
-          <div><div class="card-no">No.08 ／ 2026.06.15</div><div class="card-title">6月21日、すまいるマルシェに出店します</div><div class="card-excerpt">大阪・玉造のすまいるマルシェに出店します。紫微斗数の30分鑑定をご用意。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">イベント</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(6)">
-          <div><div class="card-no">No.07 ／ 2026.06.12</div><div class="card-title">90分と、その前にある時間のこと</div><div class="card-excerpt">移動式一日占い館の料金と時間について。90分の中には、その前にある準備の時間も含まれています。</div><div><span class="card-tag">移動式占い館</span><span class="card-tag">鑑定スタイル</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(5)">
-          <div><div class="card-no">No.06 ／ 2026.06.10</div><div class="card-title">遷移宮に天機星が入る人</div><div class="card-excerpt">遷移宮に天機星が入ると、外の世界で「考える」が動きやすくなります。対外的な印象と、命宮という主軸の関係について書きました。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">天機星</span><span class="card-tag">大阪</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(4)">
-          <div><div class="card-no">No.05 ／ 2026.05.30</div><div class="card-title">同じ遷移宮でも、人によって現れ方が違う理由</div><div class="card-excerpt">遷移宮は外の世界との接点を表す宮です。同じ遷移宮でも、そこに入る星によって体験する世界は変わります。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">命盤</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(3)">
-          <div><div class="card-no">No.04 ／ 2026.05.18</div><div class="card-title">思考が増えたとき、私がすること</div><div class="card-excerpt">思考が増えていることに気づいたとき、私はシンキングボウルを鳴らします。止めるのではなく、思考を下げる。その先にあるものを書きました。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">実践</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(2)">
-          <div><div class="card-no">No.03 ／ 2026.05.01</div><div class="card-title">思考と悩みは同じではありません</div><div class="card-excerpt">「考えている」と「悩んでいる」は似ているようで違います。命盤から見るその違いと、整理へのアプローチを考えます。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">自己理解</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(1)">
-          <div><div class="card-no">No.02 ／ 2026.04.21</div><div class="card-title">整理が必要な命盤</div><div class="card-excerpt">思考が増えやすい命盤には共通した傾向があります。命宮・福徳宮・遷移宮・無主星の働きから、その構造を解説します。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">命盤</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="article-card" onclick="showArticle(0)">
-          <div><div class="card-no">No.01 ／ 2026.04.09</div><div class="card-title">思考過多の構造を紫微斗数で見る</div><div class="card-excerpt">考えすぎて動けなくなることがある。命宮・遷移宮・福徳宮の星の配置から、思考が増えやすい理由を読み解きます。</div><div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">自己理解</span></div></div>
-          <div class="card-arrow">→</div>
-        </div>
+  <div class="articles">
+    <div class="article-card" onclick="showArticle(21)">
+      <div>
+        <div class="card-no">No.22 ／ 2026.09.21</div>
+        <div class="card-title">命盤と現実を照らし合わせて見えてきたこと</div>
+        <div class="card-excerpt">休職された方の命盤に見えた、父母宮の生年化忌と疾厄宮への影響。生年・大限・太歳の化忌が重なる時期の心身への注意について、紫微斗数の視点から綴っています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">化忌</span><span class="card-tag">疾厄宮</span><span class="card-tag">大阪</span></div>
       </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(20)">
+      <div>
+        <div class="card-no">No.21 ／ 2026.09.07</div>
+        <div class="card-title">考えすぎる私が、"0の自分"に戻るまで ―福徳宮から見る心の休ませ方―</div>
+        <div class="card-excerpt">大阪で紫微斗数の鑑定をする私自身、福徳宮に巨門星を持つ、考え続けてしまうタイプです。運動という「動くマインドフルネス」と、シンギングボウルによる脱力、二つの回復方法を綴っています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">福徳宮</span><span class="card-tag">巨門</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(19)">
+      <div>
+        <div class="card-no">No.20 ／ 2026.08.31</div>
+        <div class="card-title">分かり合えない夫婦は、別れるしかない？ ―夫妻宮の化忌から考える―</div>
+        <div class="card-excerpt">夫妻宮に化忌がある方のご相談を例に、離婚か我慢かだけではない夫婦の形について、紫微斗数の視点から考えます。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">夫妻宮</span><span class="card-tag">化忌</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(18)">
+      <div>
+        <div class="card-no">No.19 ／ 2026.08.24</div>
+        <div class="card-title">命宮に破軍星がある人</div>
+        <div class="card-excerpt">紫微斗数の命宮に破軍星がある人の特徴について。波乱の多さや目上との衝突だけでなく、壊して作り直す力、独立や起業に向く働き方について綴っています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">破軍</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(17)">
+      <div>
+        <div class="card-no">No.18 ／ 2026.08.17</div>
+        <div class="card-title">天機・太陰という組み合わせについて</div>
+        <div class="card-excerpt">自分の命宮(天機・太陰)を見返して納得したこと。先読み・感受性・境界線の大切さ、そして地劫による動きの鈍さを運動で克服してきた話を、紫微斗数の視点から綴っています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">天機</span><span class="card-tag">太陰</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(16)">
+      <div>
+        <div class="card-no">No.17 ／ 2026.08.10</div>
+        <div class="card-title">ハッピーマルシェ、ありがとうございました</div>
+        <div class="card-excerpt">大阪・扇町のハッピーマルシェに紫微斗数の鑑定師として出店しました。Instagramを見て来てくださった方との出会いから、自分の遷移宮(無主星)についてふと思ったことを綴っています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">扇町</span><span class="card-tag">イベント</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(15)">
+      <div>
+        <div class="card-no">No.16 ／ 2026.08.07</div>
+        <div class="card-title">縁結びの祈祷に行ってきました</div>
+        <div class="card-excerpt">鑑定を受けてくださった皆さんの今後を願って、神社へ行ってきました。縁結びは絵馬に、良縁成就と疾病平穏はお炊き上げにして、合わせて15組ほどお願いしてきました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(14)">
+      <div>
+        <div class="card-no">No.15 ／ 2026.08.06</div>
+        <div class="card-title">8月9日、扇町 HAPPY MARCHEに出店します</div>
+        <div class="card-excerpt">大阪・扇町の「扇町 HAPPY MARCHE」に出店します。紫微斗数の20分鑑定をご用意しています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">扇町</span><span class="card-tag">イベント</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(13)">
+      <div>
+        <div class="card-no">No.14 ／ 2026.07.24</div>
+        <div class="card-title">天空と地劫の話 ─ 私自身の命盤から</div>
+        <div class="card-excerpt">命宮に地劫、遷移宮に天空。この星を実際に持っている占い師として、崩れることと手放すことについて、自分の体験を書いてみます。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">天空</span><span class="card-tag">地劫</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(12)">
+      <div>
+        <div class="card-no">No.13 ／ 2026.07.17</div>
+        <div class="card-title">家族だから仲良くしなければならない、という話</div>
+        <div class="card-excerpt">「家族だからこうあるべき」という固定概念から少し自由になるために。紫微斗数の命盤から、その人らしい距離感を一緒に考えます。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">家族</span><span class="card-tag">鑑定</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(11)">
+      <div>
+        <div class="card-no">No.12 ／ 2026.07.11</div>
+        <div class="card-title">財帛宮に化忌がある人</div>
+        <div class="card-excerpt">稼げないのではなく、与えすぎている。財帛宮に化忌がある方のご相談から、報酬と提供のバランスについて考えました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">財帛宮</span><span class="card-tag">化忌</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(10)">
+      <div>
+        <div class="card-no">No.11 ／ 2026.07.05</div>
+        <div class="card-title">高津宮で、目が合った</div>
+        <div class="card-excerpt">出展先で目が合った占い師さんに鑑定をお願いしました。直感が動いたとき、後回しにしない。縁結びの場所で不思議な縁をいただいた一日の話。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">高津宮</span><span class="card-tag">占い師</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(9)">
+      <div>
+        <div class="card-no">No.10 ／ 2026.06.29</div>
+        <div class="card-title">ご相談内容と、本当の苦しさ</div>
+        <div class="card-excerpt">ご相談内容と、本当の苦しさが違うことがあります。命盤には、その人自身を理解するためのヒントがたくさんあります。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">鑑定</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(8)">
+      <div>
+        <div class="card-no">No.09 ／ 2026.06.22</div>
+        <div class="card-title">遷移宮に太陰星が入る人</div>
+        <div class="card-excerpt">遷移宮に太陰星が入ると、外の世界で「感じる」が動きやすくなります。感受性と消耗の関係について書きました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">太陰星</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(7)">
+      <div>
+        <div class="card-no">No.08 ／ 2026.06.15</div>
+        <div class="card-title">6月21日、すまいるマルシェに出店します</div>
+        <div class="card-excerpt">大阪・玉造のすまいるマルシェに出店します。紫微斗数の30分鑑定をご用意。気になった方は個人鑑定へのご案内もしています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">大阪</span><span class="card-tag">すまいるマルシェ</span><span class="card-tag">イベント</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(6)">
+      <div>
+        <div class="card-no">No.07 ／ 2026.06.12</div>
+        <div class="card-title">90分と、その前にある時間のこと</div>
+        <div class="card-excerpt">移動式一日占い館の料金と時間について。90分の中には、その前にある準備の時間も含まれています。</div>
+        <div><span class="card-tag">移動式占い館</span><span class="card-tag">鑑定スタイル</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(5)">
+      <div>
+        <div class="card-no">No.06 ／ 2026.06.10</div>
+        <div class="card-title">遷移宮に天機星が入る人</div>
+        <div class="card-excerpt">遷移宮に天機星が入ると、外の世界で「考える」が動きやすくなります。対外的な印象と、命宮という主軸の関係について書きました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">天機星</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(4)">
+      <div>
+        <div class="card-no">No.05 ／ 2026.05.30</div>
+        <div class="card-title">同じ遷移宮でも、人によって現れ方が違う理由</div>
+        <div class="card-excerpt">遷移宮は外の世界との接点を表す宮です。同じ遷移宮でも、そこに入る星によって体験する世界は変わります。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">遷移宮</span><span class="card-tag">命盤</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(3)">
+      <div>
+        <div class="card-no">No.04 ／ 2026.05.18</div>
+        <div class="card-title">思考が増えたとき、私がすること</div>
+        <div class="card-excerpt">思考が増えていることに気づいたとき、私はシンキングボウルを鳴らします。止めるのではなく、思考を下げる。その先にあるものを書きました。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">実践</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(2)">
+      <div>
+        <div class="card-no">No.03 ／ 2026.05.01</div>
+        <div class="card-title">思考と悩みは同じではありません</div>
+        <div class="card-excerpt">「考えている」と「悩んでいる」は似ているようで違います。命盤から見るその違いと、整理へのアプローチを考えます。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">自己理解</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(1)">
+      <div>
+        <div class="card-no">No.02 ／ 2026.04.21</div>
+        <div class="card-title">整理が必要な命盤</div>
+        <div class="card-excerpt">思考が増えやすい命盤には共通した傾向があります。命宮・福徳宮・遷移宮・無主星の働きから、その構造を解説します。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">命盤</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+    <div class="article-card" onclick="showArticle(0)">
+      <div>
+        <div class="card-no">No.01 ／ 2026.04.09</div>
+        <div class="card-title">思考過多の構造を紫微斗数で見る</div>
+        <div class="card-excerpt">考えすぎて動けなくなることがある。命宮・遷移宮・福徳宮の星の配置から、思考が増えやすい理由を読み解きます。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">思考過多</span><span class="card-tag">自己理解</span></div>
+      </div>
+      <div class="card-arrow">→</div>
     </div>
   </div>
 </div>
 
-<div class="article-view" id="articleView" style="display:none;">
-  <div class="page-band">
-    <div class="article-page">
-      <button class="back-btn" onclick="showList()">← 一覧に戻る</button>
+<div class="article-view" id="articleView">
+  <div style="padding:2rem 2rem 0;max-width:680px;margin:0 auto;">
+    <button class="back-btn" onclick="showList()">← 一覧に戻る</button>
+  </div>
 
-      <div id="article0" style="display:none;">
-        <p class="article-no">No.01 ／ 2026.04.09</p>
-        <h1 class="article-title">思考過多の構造を紫微斗数で見る</h1>
-        <p class="article-date">2026年4月9日</p>
-        <div class="article-body">
-          <h2>考えすぎて動けない</h2>
-          <p>私は考えすぎて動けなくなることがあります。</p>
-          <p>決めたいのに決められない。</p>
-          <p>でも放置もできない。</p>
-          <p>頭の中ではずっと考え続けています。</p>
-          <p>頭と体が一致していない感覚。</p>
-          <p>紫微斗数で自分の命盤を見ると、思考が増えやすい傾向がありました。</p>
-          <h2>命盤から見た思考の傾向</h2>
-          <div class="item"><div class="item-no">① 命宮は 天機星＋太陰星</div><p>情報を丁寧に扱い、知性を使って考える傾向。感受性や精神性も高く、競争の強い環境には疲れやすい。</p></div>
-          <div class="item"><div class="item-no">② 遷移宮は 無主星</div><p>他者に利用されやすい。本音と建て前を使い分けるのが苦手。</p></div>
-          <div class="item"><div class="item-no">③ 福徳宮は 巨門星</div><p>集めた情報を内側で何度も考える。疑い、検証し確証を求める。</p></div>
-          <p>つまり、考える量が増える構造になっていました。これは優柔不断ではなく、処理している情報が多い状態です。考えすぎてしまうのは弱さではなく、丁寧に状況を読み取り、慎重に判断しようとする性質でもあります。</p>
-          <p>ただ、情報が増えすぎると、頭の中が整理できなくなり、動けなくなってしまいます。無理に決断するよりも、まず整理することが必要でした。</p>
-          <p>紫微斗数では、このように命盤の配置から、思考の傾向や迷いやすい理由を読み解くことができます。</p>
-          <p>決められないのではなく、考える量が多いだけかもしれません。そう分かったとき、少しだけ気持ちが楽になりました。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>自己理解</span></div>
-          <div class="next-article" onclick="showArticle(1)"><div class="next-label">次の記事 →</div><div class="next-title">整理が必要な命盤</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
+  <div class="article-page" id="article0">
+    <p class="article-no">No.01 ／ 2026.04.09</p>
+    <h1 class="article-title">思考過多の構造を紫微斗数で見る</h1>
+    <p class="article-date">2026年4月9日</p>
+    <div class="article-body">
+      <h2>考えすぎて動けない</h2>
+      <p>私は考えすぎて動けなくなることがあります。</p>
+      <p>決めたいのに決められない。</p>
+      <p>でも放置もできない。</p>
+      <p>頭の中ではずっと考え続けています。</p>
+      <p>頭と体が一致していない感覚。</p>
+      <p>紫微斗数で自分の命盤を見ると、思考が増えやすい傾向がありました。</p>
+      <h2>命盤から見た思考の傾向</h2>
+      <div class="item">
+        <div class="item-no">① 命宮は 天機星＋太陰星</div>
+        <p>情報を丁寧に扱い、</p>
+        <p>知性を使って考える傾向。</p>
+        <p>感受性や精神性も高く、</p>
+        <p>競争の強い環境には疲れやすい。</p>
       </div>
-
-      <div id="article1" style="display:none;">
-        <p class="article-no">No.02 ／ 2026.04.21</p>
-        <h1 class="article-title">整理が必要な命盤</h1>
-        <p class="article-date">2026年4月21日</p>
-        <div class="article-body">
-          <h2>思考が増えやすい人の共通点</h2>
-          <p>前回の記事では、思考が増えやすい命盤について書きました。無理に決めるよりも、整理することが必要なタイプです。では、どのような命盤が、整理が必要になりやすいのでしょうか。</p>
-          <h2>命盤から見た傾向</h2>
-          <div class="item"><div class="item-no">① 命宮に思考系の星がある</div><p>天機星や巨門星、太陰星など、考えることに長けている星は、情報を多く扱う傾向があります。丁寧に考えることができる反面、思考の量が増えやすくなります。</p></div>
-          <div class="item"><div class="item-no">② 福徳宮の影響が強い</div><p>福徳宮は、内面や思考の状態を表す宮です。ここが強い場合、考えを内側で何度も巡らせる傾向があります。</p></div>
-          <div class="item"><div class="item-no">③ 遷移宮の影響を受けやすい</div><p>周囲の状況や、相手の気持ちを拾いやすい場合、外の情報が増えることで、さらに思考が広がっていきます。</p></div>
-          <div class="item"><div class="item-no">④ 無主星の影響</div><p>外からの影響を受けやすく、その場の空気や人の気持ちを優先することで、自分の判断が後回しになることもあります。</p></div>
-          <h2>まとめ</h2>
-          <p>整理が必要な命盤は弱いわけではありません。丁寧に状況を読み取り慎重に判断する力を持っています。では、実際にどのように整理していくのか。次の記事で書いていきます。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>命盤</span></div>
-          <div class="next-article" onclick="showArticle(2)"><div class="next-label">次の記事 →</div><div class="next-title">思考と悩みは同じではありません</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
+      <div class="item">
+        <div class="item-no">② 遷移宮は 無主星</div>
+        <p>他者に利用されやすい。</p>
+        <p>本音と建て前を使い分けるのが苦手。</p>
       </div>
-
-      <div id="article2" style="display:none;">
-        <p class="article-no">No.03 ／ 2026.05.01</p>
-        <h1 class="article-title">思考と悩みは同じではありません</h1>
-        <p class="article-date">2026年5月1日</p>
-        <div class="article-body">
-          <h2>思考が多い状態とは</h2>
-          <p>思考が多いことと悩んでいる状態は同じではありません。思考が多い状態とは、情報を整理しようとしたり状況を分析しようとしている状態です。</p>
-          <h2>悩みになっている状態とは</h2>
-          <p>悩みは感情が強く関わっている状態です。不安や迷い、確信の持てなさなどが重なり、出口が見えにくくなっている状態です。同じ「考えている」ように見えても、思考は整理に向かい、悩みは停滞に向かいます。</p>
-          <h2>命盤で見る違い</h2>
-          <p>紫微斗数で見ると、思考が多い状態は天機星・巨門星・太陰星など、考える力を持つ星の配置が関わります。悩みに発展しやすい場合は、感情や不安定さが強く出る配置が関わることもあります。</p>
-          <h2>まとめ</h2>
-          <p>思考が多いことは悪いことではありません。ただ、その思考が増えすぎたとき、悩みのように感じてしまうことがあります。自分が今、整理しようとしているのか、悩んでいる状態なのか。そこを見分けることもひとつの大切なポイントです。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>自己理解</span></div>
-          <div class="next-article" onclick="showArticle(3)"><div class="next-label">次の記事 →</div><div class="next-title">思考が増えたとき、私がすること</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
+      <div class="item">
+        <div class="item-no">③ 福徳宮は 巨門星</div>
+        <p>集めた情報を内側で何度も考える。</p>
+        <p>疑い、検証し確証を求める。</p>
       </div>
+      <p>つまり、考える量が増える構造になっていました。</p>
+      <p>これは優柔不断ではなく、処理している情報が多い状態です。</p>
+      <p>考えすぎてしまうのは弱さではなく、丁寧に状況を読み取り、慎重に判断しようとする性質でもあります。</p>
+      <p>ただ、情報が増えすぎると、頭の中が整理できなくなり、動けなくなってしまいます。</p>
+      <p>無理に決断するよりも、まず整理することが必要でした。</p>
+      <p>紫微斗数では、このように命盤の配置から、思考の傾向や迷いやすい理由を読み解くことができます。</p>
+      <p>副星も入れると、さらに細かく読み取ることができます。</p>
+      <p>決められないのではなく、考える量が多いだけかもしれません。</p>
+      <p>そう分かったとき、少しだけ気持ちが楽になりました。</p>
+      <p>そして、紫微斗数から無理に決めるより、整理することの大切さを学びました。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>自己理解</span></div>
+      <div class="next-article" onclick="showArticle(1)"><div class="next-label">次の記事 →</div><div class="next-title">整理が必要な命盤</div></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
-      <div id="article3" style="display:none;">
-        <p class="article-no">No.04 ／ 2026.05.18</p>
-        <h1 class="article-title">思考が増えたとき、私がすること</h1>
-        <p class="article-date">2026年5月18日</p>
-        <div class="article-body">
-          <p>気づくと、頭の中がにぎやかになっている。決めなきゃいけないことがある。でも答えが出ない。そういう状態が、私にはあります。</p>
-          <h2>まず、気づく</h2>
-          <p>最初にすることは、止めることではなく、気づくことです。「あ、今また増えてるな」命盤を見ると、自分が思考の増えやすい構造を持っていることがわかります。だからこそ、気づいたときに責めなくてよくなりました。これは自分の性質だ、と。</p>
-          <h2>シンキングボウルを鳴らす</h2>
-          <p>気づいたあと、私はシンキングボウルを鳴らします。シンキングボウルを軽く叩くと、静かな音が広がっていきます。その音に意識を向けている間、思考が少しずつ静まっていく。止めようとするのではなく、思考そのものが下がっていくイメージです。</p>
-          <h2>瞑想の中で起きること</h2>
-          <p>シンキングボウルの音の中にいると、自分の感情に気づくことがあります。不安だったのか、焦っていたのか。それとも、ただ疲れていただけなのか。ふっと手放せることもあります。手放せないときは、そのまま置いておく。どちらでも、気づいた時点で少し変わっています。プラスでもマイナスでもない、0の位置の私に戻っていく感覚です。</p>
-          <h2>答えを出さない時間も、選択のひとつ</h2>
-          <p>今すぐ解決しなくていい。考えないのではなく、今は保留する。それも思考の、ひとつの使い方です。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>実践</span></div>
-          <div class="next-article" onclick="showArticle(4)"><div class="next-label">次の記事 →</div><div class="next-title">同じ遷移宮でも、人によって現れ方が違う理由</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
+  <div class="article-page" id="article1">
+    <p class="article-no">No.02 ／ 2026.04.21</p>
+    <h1 class="article-title">整理が必要な命盤</h1>
+    <p class="article-date">2026年4月21日</p>
+    <div class="article-body">
+      <h2>思考が増えやすい人の共通点</h2>
+      <p>前回の記事では、思考が増えやすい命盤について書きました。</p>
+      <p>無理に決めるよりも、整理することが必要なタイプです。</p>
+      <p>では、どのような命盤が、整理が必要になりやすいのでしょうか。</p>
+      <h2>命盤から見た傾向</h2>
+      <p>整理が必要になりやすい命盤には、いくつかの共通した傾向があります。</p>
+      <div class="item">
+        <div class="item-no">① 命宮に思考系の星がある</div>
+        <p>天機星や巨門星、太陰星など、</p>
+        <p>考えることに長けている星は、情報を多く扱う傾向があります。</p>
+        <p>丁寧に考えることができる反面、思考の量が増えやすくなります。</p>
       </div>
-
-      <div id="article4" style="display:none;">
-        <p class="article-no">No.05 ／ 2026.05.30</p>
-        <h1 class="article-title">同じ遷移宮でも、人によって現れ方が違う理由</h1>
-        <p class="article-date">2026年5月30日</p>
-        <div class="article-body">
-          <p>紫微斗数には「遷移宮」という宮があります。遷移宮は、外の世界との接点を表す場所です。人との関わり、社会との接点、環境から受ける影響。そんな外側との関係性を見る宮です。</p>
-          <p>実際に命盤を見ていると、同じ遷移宮でも現れ方は人によって大きく異なります。それは、遷移宮に入る星が違うからです。</p>
-          <p>情報が増える人もいれば、人間関係の影響を受けやすい人もいる。環境が変わることで力を発揮する人もいれば、言葉や評価がテーマになる人もいます。</p>
-          <p>遷移宮そのものに良い悪いがあるわけではありません。大切なのは、自分が外の世界とどのように関わりやすいのかを知ることです。</p>
-          <p>外に出ると疲れやすいのか。刺激を受けて活性化するのか。人との関わりが運を動かすのか。それとも環境の変化が人生を動かすのか。</p>
-          <p>同じ遷移宮でも、そこに入る星によって体験する世界は変わります。次回からは、遷移宮に入る星ごとの特徴についても少しずつ書いていこうと思います。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>命盤</span></div>
-          <div class="next-article" onclick="showArticle(5)"><div class="next-label">次の記事 →</div><div class="next-title">遷移宮に天機星が入る人</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
+      <div class="item">
+        <div class="item-no">② 福徳宮の影響が強い</div>
+        <p>福徳宮は、内面や思考の状態を表す宮です。</p>
+        <p>ここが強い場合、考えを内側で何度も巡らせる傾向があります。</p>
+        <p>一度考え始めると、止まりにくくなることもあります。</p>
       </div>
-
-      <div id="article5" style="display:none;">
-        <p class="article-no">No.06 ／ 2026.06.10</p>
-        <h1 class="article-title">遷移宮に天機星が入る人</h1>
-        <p class="article-date">2026年6月10日</p>
-        <div class="article-body">
-          <p>遷移宮に天機星が入ると、外の世界で「考える」が動きやすくなります。人と話すと情報が増え、環境が変わると思考が広がる。外に出るだけで、頭の中がにぎやかになっていく。</p>
-          <p>対外的には、優しくて誠実な印象を持たれることが多いです。頭の回転も速く、場の空気を読みながら動ける。</p>
-          <p>ただ、その分だけ神経も細かく動いています。精神性を大切にする傾向があり、少々せっかちな面も顔を出します。</p>
-          <p>遷移宮と命宮は対宮の関係にあります。命宮はその人の主軸となる命盤の中心です。遷移宮がどれだけ外の世界と接していても、主軸となる命宮がその人の対外的な姿にも影響します。外に見える星だけで、その人を語ることはできません。</p>
-          <p>次回は、遷移宮に太陰星が入る人について書いていきます。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>天機星</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(6)"><div class="next-label">次の記事 →</div><div class="next-title">90分と、その前にある時間のこと</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
+      <div class="item">
+        <div class="item-no">③ 遷移宮の影響を受けやすい</div>
+        <p>遷移宮は、外の環境や対人関係を見る宮です。</p>
+        <p>ここにどの星が入るかによって、受け取る情報の質や量が変わります。</p>
+        <p>周囲の状況や、相手の気持ちを拾いやすい場合、自分の考えだけで判断することが難しくなります。</p>
+        <p>外の情報が増えることで、さらに思考が広がっていきます。</p>
       </div>
-
-      <div id="article6" style="display:none;">
-        <p class="article-no">No.07 ／ 2026.06.12</p>
-        <h1 class="article-title">90分と、その前にある時間のこと</h1>
-        <p class="article-date">2026年6月12日</p>
-        <div class="article-body">
-          <p>移動式一日占い館（紫微斗数）を始めるにあたって、料金と時間のことをお伝えしておきたいと思いました。90分、12,000円。この時間と金額に、込めたものがあります。</p>
-          <h2>じっくり向き合いたい</h2>
-          <p>私は時間をかけてじっくり向き合うタイプです。事前にしっかり準備して、当日を迎えたい。それが私の鑑定の形です。</p>
-          <h2>予約をいただいた時点から、鑑定は始まっています</h2>
-          <p>ご入金をいただいた時点で、紫微斗数の命盤を読み解く時間に入ります。まず2〜3時間ほどかけて、命盤をじっくり読み解きます。星の配置、宮の関係、大限の流れ。ひとつひとつを確認しながら、その人の全体像を掴んでいきます。</p>
-          <h2>文字に起こすことで、また見えてくる</h2>
-          <p>読み解いたあと、文字に起こします。不思議なことに、文字にしていく過程で、またその人の人物像が変わっていきます。命盤を見ているときとは違う角度から、その人が立体的に見えてくる感覚があります。</p>
-          <h2>最後に、もう一度照らし合わせる</h2>
-          <p>文字に起こしたものと命盤を、もう一度照らし合わせます。この表現でいいか。この言い方がこの人に合っているか。同じ意味でも、伝え方を少し変えるだけで、受け取り方が変わります。その人に届く言葉で伝えたい。そう思いながら、最後の調整をします。</p>
-          <h2>当日の90分は、その先にある時間</h2>
-          <p>準備を終えて、当日を迎えます。90分は、その準備の先にある時間です。だから、当日はゆったりと話せます。命盤を手元に置きながら、あなたのお話をじっくり聞かせてください。私の鑑定は、聞くことを大切にしています。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>移動式占い館</span><span>鑑定スタイル</span></div>
-          <div class="next-article" onclick="showArticle(7)"><div class="next-label">次の記事 →</div><div class="next-title">6月21日、すまいるマルシェに出店します</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>紫微斗数・移動式一日占い館のご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
-        </div>
+      <div class="item">
+        <div class="item-no">④ 無主星の影響</div>
+        <p>無主星は、主となる星が入っていない状態です。</p>
+        <p>外からの影響を受けやすい傾向はありますが、どの宮にあるかによって働き方が変わります。</p>
+        <p>外の影響を受けやすい場合、状況によって判断が揺れやすくなります。</p>
+        <p>その場の空気や、人の気持ちを優先することで、自分の判断が後回しになることもあります。</p>
       </div>
+      <h2>まとめ</h2>
+      <p>このような命盤は、決められないのではなく、考える量が多い状態になりやすいという特徴があります。</p>
+      <p>整理が必要な命盤は、弱いわけではありません。</p>
+      <p>丁寧に状況を読み取り、慎重に判断する力を持っています。</p>
+      <p>ただ、その分だけ思考が増えやすくなるため、「決断」よりも「整理」が必要になります。</p>
+      <p>では、実際にどのように整理していくのか。</p>
+      <p>次の記事で書いていきます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>命盤</span></div>
+      <div class="next-article" onclick="showArticle(2)"><div class="next-label">次の記事 →</div><div class="next-title">思考と悩みは同じではありません</div></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
-      <div id="article7" style="display:none;">
-        <p class="article-no">No.08 ／ 2026.06.15</p>
-        <h1 class="article-title">6月21日、すまいるマルシェに出店します</h1>
-        <p class="article-date">2026年6月15日</p>
-        <div class="article-body">
-          <p>6月21日（日）、大阪・玉造の学研リープ玉造元町教室で開催される「すまいるマルシェ vol.37」に出店します。</p>
-          <h2>当日のメニューについて</h2>
-          <p>紫微斗数の30分鑑定（¥5,000）をメインにご用意しています。当日はその場で命盤を出してお伝えする形になります。</p>
-          <p>事前に時間をかけて読み解く個人鑑定とは異なり、30分という限られた時間の中でのご案内になりますが、命盤を通じて自分の本質や流れに触れる入口として活用していただければと思います。</p>
-          <h2>気になった方へ</h2>
-          <p>マルシェで命盤を見た方には、紫微斗数の個人鑑定（通常¥12,000）を¥10,000でお受けします。続きをじっくり読み解きたい、もっと深く知りたいという方はぜひご相談ください。大阪・玉造で紫微斗数を体験できる機会です。お気軽にお立ち寄りください。</p>
-          <h2>イベント詳細</h2>
-          <p>日時：6月21日（日）11:00〜17:00<br>会場：学研リープ玉造元町教室（玉造・鶴橋駅から各7分）<br>入場無料</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>すまいるマルシェ</span><span>イベント</span></div>
-          <div class="next-article" onclick="showArticle(8)"><div class="next-label">次の記事 →</div><div class="next-title">遷移宮に太陰星が入る人</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>イベント情報・ご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
-        </div>
-      </div>
+  <div class="article-page" id="article2">
+    <p class="article-no">No.03 ／ 2026.05.01</p>
+    <h1 class="article-title">思考と悩みは同じではありません</h1>
+    <p class="article-date">2026年5月1日</p>
+    <div class="article-body">
+      <h2>思考が多い状態とは</h2>
+      <p>前回の記事では、整理が必要な命盤の特徴について書きました。</p>
+      <p>思考が増えやすい場合、無理に決めるよりも、整理することが必要なタイプです。</p>
+      <p>ただ、ここでひとつ、大切な違いがあります。</p>
+      <p>それは、思考が多いことと、悩んでいる状態は、同じではないということです。</p>
+      <p>思考が多い状態とは、情報を整理しようとしたり、状況を分析しようとしている状態です。</p>
+      <p>より良い判断をするために、考えている状態とも言えます。</p>
+      <h2>悩みになっている状態とは</h2>
+      <p>一方で、悩みは、感情が強く関わっている状態です。</p>
+      <p>不安や迷い、確信の持てなさなどが重なり、出口が見えにくくなっている状態です。</p>
+      <p>同じ「考えている」ように見えても、思考は整理に向かい、悩みは停滞に向かいます。</p>
+      <h2>命盤で見る違い</h2>
+      <p>紫微斗数で見ると、思考が多い状態は、天機星や巨門星、太陰星など、考える力を持つ星がどの宮に入るかによって影響していることが多くあります。</p>
+      <p>一方で、悩みに発展しやすい場合は、感情や執着、不安定さが強く出る配置が関わることもあります。</p>
+      <p>思考が多いだけであれば、整理することで前に進むことができますが、悩みの状態になっている場合は、別の視点から整える必要があります。</p>
+      <h2>まとめ</h2>
+      <p>思考が多いことは、悪いことではありません。</p>
+      <p>丁寧に状況を読み取り、慎重に判断しようとしている状態です。</p>
+      <p>ただ、その思考が増えすぎたとき、悩みのように感じてしまうことがあります。</p>
+      <p>自分が今、整理しようとしているのか、悩んでいる状態なのか。</p>
+      <p>そこを見分けることも、ひとつの大切なポイントです。</p>
+      <p>では、思考が増えやすい命盤では、どのように整理していけばいいのか。</p>
+      <p>次の記事で書いていきます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>自己理解</span></div>
+      <div class="next-article" onclick="showArticle(3)"><div class="next-label">次の記事 →</div><div class="next-title">思考が増えたとき、私がすること</div></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
-      <div id="article8" style="display:none;">
-        <p class="article-no">No.09 ／ 2026.06.22</p>
-        <h1 class="article-title">遷移宮に太陰星が入る人</h1>
-        <p class="article-date">2026年6月22日</p>
-        <div class="article-body">
-          <p>遷移宮に太陰星が入ると、外の世界で「感じる」が動きやすくなります。人と話すと相手の気持ちが伝わってきて、場の空気を敏感に受け取る。外に出るだけで、心の中がにぎやかになっていく。</p>
-          <p>対外的には、穏やかで思いやりのある印象を持たれることが多いです。清らかで気位が高く、どこか品のある雰囲気を自然に漂わせます。</p>
-          <p>ただ、その感受性はとても細かく動いています。相手の言葉の裏を読みすぎたり、場の空気を抱え込みすぎたりすることも。神経過敏になりやすく、人間関係で消耗しやすい面があります。</p>
-          <p>精神的に傷つくことを極端に恐れる傾向もあります。だから、無意識に人との距離を測りながら動いていることが多いです。</p>
-          <p>外の世界がにぎやかであればあるほど、内側にたまるものも増えていく。思考が増えるというより、感情が増えていく感覚に近いかもしれません。</p>
-          <p>天機星が「考える」で外の世界と接するとすれば、太陰星は「感じる」で外の世界と接しています。ただ、命宮によって内側の性質は変わります。</p>
-          <p>次回は、遷移宮に入る星によって、思考過多の現れ方がどう変わるかを整理していきます。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>太陰星</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(9)"><div class="next-label">次の記事 →</div><div class="next-title">ご相談内容と、本当の苦しさ</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
+  <div class="article-page" id="article3">
+    <p class="article-no">No.04 ／ 2026.05.18</p>
+    <h1 class="article-title">思考が増えたとき、私がすること</h1>
+    <p class="article-date">2026年5月18日</p>
+    <div class="article-body">
+      <p>気づくと、頭の中がにぎやかになっている。</p>
+      <p>決めなきゃいけないことがある。でも答えが出ない。</p>
+      <p>そういう状態が、私にはあります。</p>
+      <h2>まず、気づく</h2>
+      <p>最初にすることは、止めることではなく、気づくことです。</p>
+      <p>「あ、今また増えてるな」</p>
+      <p>命盤を見ると、自分が思考の増えやすい構造を持っていることがわかります。</p>
+      <p>だからこそ、気づいたときに責めなくてよくなりました。</p>
+      <p>これは自分の性質だ、と。</p>
+      <h2>シンキングボウルを鳴らす</h2>
+      <p>気づいたあと、私はシンキングボウルを鳴らします。</p>
+      <p>シンキングボウルを軽く叩くと、静かな音が広がっていきます。</p>
+      <p>その音に意識を向けている間、思考が少しずつ静まっていく。</p>
+      <p>止めようとするのではなく、思考そのものが下がっていくイメージです。</p>
+      <h2>瞑想の中で起きること</h2>
+      <p>シンキングボウルの音の中にいると、自分の感情に気づくことがあります。</p>
+      <p>不安だったのか、焦っていたのか。</p>
+      <p>それとも、ただ疲れていただけなのか。</p>
+      <p>ふっと手放せることもあります。</p>
+      <p>手放せないときは、そのまま置いておく。</p>
+      <p>どちらでも、気づいた時点で少し変わっています。</p>
+      <p>プラスでもマイナスでもない、0の位置の私に戻っていく感覚です。</p>
+      <h2>答えを出さない時間も、選択のひとつ</h2>
+      <p>今すぐ解決しなくていい。</p>
+      <p>考えないのではなく、今は保留する。</p>
+      <p>それも思考の、ひとつの使い方です。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>思考過多</span><span>実践</span></div>
+      <div class="next-article" onclick="showArticle(4)"><div class="next-label">次の記事 →</div><div class="next-title">同じ遷移宮でも、人によって現れ方が違う理由</div></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
-      <div id="article9" style="display:none;">
-        <p class="article-no">No.10 ／ 2026.06.29</p>
-        <h1 class="article-title">ご相談内容と、本当の苦しさ</h1>
-        <p class="article-date">2026年6月29日</p>
-        <div class="article-body">
-          <p>占いをしていると、ご相談内容と、本当の苦しさが違うことがあります。恋愛のご相談だったはずなのに、お話を伺っているうちに見えてくるのは、仕事のことだったり、自分を責め続けてきた時間だったり。</p>
-          <p>人は、自分でも気づかないうちに、本当に苦しい場所を心の奥へしまってしまうことがあります。だから私は、ご相談内容だけではなく、その方の言葉や表情、話す間も大切にしています。</p>
-          <p>紫微斗数は、未来を知るためだけの占いではありません。その人がどんなときに無理をしやすいのか。どんな環境で力を発揮しやすいのか。どんな考え方の癖を持っているのか。命盤には、その人自身を理解するためのヒントがたくさんあります。</p>
-          <p>私は未来をお伝えするだけではなく、その方が今どんな状態にいるのかも一緒に見つめたいと思っています。せめて鑑定の時間だけでも、肩の力が少し抜けていたらいい。そんなことを思いながら、今日も命盤を開いています。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>鑑定スタイル</span></div>
-          <div class="next-article" onclick="showArticle(10)"><div class="next-label">次の記事 →</div><div class="next-title">高津宮で、目が合った</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>命盤から、あなた自身を一緒に見つめてみませんか。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
+  <div class="article-page" id="article4">
+    <p class="article-no">No.05 ／ 2026.05.30</p>
+    <h1 class="article-title">同じ遷移宮でも、人によって現れ方が違う理由</h1>
+    <p class="article-date">2026年5月30日</p>
+    <div class="article-body">
+      <p>紫微斗数には「遷移宮」という宮があります。</p>
+      <p>遷移宮は、外の世界との接点を表す場所です。</p>
+      <p>人との関わり。</p>
+      <p>社会との接点。</p>
+      <p>環境から受ける影響。</p>
+      <p>そんな外側との関係性を見る宮です。</p>
+      <p>遷移宮について調べると、「外に出た時の姿」と説明されることがあります。</p>
+      <p>確かにそのような見方もあります。</p>
+      <p>ただ、実際に命盤を見ていると、同じ遷移宮でも現れ方は人によって大きく異なります。</p>
+      <p>それは、遷移宮に入る星が違うからです。</p>
+      <p>情報が増える人もいれば、人間関係の影響を受けやすい人もいる。</p>
+      <p>環境が変わることで力を発揮する人もいれば、言葉や評価がテーマになる人もいます。</p>
+      <p>遷移宮そのものに良い悪いがあるわけではありません。</p>
+      <p>大切なのは、自分が外の世界とどのように関わりやすいのかを知ることです。</p>
+      <p>外に出ると疲れやすいのか。</p>
+      <p>刺激を受けて活性化するのか。</p>
+      <p>人との関わりが運を動かすのか。</p>
+      <p>それとも環境の変化が人生を動かすのか。</p>
+      <p>同じ遷移宮でも、そこに入る星によって体験する世界は変わります。</p>
+      <p>次回からは、遷移宮に入る星ごとの特徴についても少しずつ書いていこうと思います。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>命盤</span></div>
+      <div class="next-article" onclick="showArticle(5)"><div class="next-label">次の記事 →</div><div class="next-title">遷移宮に天機星が入る人</div></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
-      <div id="article10" style="display:none;">
-        <p class="article-no">No.11 ／ 2026.07.05</p>
-        <h1 class="article-title">高津宮で、目が合った</h1>
-        <p class="article-date">2026年7月5日</p>
-        <div class="article-body">
-          <p>7月4日、四つ葉フェスタ in 高津宮に出展しました。高津宮は、仁徳天皇を主祭神とする大阪・谷町九丁目の神社です。縁結びの坂と縁切りの坂があることでも知られ、どこか不思議な縁を引き寄せる場所として親しまれています。</p>
-          <p>その日、せっかくだから参拝しようと思って境内を歩いていたら、目が合った占い師さんがいました。聞くと、高津宮に専属で入っておられる方で、予約がなかなか取れないほど人気の先生。たまたまその日はいらしたので、迷わず鑑定をお願いしました。</p>
-          <p>私は気になった人のところへは行く主義です。直感が動いたとき、後回しにしない。それは占い師としての習慣でもあり、自分自身への信頼でもあります。</p>
-          <p>占い師としての風格がありながら、とても謙虚な方でした。鑑定の中で、印象的な言葉がありました。同じような想いを抱えた人が来たとき、その人が自分の答えを見つける手助けをしていってほしい、と。それは、私が紫微斗数の鑑定で大切にしていることと、どこか重なる言葉でした。</p>
-          <p>縁結びの場所で、不思議な縁をいただいた一日でした。当日足を運んでくださった皆さま、そして四つ葉フェスタを開催してくださった関係者の皆さまに、心よりお礼申し上げます。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>高津宮</span><span>占い師</span></div>
-          <div class="next-article" onclick="showArticle(11)"><div class="next-label">次の記事 →</div><div class="next-title">財帛宮に化忌がある人</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から、一緒に見つめていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
+  <div class="article-page" id="article5">
+    <p class="article-no">No.06 ／ 2026.06.10</p>
+    <h1 class="article-title">遷移宮に天機星が入る人</h1>
+    <p class="article-date">2026年6月10日</p>
+    <div class="article-body">
+      <p>遷移宮に天機星が入ると、外の世界で「考える」が動きやすくなります。</p>
+      <p>人と話すと情報が増え、環境が変わると思考が広がる。<br>外に出るだけで、頭の中がにぎやかになっていく。</p>
+      <p>対外的には、優しくて誠実な印象を持たれることが多いです。<br>頭の回転も速く、場の空気を読みながら動ける。</p>
+      <p>ただ、その分だけ神経も細かく動いています。<br>精神性を大切にする傾向があり、少々せっかちな面も顔を出します。</p>
+      <p>遷移宮と命宮は対宮の関係にあります。<br>対外的な宮があれば、主軸となる宮がある。</p>
+      <p>命宮はその人の主軸となる命盤の中心です。<br>遷移宮がどれだけ外の世界と接していても、主軸となる命宮がその人の対外的な姿にも影響します。</p>
+      <p>外に見える星だけで、その人を語ることはできません。</p>
+      <p>次回は、遷移宮に太陰星が入る人について書いていきます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>天機星</span><span>大阪</span></div>
+      <div class="next-article" onclick="showArticle(6)"><div class="next-label">次の記事 →</div><div class="next-title">90分と、その前にある時間のこと</div></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 
-      <div id="article11" style="display:none;">
-        <p class="article-no">No.12 ／ 2026.07.11</p>
-        <h1 class="article-title">財帛宮に化忌がある人</h1>
-        <p class="article-date">2026年7月11日</p>
-        <div class="article-body">
-          <p>こんなご相談を受けることがあります。命宮から見ると、姉御肌で働き者。人との縁にも恵まれ、面倒見がよく、頭の回転も速い。傍から見れば、仕事がうまくいかないはずがない、そんな命盤です。それでも、「稼げない」という感覚がずっとある。</p>
-          <p>命盤を見ると、財帛宮に化忌がありました。財帛宮は、お金の流れや報酬に関わる宮です。ここに化忌があると、稼ぐ力がないわけではないのに、なぜかお金が残りにくい。仕事はしているのに、報酬が追いつかない、という状態になりやすいです。</p>
-          <p>こういう方に多いのが、「与えすぎ」です。人の面倒をみるのが自然にできてしまうから、サービスが多くなる。頼まれると断れない。気がついたら、提供しているものと報酬が釣り合っていない。</p>
-          <p>鑑定では、こんな問いかけをしました。「報酬と提供が、合っていますか？」自覚はあった、とおっしゃっていました。やりすぎている、とわかっていながら、止められなかった。</p>
-          <p>財帛宮の化忌は、稼げない命ではありません。報酬の設計を意識することで、流れが変わる可能性があります。与える力が強い分、受け取る仕組みを意図的に作ることが大切です。</p>
-          <p>紫微斗数は、そういう構造を命盤から読み解くことができます。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>財帛宮</span><span>化忌</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(12)"><div class="next-label">次の記事 →</div><div class="next-title">家族だから仲良くしなければならない、という話</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
+  <div class="article-page" id="article6">
+    <p class="article-no">No.07 ／ 2026.06.12</p>
+    <h1 class="article-title">90分と、その前にある時間のこと</h1>
+    <p class="article-date">2026年6月12日</p>
+    <div class="article-body">
+      <p>移動式一日占い館（紫微斗数）を始めるにあたって、料金と時間のことをお伝えしておきたいと思いました。</p>
+      <p>90分、12,000円。</p>
+      <p>この時間と金額に、込めたものがあります。</p>
+      <h2>じっくり向き合いたい</h2>
+      <p>私は時間をかけてじっくり向き合うタイプです。</p>
+      <p>事前にしっかり準備して、当日を迎えたい。それが私の鑑定の形です。</p>
+      <h2>予約をいただいた時点から、鑑定は始まっています</h2>
+      <p>ご入金をいただいた時点で、紫微斗数の命盤を読み解く時間に入ります。</p>
+      <p>まず2〜3時間ほどかけて、命盤をじっくり読み解きます。</p>
+      <p>星の配置、宮の関係、大限の流れ。</p>
+      <p>ひとつひとつを確認しながら、その人の全体像を掴んでいきます。</p>
+      <h2>文字に起こすことで、また見えてくる</h2>
+      <p>読み解いたあと、文字に起こします。</p>
+      <p>不思議なことに、文字にしていく過程で、またその人の人物像が変わっていきます。</p>
+      <p>命盤を見ているときとは違う角度から、その人が立体的に見えてくる感覚があります。</p>
+      <h2>最後に、もう一度照らし合わせる</h2>
+      <p>文字に起こしたものと命盤を、もう一度照らし合わせます。</p>
+      <p>この表現でいいか。この言い方がこの人に合っているか。</p>
+      <p>同じ意味でも、伝え方を少し変えるだけで、受け取り方が変わります。</p>
+      <p>その人に届く言葉で伝えたい。そう思いながら、最後の調整をします。</p>
+      <h2>当日の90分は、その先にある時間</h2>
+      <p>準備を終えて、当日を迎えます。</p>
+      <p>90分は、その準備の先にある時間です。</p>
+      <p>だから、当日はゆったりと話せます。</p>
+      <p>命盤を手元に置きながら、あなたのお話をじっくり聞かせてください。</p>
+      <p>私の鑑定は、聞くことを大切にしています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>移動式占い館</span><span>鑑定スタイル</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>紫微斗数・移動式一日占い館のご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
+    </div>
+  </div>
 
-      <div id="article12" style="display:none;">
-        <p class="article-no">No.13 ／ 2026.07.17</p>
-        <h1 class="article-title">家族だから仲良くしなければならない、という話</h1>
-        <p class="article-date">2026年7月17日</p>
-        <div class="article-body">
-          <p>「家族だから仲良くしなければならない。」私たちは、幼い頃からそんな価値観に触れながら育ってきました。もちろん、家族との関係が良好で、お互いを支え合えることは素敵なことです。でも、すべての人に同じ形が当てはまるとは限りません。</p>
-          <p>紫微斗数で命盤を見ていると、人によって心地よい距離感は違います。近くにいることで安心できる方もいれば、少し距離を保つことで、お互いを尊重し合える関係になる方もいます。</p>
-          <p>そこには、誰が悪いという話ではありません。相談者様が悪いわけでもなく、ご家族が悪いわけでもない。ただ、生まれ持った性質や価値観、物事の受け止め方が違うだけなのです。</p>
-          <p>だから私は、「家族だからこうあるべき」という一般論だけで判断することはありません。命盤を通して、その方がどんな環境で力を発揮し、どんな距離感で人と関わると心が穏やかでいられるのかを一緒に考えていきます。</p>
-          <p>占いは、誰かを責めるためのものでも、人生を決めつけるためのものでもありません。「こうあるべき」という固定概念から少し自由になり、その人らしい生き方を見つけるためのきっかけ。私は、そこに紫微斗数の魅力があると感じています。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>家族</span><span>鑑定</span></div>
-          <div class="next-article" onclick="showArticle(13)"><div class="next-label">次の記事 →</div><div class="next-title">天空と地劫の話 ─ 私自身の命盤から</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤から、その人らしい生き方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article13" style="display:none;">
-        <p class="article-no">No.14 ／ 2026.07.24</p>
-        <h1 class="article-title">天空と地劫の話 ─ 私自身の命盤から</h1>
-        <p class="article-date">2026年7月24日</p>
-        <div class="article-body">
-          <p>紫微斗数には、天空・地劫という星があります。空亡の天空と、損耗の地劫。この二つは兄弟星（ペア）であり、揃って本宮や三方四正に絡むと、象意が強く出るとされます。</p>
-          <p>天空は挫折・失望・精神的打撃と金銭的ショックを。地劫は現実的な損失・厄災・仕事上のトラブルを。命盤にこの星があると、不安になる方も多いかもしれません。</p>
-          <p>実は私自身、命宮に地劫、遷移宮に天空を持っています。だから今日は、この星を実際に持っている占い師として、自分の体験を書いてみます。</p>
-          <p>古典的解釈の通りの面は、確かにありました。仕事でも人間関係でも、うまくいかないことは多かったです。積み上げたと思ったら、崩れる。ただ、私の実感では、財の損耗よりも、精神の損耗の方が多かったように思います。</p>
-          <p>でも、同時に気づいたことがあります。私は、崩れたものに執着しないのです。「もういっか」そう思って、手放してきました。そしてもうひとつ、年を重ねる中で変わったことがあります。他人軸ではなく、自分軸で生きること。精神世界を学ぶ中で、合わない人がいても仕方ない、と思えるようになりました。</p>
-          <p>崩れることも、摩擦も、誰かのせいにしない。手放すことを恐れない。そういう生き方に変わってから、この星との付き合い方が、少し楽になりました。</p>
-          <p>古典にも、こうあります。吉星と同宮・加会する場合は、その虚しさが想像力・アイデア・研究心・精神世界への探求に転じ、クリエイターや宗教・学術方面ではむしろ活きる、と。天空・地劫は、「失う星」であると同時に、「軽くなれる星」でもある。</p>
-          <p>大阪で紫微斗数の鑑定をしていると、この星を持つ方にお会いすることがあります。そのたびに、怖い解釈だけで終わらせず、その方がどう活かせるかを一緒に考えています。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>天空</span><span>地劫</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(14)"><div class="next-label">次の記事 →</div><div class="next-title">8月9日、扇町 HAPPY MARCHEに出店します</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、活かし方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article14" style="display:none;">
-        <p class="article-no">No.15 ／ 2026.08.06</p>
-        <h1 class="article-title">8月9日、扇町 HAPPY MARCHEに出店します</h1>
-        <p class="article-date">2026年8月6日</p>
-        <div class="article-body">
-          <p>8月9日（日）、大阪・扇町の「扇町 HAPPY MARCHE ─ 占い＆HAPPYマルシェ ─」に出店します。占い・ヒーリング・カードリーディング・心のケア・アロマなど、癒しの出展者が集まる、あたたかい雰囲気のマルシェです。</p>
-          <h2>当日のメニューについて</h2>
-          <p>紫微斗数の20分鑑定（¥2,500）をメインにご用意しています。大阪・扇町で紫微斗数を体験できる機会です。フリードリンク付きでゆったり過ごせる空間ですので、お気軽にお立ち寄りください。</p>
-          <h2>イベント詳細</h2>
-          <p>日時：8月9日（日）13:00〜20:00<br>会場：Kaisei Higashi Umeda 502号室（大阪市北区天神橋4丁目7-11）<br>アクセス：大阪メトロ堺筋線「扇町」①出口 徒歩1分／JR環状線「天満」徒歩3分<br>参加費：¥1,000（フリードリンク＆ちょっと軽食付き）</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>扇町</span><span>イベント</span></div>
-          <div class="next-article" onclick="showArticle(15)"><div class="next-label">次の記事 →</div><div class="next-title">縁結びの祈祷に行ってきました</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>イベント情報・ご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
-        </div>
-      </div>
-
-      <div id="article15" style="display:none;">
-        <p class="article-no">No.16 ／ 2026.08.07</p>
-        <h1 class="article-title">縁結びの祈祷に行ってきました</h1>
-        <p class="article-date">2026年8月7日</p>
-        <div class="article-body">
-          <p>昨日、鑑定を受けてくださった皆さんの今後を願って、神社へ行ってきました。縁結びは絵馬に、良縁成就と疾病平穏はお炊き上げにして、合わせて15組ほどお願いしてきました。</p>
-          <p>お炊き上げとは、願いごとを込めたお札やお守りなどを神社で焼き上げ、天へ届ける祈祷の形です。一件一件、鑑定でお話しした内容を思い出しながら、良い方向に向かいますようにと祈る時間でした。</p>
-          <p>紫微斗数の鑑定では、命盤を通じてその方の流れや可能性をお伝えしますが、それだけで終わらせたくないという思いがあります。鑑定でお伝えした内容が、実際に良い方向へ動いていくように、という願いを込めて、こうした形でお手伝いさせていただいています。</p>
-          <p>早速、お一人から「彼から連絡がありました」というご報告をいただきました。すべての方に同じような結果が訪れるとは限りませんが、こうしたご報告をいただけるのは、何より嬉しいことです。</p>
-          <p>大阪で紫微斗数の鑑定をお受けする中で、これからもこうした形で、鑑定の先にある皆さんの毎日を見守っていけたらと思っています。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(16)"><div class="next-label">次の記事 →</div><div class="next-title">ハッピーマルシェ、ありがとうございました</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、活かし方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article16" style="display:none;">
-        <p class="article-no">No.17 ／ 2026.08.10</p>
-        <h1 class="article-title">ハッピーマルシェ、ありがとうございました</h1>
-        <p class="article-date">2026年8月10日</p>
-        <div class="article-body">
-          <p>昨日は大阪・扇町のハッピーマルシェに、紫微斗数の鑑定師として出店させていただきました。会場まで足を運んでくださった皆さま、鑑定を受けてくださった皆さま、そしてご一緒した出店者の皆さま、主催者さま、ありがとうございました。</p>
-          <p>今回、とても嬉しかったのが、Instagramを見て来てくださった方がいらっしゃったことです。SNSで発信していると、画面の向こうにどんな方がいらっしゃるのか、普段はなかなか分かりません。実際にお会いして「Instagramを見ています」と声をかけていただけたことは、とても嬉しい出来事でした。</p>
-          <p>そんな一日を終えて、紫微斗数の自分の命盤について、ふと思ったことがあります。私の遷移宮は「無主星」です。遷移宮は、外の世界や社会との関わり、人との出会いなどを見る宮です。ここが無主星の場合、外の世界で起こることや、近づいてくる人を自分の意思だけではコントロールしにくいところがあります。</p>
-          <p>でも今日、マルシェに出店していて思いました。<strong>巻き込まれるのは、悪いことばかりではないんだな、と。</strong></p>
-          <p>Instagramを通して私を知ってくださった方との出会い。たまたま同じ場所に出店したからこそ生まれた、同業の方とのつながり。どちらも私があらかじめ「この人と出会おう」と決めて作ったものではありません。外に出たことで、思いがけずやってきてくれたご縁です。</p>
-          <p>紫微斗数の命盤には、一般的に良いと言われる配置もあれば、少し注意が必要と言われる配置もあります。でも私は、吉凶だけで判断するのではなく、<strong>「この星や配置を、自分の人生でどう使っていくのか」</strong>そこが大切なのだと思っています。</p>
-          <p>素敵なご縁をありがとうございました。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>扇町</span><span>イベント</span></div>
-          <div class="next-article" onclick="showArticle(17)"><div class="next-label">次の記事 →</div><div class="next-title">天機・太陰という組み合わせについて</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article17" style="display:none;">
-        <p class="article-no">No.18 ／ 2026.08.17</p>
-        <h1 class="article-title">天機・太陰という組み合わせについて</h1>
-        <p class="article-date">2026年8月17日</p>
-        <div class="article-body">
-          <p>自分の命宮を見返していて、あらためて納得したことがあります。命宮とは、紫微斗数において、その人の先天的な人生の傾向や、性格・行動・思考・精神がわかる宮です。私の命宮は「天機・太陰」です。</p>
-          <p>天機は、先を読む力を持つ星と言われます。物事を段取りよく整理し、丁寧に仕事を進める。そこに太陰の感受性が重なると、相手の状態を敏感に察知して、静かに寄り添おうとする性質が強くなります。</p>
-          <p>紫微斗数の鑑定を仕事にしている今、この組み合わせはとても納得できるものです。先を読んで丁寧に向き合う。相手の様子や場の変化に意識が向きやすい。これは私自身の性質にもよく当てはまると感じています。</p>
-          <p>ただ、周囲へ意識を向けすぎると、自分の状態を後回しにしてしまうことがあります。知らないうちに疲れをためないためにも、自分の状態に目を向けながら、<strong>自分で境界線を決めることが大切</strong>なのだと思います。</p>
-          <p>太陰にはもう一つ、衣食住には困らないと言われる性質もあります。そして天機には、精神性を求める、善人が多いという特徴もあります。損得よりも、物事の本質や仕組みを理解したいという気持ちが強く出るタイプです。</p>
-          <p>天機は、よく考える星であると同時に、本来は「動く星」でもあります。ただ、私の命宮には地劫も入っているため、その動きが地劫の影響で鈍くなります。考えることは得意でも、実際に動くことには重さを感じる。その鈍さを克服してきたのが、運動でした。</p>
-          <p>紫微斗数は、大阪で鑑定をしている今も、私自身を理解するための道具であり続けています。末筆になりましたが、8月15日、心斎橋の四つ葉フェスタに出店させていただきました。ありがとうございました。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>天機</span><span>太陰</span></div>
-          <div class="next-article" onclick="showArticle(18)"><div class="next-label">次の記事 →</div><div class="next-title">命宮に破軍星がある人</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article18" style="display:none;">
-        <p class="article-no">No.19 ／ 2026.08.24</p>
-        <h1 class="article-title">命宮に破軍星がある人</h1>
-        <p class="article-date">2026年8月24日</p>
-        <div class="article-body">
-          <p>紫微斗数で、その人の生き方や人生の方向性を見るうえで中心となるのが「命宮」です。命宮に破軍星がある人は、一般的に、波乱の多い人生になりやすいといわれます。環境が大きく変わったり、仕事や人間関係が思いがけない形で切り替わったり。安定したと思ったところで、次の転機が訪れることもあります。</p>
-          <p>また、破軍の人は、既存のやり方や上下関係にそのまま従うことが得意ではありません。「昔からこうだから」「上の人が決めたことだから」それだけでは納得できず、矛盾や無駄に気づくと、もっとよい形に変えようとします。そのため、目上の人とぶつかりやすい傾向もあります。</p>
-          <p>けれども、破軍は単に「壊す星」ではありません。今あるものを壊し、新しい形につくり直す力を持つ星です。上から決められたことに従うだけの環境よりも、自分で考え、判断できる環境の方が力を発揮しやすく、独立や起業など、自分に決定権のある働き方が向いている人も多いでしょう。</p>
-          <p>若い頃は、変化の多さや周囲との衝突に振り回されることもあります。しかし、経験を重ねるほど、何を残し、何を手放すのかを自分で判断できるようになります。変化のたびに立ち上がり、自分に合う形へと人生をつくり直していく。それが、命宮に破軍を持つ人の強さなのだと思います。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>破軍</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(19)"><div class="next-label">次の記事 →</div><div class="next-title">分かり合えない夫婦は、別れるしかない？</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article19" style="display:none;">
-        <p class="article-no">No.20 ／ 2026.08.31</p>
-        <h1 class="article-title">分かり合えない夫婦は、別れるしかない？ ―夫妻宮の化忌から考える―</h1>
-        <p class="article-date">2026年8月31日</p>
-        <div class="article-body">
-          <p>大阪で紫微斗数の鑑定をしていると、夫婦関係について、こんなご相談をいただくことがあります。「夫とは長年一緒に暮らしてきましたが、物事の受け取り方や、会話に求めるものが違います。」</p>
-          <p>「夫に悪意があるわけでも、家族への愛情がないわけでもありません。それでも、自分の言葉を受け取ってもらえないと感じることが多く、一緒にいても孤独を感じてきました。分かり合えない夫婦は、別れるしかないのでしょうか」</p>
-          <p>この方の夫妻宮に、化忌があるとします。化忌があるからといって、必ず離婚するわけではありません。化忌は、その宮において、何度も心に引っかかりやすいことや、簡単には答えが出ないテーマを表します。</p>
-          <p>相手に悪意がなくても、自分が必要としている愛情の形とは違う。相手なりの愛情があると理解できても、心の寂しさまでは消えない。その寂しさを相手に埋めてもらおうとすると、「なぜ分かってくれないのか」という思いが強くなります。</p>
-          <p>このようなとき、選択肢は、「離婚する」か「我慢して一緒にいる」かだけではありません。相手に自分の孤独をすべて埋めてもらうことを求めず、自分の仕事や活動、学び、人とのつながりなど、自分の言葉や心が循環する居場所を育てていく。それも一つの夫婦の形ではないでしょうか。</p>
-          <p>夫妻宮の化忌は、必ずしも別れを示すものではありません。「分かり合うこと」ではなく、「違うまま認めること」。それが、このご夫婦にとっての新しい調和なのかもしれません。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>夫妻宮</span><span>化忌</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(20)"><div class="next-label">次の記事 →</div><div class="next-title">考えすぎる私が、"0の自分"に戻るまで</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article20" style="display:none;">
-        <p class="article-no">No.21 ／ 2026.09.07</p>
-        <h1 class="article-title">考えすぎる私が、"0の自分"に戻るまで ―福徳宮から見る心の休ませ方―</h1>
-        <p class="article-date">2026年9月7日</p>
-        <div class="article-body">
-          <p>紫微斗数には「福徳宮」という宮があります。福徳宮は、その人の心の内側や精神的な満足、どのような時間に安らぎを感じるのかを見る場所です。</p>
-          <p>同じように休んでいても、回復できる人もいれば、身体は休んでいるのに頭の中ではずっと考え続けている人もいます。休み方にも、その人らしさがあるのだと思います。</p>
-          <p>私の福徳宮には、巨門星があります。巨門は、物事を深く考え、分析し、言葉にする星です。疑問に感じたことをそのままにせず、自分で確かめたくなる。それは鑑定をするうえでは大切な力ですが、休もうとしているときまで思考が動き続けることがあります。</p>
-          <h2>運動は「動くマインドフルネス」</h2>
-          <p>私にとって運動は、動くマインドフルネスです。身体の動きや呼吸、足の運びに意識を向けていると、過去を振り返ったり、先のことを考えたりする思考から離れ、「今ここ」へ戻ることができます。</p>
-          <h2>音は、脱力するためのもの</h2>
-          <p>シンギングボウルの音に惹かれたのは、音を聴くためだけではありません。ボウルの響きに身体を委ねていると、自分でも気づいていなかった力が、少しずつ抜けていくように感じたからです。</p>
-          <p>何かを考えようとしなくていい。気持ちを切り替えようと頑張らなくてもいい。ただ音を受け取り、身体に入っている力を抜いていく。そして音が消えたあとの静寂に身を置く。そこでは、何の役割も持たない"0の自分"へ戻っていくように感じます。</p>
-          <h2>自分に合った回復方法を知る</h2>
-          <p>福徳宮を知ることは、自分が何に疲れやすく、どのようにすれば心が満たされるのかを知ることでもあります。頑張り方だけではなく、自分に合った休み方を知ること。それも、命盤から受け取れる大切なヒントの一つです。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>福徳宮</span><span>巨門</span><span>大阪</span></div>
-          <div class="next-article" onclick="showArticle(21)"><div class="next-label">次の記事 →</div><div class="next-title">命盤と現実を照らし合わせて見えてきたこと</div></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
-      <div id="article21" style="display:none;">
-        <p class="article-no">No.22 ／ 2026.09.21</p>
-        <h1 class="article-title">命盤と現実を照らし合わせて見えてきたこと</h1>
-        <p class="article-date">2026年9月21日</p>
-        <div class="article-body">
-          <p>大阪で紫微斗数の鑑定をしていると、命盤と現実を照らし合わせることで見えてくることがあります。以前、心身の不調によって休職されている方の命盤を拝見したことがあります。その方は、生年化忌が父母宮にありました。</p>
-          <p>父母宮は、両親との関係だけではなく、目上の人や上司、組織との関係などを見る場所でもあります。父母宮に化忌があることから、上司など目上の人との摩擦に悩むようなことが起こりやすいと考えます。実際にその方は、入社当初から目上の人との摩擦に悩んでいました。</p>
-          <p>また、父母宮の対宮は疾厄宮です。父母宮にある生年化忌は、対冲する疾厄宮にも影響するため、心身の不調にも注意が必要です。心身の不調が表れたのは今年に入ってからで、その方が休職された時期には、大限と太歳の両方で疾厄宮に化忌が重なっていました。</p>
-          <p>生まれ持った命盤だけを見て、「心を病む人」と判断することはできません。しかし、この方の場合は、生年化忌が対冲する疾厄宮へ影響しているところに、大限と太歳の化忌も重なったことで、今年は特に心身の状態へ注意が必要な時期だったと考えられます。</p>
-          <p>実際にお話を伺うと、本人は優しく、受容力が高い方でした。周囲の言葉や感情を受け止めながら、自分の苦しさを後回しにし、長い間無理を重ねていたことが見えてきました。休職も、運が悪かった結果とは限りません。これ以上無理を続けないために、いったん環境から離れ、心身を守る必要があった時期とも考えられます。</p>
-          <p>事前に負担が重なりやすい時期を予測できれば、無理を続けない、早めに休息を取る、環境や人との関わり方を見直すなど、心身を守るための対応ができます。起こりやすいことを事前に知り、深刻になる前に注意しながら、負担を回避・軽減するために活用することができます。私は、そのために命盤を活用したいと思っています。</p>
-        </div>
-        <div class="article-footer">
-          <div class="article-tags"><span>紫微斗数</span><span>化忌</span><span>疾厄宮</span><span>大阪</span></div>
-          <div class="kanso-box"><p>この記事へのご感想・コメントをお待ちしています。</p><a class="kanso-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank">ご感想・コメントを送る →</a></div>
-          <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
-        </div>
-      </div>
-
+  <div class="article-page" id="article7">
+    <p class="article-no">No.08 ／ 2026.06.15</p>
+    <h1 class="article-title">6月21日、すまいるマルシェに出店します</h1>
+    <p class="article-date">2026年6月15日</p>
+    <div class="article-body">
+      <p>6月21日（日）、大阪・玉造の学研リープ玉造元町教室で開催される「すまいるマルシェ vol.37」に出店します。</p>
+      <h2>当日のメニューについて</h2>
+      <p>紫微斗数の30分鑑定（¥5,000）をメインにご用意しています。</p>
+      <p>当日はその場で命盤を出してお伝えする形になります。</p>
+      <p>事前に時間をかけて読み解く個人鑑定とは異なり、30分という限られた時間の中でのご案内になりますが、命盤を通じて自分の本質や流れに触れる入口として活用していただければと思います。</p>
+      <h2>気になった方へ</h2>
+      <p>マルシェで命盤を見た方には、紫微斗数の個人鑑定（通常¥12,000）を¥10,000でお受けします。</p>
+      <p>続きをじっくり読み解きたい、もっと深く知りたいという方はぜひご相談ください。</p>
+      <p>大阪・玉造で紫微斗数を体験できる機会です。お気軽にお立ち寄りください。</p>
+      <h2>イベント詳細</h2>
+      <p>日時：6月21日（日）11:00〜17:00</p>
+      <p>会場：学研リープ玉造元町教室（玉造・鶴橋駅から各7分）</p>
+      <p>入場無料</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>すまいるマルシェ</span><span>イベント</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>イベント情報・ご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article8">
+    <p class="article-no">No.09 ／ 2026.06.22</p>
+    <h1 class="article-title">遷移宮に太陰星が入る人</h1>
+    <p class="article-date">2026年6月22日</p>
+    <div class="article-body">
+      <p>遷移宮に太陰星が入ると、外の世界で「感じる」が動きやすくなります。</p>
+      <p>人と話すと相手の気持ちが伝わってきて、場の空気を敏感に受け取る。<br>外に出るだけで、心の中がにぎやかになっていく。</p>
+      <p>対外的には、穏やかで思いやりのある印象を持たれることが多いです。<br>清らかで気位が高く、どこか品のある雰囲気を自然に漂わせます。</p>
+      <p>ただ、その感受性はとても細かく動いています。<br>相手の言葉の裏を読みすぎたり、場の空気を抱え込みすぎたりすることも。<br>神経過敏になりやすく、人間関係で消耗しやすい面があります。</p>
+      <p>精神的に傷つくことを極端に恐れる傾向もあります。<br>だから、無意識に人との距離を測りながら動いていることが多いです。</p>
+      <p>外の世界がにぎやかであればあるほど、内側にたまるものも増えていく。<br>思考が増えるというより、感情が増えていく感覚に近いかもしれません。</p>
+      <p>天機星が「考える」で外の世界と接するとすれば、<br>太陰星は「感じる」で外の世界と接しています。</p>
+      <p>ただ、命宮によって内側の性質は変わります。</p>
+      <p>次回は、遷移宮に入る星によって、思考過多の現れ方がどう変わるかを整理していきます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>遷移宮</span><span>太陰星</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から思考の傾向を読み解きます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article9">
+    <p class="article-no">No.10 ／ 2026.06.29</p>
+    <h1 class="article-title">ご相談内容と、本当の苦しさ</h1>
+    <p class="article-date">2026年6月29日</p>
+    <div class="article-body">
+      <p>占いをしていると、ご相談内容と、本当の苦しさが違うことがあります。</p>
+      <p>恋愛のご相談だったはずなのに、お話を伺っているうちに見えてくるのは、仕事のことだったり、自分を責め続けてきた時間だったり。</p>
+      <p>人は、自分でも気づかないうちに、本当に苦しい場所を心の奥へしまってしまうことがあります。</p>
+      <p>だから私は、ご相談内容だけではなく、その方の言葉や表情、話す間も大切にしています。</p>
+      <p>紫微斗数は、未来を知るためだけの占いではありません。</p>
+      <p>その人がどんなときに無理をしやすいのか。<br>どんな環境で力を発揮しやすいのか。<br>どんな考え方の癖を持っているのか。</p>
+      <p>命盤には、その人自身を理解するためのヒントがたくさんあります。</p>
+      <p>私は未来をお伝えするだけではなく、その方が今どんな状態にいるのかも一緒に見つめたいと思っています。</p>
+      <p>せめて鑑定の時間だけでも、肩の力が少し抜けていたらいい。</p>
+      <p>そんなことを思いながら、今日も命盤を開いています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>鑑定スタイル</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>命盤から、あなた自身を一緒に見つめてみませんか。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article10">
+    <p class="article-no">No.11 ／ 2026.07.05</p>
+    <h1 class="article-title">高津宮で、目が合った</h1>
+    <p class="article-date">2026年7月5日</p>
+    <div class="article-body">
+      <p>7月4日、四つ葉フェスタ in 高津宮に出展しました。</p>
+      <p>高津宮は、仁徳天皇を主祭神とする大阪・谷町九丁目の神社です。縁結びの坂と縁切りの坂があることでも知られ、どこか不思議な縁を引き寄せる場所として親しまれています。</p>
+      <p>その日、せっかくだから参拝しようと思って境内を歩いていたら、目が合った占い師さんがいました。</p>
+      <p>聞くと、高津宮に専属で入っておられる方で、予約がなかなか取れないほど人気の先生。たまたまその日はいらしたので、迷わず鑑定をお願いしました。</p>
+      <p>私は気になった人のところへは行く主義です。</p>
+      <p>直感が動いたとき、後回しにしない。それは占い師としての習慣でもあり、自分自身への信頼でもあります。</p>
+      <p>占い師としての風格がありながら、とても謙虚な方でした。鑑定の中で、印象的な言葉がありました。同じような想いを抱えた人が来たとき、その人が自分の答えを見つける手助けをしていってほしい、と。</p>
+      <p>それは、私が紫微斗数の鑑定で大切にしていることと、どこか重なる言葉でした。</p>
+      <p>縁結びの場所で、不思議な縁をいただいた一日でした。</p>
+      <p>当日足を運んでくださった皆さま、そして四つ葉フェスタを開催してくださった関係者の皆さまに、心よりお礼申し上げます。素敵な場所で出展させていただけたこと、感謝しています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>高津宮</span><span>占い師</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から、一緒に見つめていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article11">
+    <p class="article-no">No.12 ／ 2026.07.11</p>
+    <h1 class="article-title">財帛宮に化忌がある人</h1>
+    <p class="article-date">2026年7月11日</p>
+    <div class="article-body">
+      <p>こんなご相談を受けることがあります。</p>
+      <p>命宮から見ると、姉御肌で働き者。人との縁にも恵まれ、面倒見がよく、頭の回転も速い。傍から見れば、仕事がうまくいかないはずがない、そんな命盤です。</p>
+      <p>それでも、「稼げない」という感覚がずっとある。</p>
+      <p>命盤を見ると、財帛宮に化忌がありました。</p>
+      <p>財帛宮は、お金の流れや報酬に関わる宮です。ここに化忌があると、稼ぐ力がないわけではないのに、なぜかお金が残りにくい。仕事はしているのに、報酬が追いつかない、という状態になりやすいです。</p>
+      <p>こういう方に多いのが、「与えすぎ」です。</p>
+      <p>人の面倒をみるのが自然にできてしまうから、サービスが多くなる。頼まれると断れない。気がついたら、提供しているものと報酬が釣り合っていない。</p>
+      <p>鑑定では、こんな問いかけをしました。</p>
+      <p>「報酬と提供が、合っていますか？」</p>
+      <p>自覚はあった、とおっしゃっていました。やりすぎている、とわかっていながら、止められなかった。</p>
+      <p>財帛宮の化忌は、稼げない命ではありません。報酬の設計を意識することで、流れが変わる可能性があります。与える力が強い分、受け取る仕組みを意図的に作ることが大切です。</p>
+      <p>今回は20分の鑑定でしたので、ここまでのお伝えになりましたが、個人鑑定ではさらに詳しく命盤全体から読み解いていきます。</p>
+      <p>紫微斗数は、そういう構造を命盤から読み解くことができます。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>財帛宮</span><span>化忌</span><span class="card-tag">大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article12">
+    <p class="article-no">No.13 ／ 2026.07.17</p>
+    <h1 class="article-title">家族だから仲良くしなければならない、という話</h1>
+    <p class="article-date">2026年7月17日</p>
+    <div class="article-body">
+      <p>「家族だから仲良くしなければならない。」</p>
+      <p>私たちは、幼い頃からそんな価値観に触れながら育ってきました。</p>
+      <p>もちろん、家族との関係が良好で、お互いを支え合えることは素敵なことです。<br>でも、すべての人に同じ形が当てはまるとは限りません。</p>
+      <p>紫微斗数で命盤を見ていると、人によって心地よい距離感は違います。<br>近くにいることで安心できる方もいれば、少し距離を保つことで、お互いを尊重し合える関係になる方もいます。</p>
+      <p>そこには、誰が悪いという話ではありません。<br>相談者様が悪いわけでもなく、ご家族が悪いわけでもない。<br>ただ、生まれ持った性質や価値観、物事の受け止め方が違うだけなのです。</p>
+      <p>だから私は、「家族だからこうあるべき」という一般論だけで判断することはありません。<br>命盤を通して、その方がどんな環境で力を発揮し、どんな距離感で人と関わると心が穏やかでいられるのかを一緒に考えていきます。</p>
+      <p>占いは、誰かを責めるためのものでも、人生を決めつけるためのものでもありません。<br>「こうあるべき」という固定概念から少し自由になり、その人らしい生き方を見つけるためのきっかけ。</p>
+      <p>大阪を拠点に、紫微斗数の鑑定を通してそんなお手伝いができればと思っています。</p>
+      <p>私は、そこに紫微斗数の魅力があると感じています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>家族</span><span>鑑定</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤から、その人らしい生き方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article13">
+    <p class="article-no">No.14 ／ 2026.07.24</p>
+    <h1 class="article-title">天空と地劫の話 ─ 私自身の命盤から</h1>
+    <p class="article-date">2026年7月24日</p>
+    <div class="article-body">
+      <p>紫微斗数には、天空・地劫という星があります。</p>
+      <p>空亡の天空と、損耗の地劫。この二つは兄弟星（ペア）であり、揃って本宮や三方四正に絡むと、象意が強く出るとされます。</p>
+      <p>天空は挫折・失望・精神的打撃と金銭的ショックを。地劫は現実的な損失・厄災・仕事上のトラブルを。</p>
+      <p>命盤にこの星があると、不安になる方も多いかもしれません。</p>
+      <p>実は私自身、命宮に地劫、遷移宮に天空を持っています。</p>
+      <p>だから今日は、この星を実際に持っている占い師として、自分の体験を書いてみます。</p>
+      <p>古典的解釈の通りの面は、確かにありました。</p>
+      <p>仕事でも人間関係でも、うまくいかないことは多かったです。積み上げたと思ったら、崩れる。人との摩擦も多く、思うようにいかない時期が長くありました。</p>
+      <p>ただ、私の実感では、財の損耗よりも、精神の損耗の方が多かったように思います。</p>
+      <p>うまくいかないことが続くと、お金よりも先に、心がすり減っていく。地劫の消耗は、目に見えないところで起きていました。</p>
+      <p>でも、同時に気づいたことがあります。</p>
+      <p>私は、崩れたものに執着しないのです。</p>
+      <p>「もういっか」</p>
+      <p>そう思って、手放してきました。崩れるたびに落ち込み続けるというより、そこから離れて、また新しく始める。それを繰り返してきました。</p>
+      <p>そしてもうひとつ、年を重ねる中で変わったことがあります。</p>
+      <p>他人軸ではなく、自分軸で生きること。</p>
+      <p>精神世界を学ぶ中で、合わない人がいても仕方ない、と思えるようになりました。自分でしたことは、自分で責任をとる。そう考えるようになってから、天空と地劫が、少しずつ活かせるようになった気がします。</p>
+      <p>崩れることも、摩擦も、誰かのせいにしない。手放すことを恐れない。そういう生き方に変わってから、この星との付き合い方が、少し楽になりました。</p>
+      <p>古典にも、こうあります。吉星と同宮・加会する場合は、その虚しさが想像力・アイデア・研究心・精神世界への探求に転じ、クリエイターや宗教・学術方面ではむしろ活きる、と。</p>
+      <p>目に見えないものを扱う世界に立つ人間にとって、天空は必要な星でもあります。現実から少し離れたところを見る力。目に見えないものを受け取る感性。</p>
+      <p>天空・地劫は、「失う星」であると同時に、「軽くなれる星」でもある。</p>
+      <p>大阪で紫微斗数の鑑定をしていると、この星を持つ方にお会いすることがあります。そのたびに、怖い解釈だけで終わらせず、その方がどう活かせるかを一緒に考えています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>天空</span><span>地劫</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、活かし方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article14">
+    <p class="article-no">No.15 ／ 2026.08.06</p>
+    <h1 class="article-title">8月9日、扇町 HAPPY MARCHEに出店します</h1>
+    <p class="article-date">2026年8月6日</p>
+    <div class="article-body">
+      <p>8月9日（日）、大阪・扇町の「扇町 HAPPY MARCHE ─ 占い＆HAPPYマルシェ ─」に出店します。</p>
+      <p>占い・ヒーリング・カードリーディング・心のケア・アロマなど、癒しの出展者が集まる、あたたかい雰囲気のマルシェです。</p>
+      <h2>当日のメニューについて</h2>
+      <p>紫微斗数の20分鑑定（¥2,500）をメインにご用意しています。</p>
+      <p>当日はその場で命盤を出してお伝えする形になります。</p>
+      <p>事前に時間をかけて読み解く個人鑑定とは異なり、20分という限られた時間の中でのご案内になりますが、命盤を通じて自分の本質や流れに触れる入口として活用していただければと思います。</p>
+      <p>大阪・扇町で紫微斗数を体験できる機会です。フリードリンク付きでゆったり過ごせる空間ですので、お気軽にお立ち寄りください。</p>
+      <h2>イベント詳細</h2>
+      <p>日時：8月9日（日）13:00〜20:00</p>
+      <p>会場：Kaisei Higashi Umeda 502号室（大阪市北区天神橋4丁目7-11）</p>
+      <p>アクセス：大阪メトロ堺筋線「扇町」①出口 徒歩1分／JR環状線「天満」徒歩3分</p>
+      <p>参加費：¥1,000（フリードリンク＆ちょっと軽食付き）</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>扇町</span><span>イベント</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>イベント情報・ご予約はこちらから。</p><a class="cta-btn" href="event.html">イベント情報を見る</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article15">
+    <p class="article-no">No.16 ／ 2026.08.07</p>
+    <h1 class="article-title">縁結びの祈祷に行ってきました</h1>
+    <p class="article-date">2026年8月7日</p>
+    <div class="article-body">
+      <p>昨日、鑑定を受けてくださった皆さんの今後を願って、神社へ行ってきました。</p>
+      <p>縁結びは絵馬に、良縁成就と疾病平穏はお炊き上げにして、合わせて15組ほどお願いしてきました。</p>
+      <p>お炊き上げとは、願いごとを込めたお札やお守りなどを神社で焼き上げ、天へ届ける祈祷の形です。</p>
+      <p>一件一件、鑑定でお話しした内容を思い出しながら、良い方向に向かいますようにと祈る時間でした。</p>
+      <p>紫微斗数の鑑定では、命盤を通じてその方の流れや可能性をお伝えしますが、それだけで終わらせたくないという思いがあります。</p>
+      <p>鑑定でお伝えした内容が、実際に良い方向へ動いていくように、という願いを込めて、こうした形でお手伝いさせていただいています。</p>
+      <p>早速、お一人から「彼から連絡がありました」というご報告をいただきました。</p>
+      <p>すべての方に同じような結果が訪れるとは限りませんが、こうしたご報告をいただけるのは、何より嬉しいことです。</p>
+      <p>大阪で紫微斗数の鑑定をお受けする中で、これからもこうした形で、鑑定の先にある皆さんの毎日を見守っていけたらと思っています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、活かし方を一緒に考えます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article16">
+    <p class="article-no">No.17 ／ 2026.08.10</p>
+    <h1 class="article-title">ハッピーマルシェ、ありがとうございました</h1>
+    <p class="article-date">2026年8月10日</p>
+    <div class="article-body">
+      <p>昨日は大阪・扇町のハッピーマルシェに、紫微斗数の鑑定師として出店させていただきました。</p>
+      <p>会場まで足を運んでくださった皆さま、鑑定を受けてくださった皆さま、そしてご一緒した出店者の皆さま、主催者さま、ありがとうございました。</p>
+      <p>今回、とても嬉しかったのが、Instagramを見て来てくださった方がいらっしゃったことです。</p>
+      <p>SNSで発信していると、画面の向こうにどんな方がいらっしゃるのか、普段はなかなか分かりません。</p>
+      <p>実際にお会いして「Instagramを見ています」と声をかけていただけたことは、とても嬉しい出来事でした。</p>
+      <p>また、マルシェでは同じように活動されている方との新しい出会いもありました。</p>
+      <p>そんな一日を終えて、紫微斗数の自分の命盤について、ふと思ったことがあります。</p>
+      <p>私の遷移宮は「無主星」です。</p>
+      <p>遷移宮は、外の世界や社会との関わり、人との出会いなどを見る宮です。</p>
+      <p>ここが無主星の場合、外の世界で起こることや、近づいてくる人を自分の意思だけではコントロールしにくいところがあります。</p>
+      <p>良くも悪くも人が近づいてきたり、予想していなかった出来事に巻き込まれたり。</p>
+      <p>そのため「巻き込まれやすい」と表現されることもあります。</p>
+      <p>でも今日、マルシェに出店していて思いました。</p>
+      <p><strong>巻き込まれるのは、悪いことばかりではないんだな、と。</strong></p>
+      <p>Instagramを通して私を知ってくださった方との出会い。</p>
+      <p>たまたま同じ場所に出店したからこそ生まれた、同業の方とのつながり。</p>
+      <p>どちらも私があらかじめ「この人と出会おう」と決めて作ったものではありません。</p>
+      <p>外に出たことで、思いがけずやってきてくれたご縁です。</p>
+      <p>そう考えると、遷移宮が無主星というのも、決して悪いものではないのかもしれません。</p>
+      <p>人との縁をすべて自分でコントロールできないからこそ、想像していなかった素敵なご縁にも「巻き込まれる」ことがあります。</p>
+      <p>紫微斗数の命盤には、一般的に良いと言われる配置もあれば、少し注意が必要と言われる配置もあります。</p>
+      <p>でも私は、吉凶だけで判断するのではなく、<strong>「この星や配置を、自分の人生でどう使っていくのか」</strong>そこが大切なのだと思っています。</p>
+      <p>実際に動いて、経験してみることで初めて分かる命盤の意味もあります。</p>
+      <p>今回のハッピーマルシェは、大阪で紫微斗数の鑑定を続ける中で、そんなことを改めて感じた一日になりました。</p>
+      <p>素敵なご縁をありがとうございました。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>扇町</span><span>イベント</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article17">
+    <p class="article-no">No.18 ／ 2026.08.17</p>
+    <h1 class="article-title">天機・太陰という組み合わせについて</h1>
+    <p class="article-date">2026年8月17日</p>
+    <div class="article-body">
+      <p>自分の命宮を見返していて、あらためて納得したことがあります。</p>
+      <p>命宮とは、紫微斗数において、その人の先天的な人生の傾向や、性格・行動・思考・精神がわかる宮です。</p>
+      <p>私の命宮は「天機・太陰」です。</p>
+      <p>天機は、先を読む力を持つ星と言われます。</p>
+      <p>物事を段取りよく整理し、丁寧に仕事を進める。</p>
+      <p>そこに太陰の感受性が重なると、相手の状態を敏感に察知して、静かに寄り添おうとする性質が強くなります。</p>
+      <p>紫微斗数の鑑定を仕事にしている今、この組み合わせはとても納得できるものです。</p>
+      <p>先を読んで丁寧に向き合う。</p>
+      <p>相手の様子や場の変化に意識が向きやすい。</p>
+      <p>これは私自身の性質にもよく当てはまると感じています。</p>
+      <p>ただ、周囲へ意識を向けすぎると、自分の状態を後回しにしてしまうことがあります。</p>
+      <p>知らないうちに疲れをためないためにも、自分の状態に目を向けながら、<strong>自分で境界線を決めることが大切</strong>なのだと思います。</p>
+      <p>太陰にはもう一つ、衣食住には困らないと言われる性質もあります。</p>
+      <p>これも、振り返ってみると実感としてよくわかります。</p>
+      <p>そして天機には、精神性を求める、善人が多いという特徴もあります。</p>
+      <p>損得よりも、物事の本質や仕組みを理解したいという気持ちが強く出るタイプです。</p>
+      <p>振り返ると、占いの道に進んだことにも、40歳頃から哲学を学び始めたことにも、深く納得がいきます。</p>
+      <p>天機は、よく考える星であると同時に、本来は「動く星」でもあります。</p>
+      <p>ただ、私の命宮には地劫も入っているため、その動きが地劫の影響で鈍くなります。</p>
+      <p>考えることは得意でも、実際に動くことには重さを感じる。</p>
+      <p>私自身、これは実感としてよくわかる部分です。</p>
+      <p>その鈍さを克服してきたのが、運動でした。</p>
+      <p>考えすぎて動けなくなりそうなとき、身体を動かすことで、次の一歩を踏み出せるようになった気がします。</p>
+      <p>紫微斗数は、大阪で鑑定をしている今も、私自身を理解するための道具であり続けています。</p>
+      <p>自分の星を知ることは、弱さを知ることでもあり、それとどう付き合っていくかを考えるきっかけにもなります。</p>
+      <p>先を読み、感じ、時に立ち止まりながらも、自分の境界線を意識して進んでいく。</p>
+      <p>それが、天機・太陰・地劫を持つ私なりの生き方なのだと思っています。</p>
+      <p>末筆になりましたが、8月15日、心斎橋の四つ葉フェスタに出店させていただきました。</p>
+      <p>会場に足を運んでくださった皆さま、関係者の皆さまも、ありがとうございました。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>大阪</span><span>天機</span><span>太陰</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article18">
+    <p class="article-no">No.19 ／ 2026.08.24</p>
+    <h1 class="article-title">命宮に破軍星がある人</h1>
+    <p class="article-date">2026年8月24日</p>
+    <div class="article-body">
+      <p>紫微斗数で、その人の生き方や人生の方向性を見るうえで中心となるのが「命宮」です。</p>
+      <p>命宮に破軍星がある人は、一般的に、波乱の多い人生になりやすいといわれます。</p>
+      <p>環境が大きく変わったり、仕事や人間関係が思いがけない形で切り替わったり。</p>
+      <p>安定したと思ったところで、次の転機が訪れることもあります。</p>
+      <p>また、破軍の人は、既存のやり方や上下関係にそのまま従うことが得意ではありません。</p>
+      <p>「昔からこうだから」</p>
+      <p>「上の人が決めたことだから」</p>
+      <p>それだけでは納得できず、矛盾や無駄に気づくと、もっとよい形に変えようとします。</p>
+      <p>そのため、目上の人とぶつかりやすい傾向もあります。</p>
+      <p>けれども、破軍は単に「壊す星」ではありません。</p>
+      <p>今あるものを壊し、新しい形につくり直す力を持つ星です。</p>
+      <p>上から決められたことに従うだけの環境よりも、自分で考え、判断できる環境の方が力を発揮しやすく、独立や起業など、自分に決定権のある働き方が向いている人も多いでしょう。</p>
+      <p>若い頃は、変化の多さや周囲との衝突に振り回されることもあります。</p>
+      <p>しかし、経験を重ねるほど、何を残し、何を手放すのかを自分で判断できるようになります。</p>
+      <p>変化のたびに立ち上がり、自分に合う形へと人生をつくり直していく。</p>
+      <p>大阪で紫微斗数の鑑定をしていると、破軍を持つ方にはこうした流れがよく見られます。</p>
+      <p>それが、命宮に破軍を持つ人の強さなのだと思います。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>破軍</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article19">
+    <p class="article-no">No.20 ／ 2026.08.31</p>
+    <h1 class="article-title">分かり合えない夫婦は、別れるしかない？ ―夫妻宮の化忌から考える―</h1>
+    <p class="article-date">2026年8月31日</p>
+    <div class="article-body">
+      <p>大阪で紫微斗数の鑑定をしていると、夫婦関係について、こんなご相談をいただくことがあります。</p>
+      <p>「夫とは長年一緒に暮らしてきましたが、物事の受け取り方や、会話に求めるものが違います。」</p>
+      <p>「夫に悪意があるわけでも、家族への愛情がないわけでもありません。」</p>
+      <p>「それでも、自分の言葉を受け取ってもらえないと感じることが多く、一緒にいても孤独を感じてきました。」</p>
+      <p>「離婚を考えることもありますが、長い夫婦の歴史や情もあり、簡単には決められません。」</p>
+      <p>「分かり合えない夫婦は、別れるしかないのでしょうか」</p>
+      <p>この方の夫妻宮に、化忌があるとします。</p>
+      <p>夫妻宮に化忌があると聞くと、「結婚生活がうまくいかない」「離婚するのでは」と不安になる方もいるかもしれません。</p>
+      <p>しかし、化忌があるからといって、必ず離婚するわけではありません。</p>
+      <p>化忌は、その宮において、何度も心に引っかかりやすいことや、簡単には答えが出ないテーマを表します。</p>
+      <p>夫妻宮であれば、相手との違いや、思うように分かり合えないことが、人生の中で繰り返し意識される場合があります。</p>
+      <p>相手に悪意がなくても、自分が必要としている愛情の形とは違う。</p>
+      <p>相手なりの愛情があると理解できても、心の寂しさまでは消えない。</p>
+      <p>その寂しさを相手に埋めてもらおうとすると、「なぜ分かってくれないのか」という思いが強くなり、相手を責めることにもつながります。</p>
+      <p>そして相手を責めた自分を、さらに責めてしまうこともあります。</p>
+      <p>けれど、物事の受け取り方や、心の交流に求めるものは、その人が持つ特性でもあります。</p>
+      <p>どちらかが悪いのではなく、二人の違いが大きいことによって、孤独が生まれている場合もあるのです。</p>
+      <p>このようなとき、選択肢は、「離婚する」か「我慢して一緒にいる」かだけではありません。</p>
+      <p>相手に自分の孤独をすべて埋めてもらうことを求めず、自分の仕事や活動、学び、人とのつながりなど、自分の言葉や心が循環する居場所を育てていく。</p>
+      <p>そして、それぞれが自分の人生を大切にしながら、重なる時間や出来事があれば共有する。</p>
+      <p>それも一つの夫婦の形ではないでしょうか。</p>
+      <p>話す時間や一緒に過ごす時間が変わっても、長年夫婦として生きてきた歴史までなくなるわけではありません。</p>
+      <p>夫婦だからといって、すべてを理解し合う必要はないのかもしれません。</p>
+      <p>分かり合おうとすることで、相手の背景を深く受け取れる方ばかりが理解者となり、消耗してしまうこともあります。</p>
+      <p>大切なのは、相手の内面を完全に理解することではなく、自分には分からなくても、「この人にとっては必要なことなのだ」と認めることです。</p>
+      <p>そして、相手を変えようとせず、自分も相手に合わせ過ぎない。</p>
+      <p>それぞれが自分の人生を生き、相手の時間や選択を尊重する。</p>
+      <p>夫妻宮の化忌は、必ずしも別れを示すものではありません。</p>
+      <p>これまで当然だと思っていた夫婦の形に問いを投げかけ、自分たちに合う関係へ組み直していくためのテーマとして表れることもあります。</p>
+      <p>「分かり合うこと」ではなく、「違うまま認めること」。</p>
+      <p>それが、このご夫婦にとっての新しい調和なのかもしれません。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>夫妻宮</span><span>化忌</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article20">
+    <p class="article-no">No.21 ／ 2026.09.07</p>
+    <h1 class="article-title">考えすぎる私が、"0の自分"に戻るまで ―福徳宮から見る心の休ませ方―</h1>
+    <p class="article-date">2026年9月7日</p>
+    <div class="article-body">
+      <p>紫微斗数には「福徳宮」という宮があります。</p>
+      <p>大阪で紫微斗数の鑑定をしていると、休み方についてのご相談を受けることもあります。</p>
+      <p>福徳宮は、その人の心の内側や精神的な満足、どのような時間に安らぎを感じるのかを見る場所です。</p>
+      <p>同じように休んでいても、回復できる人もいれば、身体は休んでいるのに頭の中ではずっと考え続けている人もいます。</p>
+      <p>休み方にも、その人らしさがあるのだと思います。</p>
+      <p>私の福徳宮には、巨門星があります。</p>
+      <p>巨門は、物事を深く考え、分析し、言葉にする星です。</p>
+      <p>疑問に感じたことをそのままにせず、自分で確かめたくなる。</p>
+      <p>何かを学んでも、すぐに信じるのではなく、「本当にそうなのか」と検証したくなります。</p>
+      <p>それは鑑定をするうえでは大切な力ですが、休もうとしているときまで思考が動き続けることがあります。</p>
+      <p>身体を休ませても、頭の中ではまだ考えている。</p>
+      <p>私にとって、本当に必要なのは「何もしないこと」ではなく、動き続ける思考から離れるための方法でした。</p>
+      <h2>運動は「動くマインドフルネス」</h2>
+      <p>私にとって運動は、動くマインドフルネスです。</p>
+      <p>身体の動きや呼吸、足の運びに意識を向けていると、過去を振り返ったり、先のことを考えたりする思考から離れ、「今ここ」へ戻ることができます。</p>
+      <p>頭の中に集まっていた意識を、身体へ戻していく。</p>
+      <p>考えすぎて動けなくなったときには、運動による切り替えが一定の助けになってきました。</p>
+      <p>ただ、動くことで思考を切り替えることと、身体の力を抜くことは、私の中では少し違います。</p>
+      <p>もともと緊張しやすく、交感神経が優位になりやすい私にとって、動く方法だけでは、深い静けさまで戻りきれないこともありました。</p>
+      <h2>音は、脱力するためのもの</h2>
+      <p>シンギングボウルの音に惹かれたのは、音を聴くためだけではありません。</p>
+      <p>ボウルの響きに身体を委ねていると、自分でも気づいていなかった力が、少しずつ抜けていくように感じたからです。</p>
+      <p>水を張ったシンギングボウルに音を響かせると、水面に細かな波紋が広がります。</p>
+      <p>私たちの身体にも多くの水分があります。</p>
+      <p>だからこそ私は、シンギングボウルの振動を、耳だけではなく身体の内側でも受け取っているように感じます。</p>
+      <p>何かを考えようとしなくていい。</p>
+      <p>気持ちを切り替えようと頑張らなくてもいい。</p>
+      <p>ただ音を受け取り、身体に入っている力を抜いていく。</p>
+      <p>そして音が消えたあとの静寂に身を置く。</p>
+      <p>そこでは、分析する私でも、誰かのために動いている私でもなく、何の役割も持たない"0の自分"へ戻っていくように感じます。</p>
+      <h2>自分に合った回復方法を知る</h2>
+      <p>運動は、意識を「今ここ」へ戻すもの。</p>
+      <p>音は、身体の力を抜き、より静かな自分へ戻していくもの。</p>
+      <p>私には、どちらか一つではなく、そのときの状態に合わせて使い分けることが必要なのだと思います。</p>
+      <p>人によって、心が休まる方法は違います。</p>
+      <p>一人で静かに過ごすことで回復する人もいれば、誰かと話すことで気持ちが整う人もいます。</p>
+      <p>身体を動かすことが必要な人もいれば、音や香り、自然に触れることで緊張がほどける人もいます。</p>
+      <p>一般的に良いとされる休み方が、自分にも合うとは限りません。</p>
+      <p>福徳宮を知ることは、自分が何に疲れやすく、どのようにすれば心が満たされるのかを知ることでもあります。</p>
+      <p>頑張り方だけではなく、自分に合った休み方を知ること。</p>
+      <p>それも、命盤から受け取れる大切なヒントの一つです。</p>
+      <p>大阪で紫微斗数の鑑定を続ける中で、こうして自分に合う休み方を見つけていくことも、大切な仕事の一部だと感じています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>福徳宮</span><span>巨門</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
+  <div class="article-page" id="article21">
+    <p class="article-no">No.22 ／ 2026.09.21</p>
+    <h1 class="article-title">命盤と現実を照らし合わせて見えてきたこと</h1>
+    <p class="article-date">2026年9月21日</p>
+    <div class="article-body">
+      <p>大阪で紫微斗数の鑑定をしていると、命盤と現実を照らし合わせることで見えてくることがあります。</p>
+      <p>以前、心身の不調によって休職されている方の命盤を拝見したことがあります。</p>
+      <p>その方は、生年化忌が父母宮にありました。</p>
+      <p>父母宮は、両親との関係だけではなく、目上の人や上司、組織との関係などを見る場所でもあります。</p>
+      <p>父母宮に化忌があることから、上司など目上の人との摩擦に悩むようなことが起こりやすいと考えます。</p>
+      <p>実際にその方は、入社当初から目上の人との摩擦に悩んでいました。</p>
+      <p>また、父母宮の対宮は疾厄宮です。父母宮にある生年化忌は、対冲する疾厄宮にも影響するため、心身の不調にも注意が必要です。</p>
+      <p>心身の不調が表れたのは今年に入ってからで、その方が休職された時期には、大限と太歳の両方で疾厄宮に化忌が重なっていました。</p>
+      <p>生まれ持った命盤だけを見て、「心を病む人」と判断することはできません。</p>
+      <p>しかし、この方の場合は、生年化忌が対冲する疾厄宮へ影響しているところに、大限と太歳の化忌も重なったことで、今年は特に心身の状態へ注意が必要な時期だったと考えられます。</p>
+      <p>実際にお話を伺うと、本人は優しく、受容力が高い方でした。周囲の言葉や感情を受け止めながら、自分の苦しさを後回しにし、長い間無理を重ねていたことが見えてきました。</p>
+      <p>休職も、運が悪かった結果とは限りません。</p>
+      <p>これ以上無理を続けないために、いったん環境から離れ、心身を守る必要があった時期とも考えられます。</p>
+      <p>疾厄宮に化忌の影響がある場合、心身に何らかの不調が表れやすい可能性を考えます。</p>
+      <p>さらに、生年・大限・太歳の化忌が重なる時期には、不調の度合いや負担の大きさにも注意が必要です。</p>
+      <p>事前に負担が重なりやすい時期を予測できれば、無理を続けない、早めに休息を取る、環境や人との関わり方を見直すなど、心身を守るための対応ができます。</p>
+      <p>起こりやすいことを事前に知り、深刻になる前に注意しながら、負担を回避・軽減するために活用することができます。</p>
+      <p>私は、そのために命盤を活用したいと思っています。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>化忌</span><span>疾厄宮</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(200,169,110,0.2);background:rgba(200,169,110,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(200,169,110,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
     </div>
   </div>
 </div>
-
-<footer class="footer">
-  <p>占い師　月のしずく ／ 紫微斗数</p>
-  <p>© 2026 Tsuki no Shizuku All Rights Reserved.</p>
-</footer>
-
 <script>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  window.scrollTo(0,0);
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  for(var i=0;i<22;i++){document.getElementById('article'+i).style.display='none';}
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
