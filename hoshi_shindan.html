@@ -13,7 +13,90 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://www.moon-shizuku.com/hoshi_shindan.html">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="theme.css">
+  <style>
+    :root { --gold: #ddbb84; --pale-gold: #f6dfb7; --silver: #d0d8dc; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #08182a; font-family: 'Noto Serif JP', serif; color: #f5f1e9; min-height: 100vh; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(5,17,31,.96); border-bottom: 0.5px solid rgba(221,187,132,0.15); }
+    .nav-logo { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; color: var(--pale-gold); letter-spacing: 0.15em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--silver); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.15em; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--pale-gold); }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+    .logo-sub { text-align: center; font-family: 'Shippori Mincho', serif; font-size: 0.8rem; color: var(--gold); letter-spacing: 0.25em; margin-bottom: 2rem; opacity: 0.7; }
+
+    /* INTRO */
+    .intro { text-align: center; }
+    .intro-moon { font-size: 3rem; margin-bottom: 1.5rem; display: block; animation: moonGlow 4s ease-in-out infinite; }
+    @keyframes moonGlow { 0%,100%{filter:drop-shadow(0 0 8px rgba(221,187,132,0.4))} 50%{filter:drop-shadow(0 0 24px rgba(221,187,132,0.7))} }
+    .intro h1 { font-family: 'Shippori Mincho', serif; font-size: clamp(1.2rem,4vw,1.7rem); color: var(--pale-gold); letter-spacing: 0.12em; margin-bottom: 1rem; }
+    .intro-img { width: 100%; max-width: 800px; border-radius: 4px; opacity: 0.9; margin: 1.5rem auto; display: block; }
+    .intro p { font-size: 0.88rem; line-height: 2.3; color: var(--silver); margin-bottom: 2.5rem; }
+    .divider { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 1.5rem auto; }
+
+    /* QUIZ */
+    .quiz-section { display: none; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 0.5rem; }
+    .progress-bar { height: 2px; background: rgba(221,187,132,0.15); border-radius: 1px; margin-bottom: 2rem; }
+    .progress-fill { height: 100%; background: linear-gradient(to right, var(--gold), var(--pale-gold)); border-radius: 1px; transition: width 0.4s ease; }
+    .q-num { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 0.8rem; }
+    .q-text { font-family: 'Shippori Mincho', serif; font-size: clamp(1rem,3vw,1.15rem); color: var(--pale-gold); line-height: 1.8; letter-spacing: 0.08em; margin-bottom: 1.8rem; }
+    .opt-btn { border: 0.5px solid rgba(221,187,132,0.25); background: rgba(255,255,255,0.02); color: var(--silver); padding: 1rem 1.2rem; cursor: pointer; transition: all 0.2s; display: flex; gap: 0.8rem; align-items: flex-start; width: 100%; text-align: left; font-family: 'Noto Serif JP', serif; font-size: 0.88rem; line-height: 1.7; margin-bottom: 0.7rem; }
+    .opt-btn:hover, .opt-btn.selected { border-color: var(--gold); background: rgba(221,187,132,0.1); color: var(--pale-gold); }
+    .opt-label { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.15em; min-width: 1.2em; margin-top: 0.15em; }
+    .nav-btns { display: flex; justify-content: space-between; margin-top: 1.5rem; }
+
+    /* RESULT */
+    .result-section { display: none; }
+    .result-label { text-align: center; font-size: 0.62rem; color: var(--gold); letter-spacing: 0.4em; margin-bottom: 1rem; }
+    .star-card { width: 100%; border-radius: 4px; margin-bottom: 1.5rem; }
+    .result-desc { font-size: 0.88rem; line-height: 2.3; color: var(--silver); padding: 1.5rem; border: 0.5px solid rgba(221,187,132,0.2); background: rgba(255,255,255,0.02); margin-bottom: 1.5rem; }
+    .cta-box { border: 0.5px solid rgba(221,187,132,0.25); padding: 1.8rem; background: rgba(221,187,132,0.04); text-align: center; margin-bottom: 1.5rem; }
+    .cta-box p { font-size: 0.82rem; line-height: 2.2; color: var(--silver); margin-bottom: 1.2rem; }
+
+    .btn { border: 1px solid var(--gold); background: rgba(221,187,132,0.06); color: var(--pale-gold); padding: 0.75rem 1.8rem; cursor: pointer; font-family: 'Shippori Mincho', serif; font-size: 0.85rem; letter-spacing: 0.15em; transition: all 0.3s; }
+    .btn:hover:not(:disabled) { background: rgba(221,187,132,0.18); }
+    .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; border: 1px solid var(--gold); color: var(--pale-gold); font-family: 'Shippori Mincho', serif; font-size: 0.85rem; letter-spacing: 0.2em; text-decoration: none; background: rgba(221,187,132,0.08); transition: all 0.3s; }
+    .cta-btn:hover { background: rgba(221,187,132,0.2); }
+    .retry-btn { display: block; text-align: center; margin-top: 1.5rem; font-size: 0.75rem; color: var(--silver); letter-spacing: 0.2em; cursor: pointer; border-bottom: 0.5px solid rgba(208,216,220,0.3); padding-bottom: 2px; width: fit-content; margin-left: auto; margin-right: auto; background: none; border-top: none; border-left: none; border-right: none; }
+
+    @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+
+    @media (max-width: 480px) {
+      .nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1rem; }
+    }
+  
+    /* 月のしずく：背景・余白・ナビの統一 */
+    html,body { background:#08182a; overflow-x:hidden; }
+    .nav { position:sticky;top:0;z-index:20;min-height:72px;padding:.85rem clamp(1rem,3vw,3.2rem);gap:1.5rem;background:rgba(5,17,31,.96);border-bottom:1px solid rgba(221,187,132,.28);backdrop-filter:blur(12px); }
+    .nav-logo { flex:none;font-size:1.38rem;color:#f6dfb7; }
+    .nav-links { gap:clamp(.7rem,1.55vw,1.8rem);align-items:center; }
+    .nav-links a { white-space:nowrap;font-size:.77rem;letter-spacing:.03em;color:#e9e1d4; }
+    .nav-links a:last-child { border:1px solid #ddbb84;border-radius:50px;padding:.45rem 1rem;color:#f6dfb7; }
+    .wrap { width:min(900px,100%); }
+    .intro { position:relative;isolation:isolate;overflow:hidden;padding:4rem 1.25rem; }
+    .intro::before { content:'';position:absolute;inset:0;z-index:-1;background:url('meihai.png') center right/cover no-repeat;opacity:.27; }
+    .intro::after { content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,24,42,.77),rgba(8,24,42,.55)); }
+    .intro h1 { font-size:clamp(2rem,4vw,3rem); }
+    .intro p { color:#d0d8dc; }
+    .intro-kicker { font-size:.8rem;letter-spacing:.4em;color:#ddbb84;margin-bottom:1.5rem; }
+    .intro-lead { font-size:.88rem;line-height:2.4;margin-bottom:2.5rem; }
+    .intro-divider { width:60px;height:1px;background:linear-gradient(to right,transparent,#ddbb84,transparent);margin:0 auto 2rem; }
+    .intro-content { position:relative;z-index:1; }
+    .btn { border-radius:30px; }
+    .quiz-section,.result-section { max-width:760px;margin:0 auto; }
+    .star-card { display:block;height:auto;max-width:100%; }
+    .result-desc,.cta-box { background:transparent; }
+    .cta-btn { border-radius:30px; }
+    @media(max-width:1050px) { .nav { display:block; } .nav-links { overflow-x:auto;padding:.6rem 0 .2rem;scrollbar-width:thin; } }
+    @media(max-width:480px) { .wrap { padding:2.5rem 1.2rem 5rem; } .intro { padding:3.5rem .7rem; } .intro-lead br { display:none; } }
+    @media(prefers-reduced-motion:reduce) { .fade-in { animation:none; } }
+</style>
 </head>
 <body>
 
@@ -30,22 +113,22 @@
   </div>
 </nav>
 
-<div class="shindan-wrap">
-  <div class="shindan-logo-sub">月のしずく ／ 紫微斗数</div>
+<div class="wrap">
+  <div class="logo-sub">月のしずく ／ 紫微斗数</div>
 
   <!-- INTRO -->
-  <div class="shindan-intro fade-in" id="introSection">
-    <div class="shindan-intro-inner">
-      <p class="shindan-eyebrow">星が導く、あなたの物語</p>
-      <h1 class="shindan-h1">あなたの星タイプ診断</h1>
-      <div class="divider-center"></div>
-      <p class="shindan-lead">10の質問に答えて、紫微斗数14主星の<br>あなたのタイプを診断します。<br>直感で選んでください。</p>
+  <div class="intro fade-in" id="introSection" >
+    <div class="intro-content">
+      <p class="intro-kicker">星が導く、あなたの物語</p>
+      <h1 >あなたの星タイプ診断</h1>
+      <div class="intro-divider"></div>
+      <p class="intro-lead">10の質問に答えて、紫微斗数14主星の<br>あなたのタイプを診断します。<br>直感で選んでください。</p>
       <button class="btn" onclick="startQuiz()">診断をはじめる →</button>
     </div>
   </div>
 
   <!-- QUIZ -->
-  <div class="quiz-section fade-in" id="quizSection" style="display:none;">
+  <div class="quiz-section fade-in" id="quizSection">
     <div class="progress-label">
       <span id="progressText">Q1 / 10</span>
       <span id="progressPct">10%</span>
@@ -61,7 +144,7 @@
   </div>
 
   <!-- RESULT -->
-  <div class="result-section fade-in" id="resultSection" style="display:none;">
+  <div class="result-section fade-in" id="resultSection">
     <div class="result-label">診断結果</div>
     <svg id="starCardSvg" class="star-card" viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="result-desc" id="resultDesc"></div>
@@ -72,11 +155,6 @@
     <button class="retry-btn" onclick="restart()">もう一度診断する</button>
   </div>
 </div>
-
-<footer class="footer">
-  <p>占い師　月のしずく ／ 紫微斗数</p>
-  <p>© 2026 Tsuki no Shizuku All Rights Reserved.</p>
-</footer>
 
 <script>
 const questions = [
@@ -143,20 +221,20 @@ const questions = [
 ];
 
 const stars = {
-  紫微:{no:"01",type:"帝王・リーダー型",color:"#9b7fd4",colorDark:"#1a1040",desc:"品格と統率力を持つ帝王の星。人縁に恵まれ、自然と人の上に立つ存在感があります。知的探求心も旺盛で、信頼と援助を集める力があります。",light:["礼儀正しく品がある","統率力・管理能力が高い","人縁に恵まれ大きな成功を得やすい"],shadow:["猜疑心が強く頑固で閉鎖的","身内には流されやすく依怙贔屓","対人関係が狭くなりやすい"]},
-  天機:{no:"02",type:"思考過多・知的探求型",color:"#ddbb84",colorDark:"#08182a",desc:"豊かな想像力と知略を持つ智慧の星。考えることが好きで、深く物事を探求します。ただし考えすぎて動けなくなることも。",light:["頭脳明晰で想像力豊か","幅広い知的探求者","科学・文学・宗教など活躍分野が広い"],shadow:["考えすぎて動けなくなりやすい","神経質で精神的に傷つきやすい","考えが変わりやすい"]},
-  太陽:{no:"03",type:"自己プロデュース・リーダー型",color:"#e8a030",colorDark:"#1a0d00",desc:"寛大で陽気な楽天家リーダーの星。活力にあふれ、人の世話をするのが好き。名声・財を得やすい反面、自己中心的な面も。",light:["寛大で陽気な楽天家","活力あるリーダー","世話好きで名声・財を得やすい"],shadow:["自己中心的・超マイペース","アバウトで大雑把な面も","一芸に秀でるが他は苦手"]},
-  武曲:{no:"04",type:"実力派・現実主義型",color:"#7ab8d4",colorDark:"#081828",desc:"決断力と実行力を持つ将軍の星。プロ意識が高く不屈の精神を持ちます。目的のためにクールに使い分けるしたたかさも。",light:["決断力・実行力・プロ意識が高い","頭脳明晰で不屈の精神","商売上手で現実対応力が高い"],shadow:["外面と内面を使い分ける","問題があると他者責任にしやすい","禍福を招きやすい"]},
-  天同:{no:"05",type:"平和主義・回避型",color:"#88c4a8",colorDark:"#081a10",desc:"温和で慈悲深い福の星。愛されやすく社交運があります。争いを避けるうちに決断できず停滞してしまうことも。",light:["温和で穏やか・心やさしい楽天家","社交運があり愛されやすい","楽しむことに長けている"],shadow:["決断力・積極性に欠ける","スロースターターになりやすい","他者に依存しやすい"]},
-  廉貞:{no:"06",type:"改革派・攻撃型",color:"#c8604e",colorDark:"#200810",desc:"怖いもの知らずの勇猛な改革の星。意志が強く目的に向かって突き進みます。古い因習を嫌い、自らの道を切り開く力があります。",light:["志が高く意志が強い","目的達成まで諦めない実行力","商才に優れた改革派"],shadow:["つかみにくい性格","異性問題が起きやすい","凶意が出やすい大凶星の側面も"]},
-  天府:{no:"07",type:"安定・包容型",color:"#b8a060",colorDark:"#181200",desc:"寛容と賢さを象徴する安定の星。責任感が強く誠実で、どんな分野でも成果を出せます。包容力があり信頼を集める存在です。",light:["寛容で賢い包容力がある","責任感が強く誠実","財務・企画力に長け安定した成果を出せる"],shadow:["保守的すぎて変化に慎重","統率したがるが逆らわれると嫌う","無謀な冒険には踏み出せない"]},
-  太陰:{no:"08",type:"感受性消耗型",color:"#a8b8d8",colorDark:"#081028",desc:"豊かな感受性と芸術的センスを持つ月の星。人の気持ちを敏感に察知します。その繊細さゆえに、感じすぎて疲れてしまうことも。",light:["ロマンティックで芸術を愛する","優れた感受性と記憶力","気配り上手で思いやりがある"],shadow:["感受性が過剰になり消耗しやすい","気位が高く潔癖症な面も","読みすぎて小心になりやすい"]},
-  貪狼:{no:"09",type:"自由・魅力・欲望型",color:"#c890b0",colorDark:"#200818",desc:"自由奔放で多芸多才な桃花の星。魅力的で欲望に素直、目標に向かって突き進む芯の強さがあります。",light:["自由奔放でユーモアあふれる多芸多才","目標に向かう芯の強さ","魅力的でおしゃれな働き者"],shadow:["ギャンブル・リスクを取りやすい","オカルティックな領域に進みやすい","異性問題が生じやすい"]},
-  巨門:{no:"10",type:"思考過多・言葉の星型",color:"#8898b8",colorDark:"#081020",desc:"弁舌に長けた分析の星。自尊心が強く勤勉で、知的職業に向きます。ただし頑固さと完全主義が、自分も相手も傷つけることも。",light:["弁舌に長けて説得力がある","分析力・把握力が優れている","勤勉で真面目"],shadow:["頑固さ・猜疑心がある","完全主義で口うるさくなりやすい","言葉で自分も相手も傷つけやすい"]},
-  天相:{no:"11",type:"自己犠牲消耗型",color:"#90b890",colorDark:"#081808",desc:"誠実でサポート力の高い幕僚の星。人のために尽くすことに喜びを感じますが、尽くしすぎて自分が空っぽになってしまうことも。",light:["温和で誠実・責任感がある","面倒見よく人から慕われる","衣食住に困らない強運"],shadow:["世話焼きが強引になることも","自己犠牲で疲弊しやすい","トップより縁の下が向いている"]},
-  天梁:{no:"12",type:"清廉・孤高型",color:"#c8c890",colorDark:"#181800",desc:"清廉潔白で名誉を重んじる清廉の星。弱いものを助ける親分肌で、年長者から引き立てを受けやすい。ただし群れるのを嫌い孤高を好みます。",light:["清廉潔白で善良・高貴","弱いものを助ける親分肌","名誉を重んじ年長者から引き立てられる"],shadow:["プライドが高く我が道を行く","群れを嫌い対人関係が広くない","財を動かすのが下手"]},
-  七殺:{no:"13",type:"孤高の将軍・攻撃型",color:"#d0785a",colorDark:"#200800",desc:"独立心旺盛な将軍の星。裸一貫から成功する力を持ちますが、短気で協調性に欠けるため孤独になりやすい面も。",light:["独立心旺盛で裸一貫から成功できる","目下への面倒見が良いリーダー","紫微星直下の将軍"],shadow:["短気で気性が激しい","協調性に欠け孤独になりやすい","目上からの束縛を嫌う"]},
-  破軍:{no:"14",type:"波乱万丈・冒険型",color:"#7ab0c8",colorDark:"#001820",desc:"思い立ったら行動する冒険の星。刺激を求め危険を楽しみ、反骨精神で自らの道を切り開きます。先に苦労し後に楽になるタイプ。",light:["冒険心・反骨精神がある","刺激を求め行動力がある","統率力があり後に楽になる"],shadow:["強引で孤独になりがち","損耗の星でやり過ぎる傾向","計画性が課題"]},
+  紫微:{no:"01",type:"帝王・リーダー型",color:"#9b7fd4",colorDark:"#2a1a5e",desc:"品格と統率力を持つ帝王の星。人縁に恵まれ、自然と人の上に立つ存在感があります。知的探求心も旺盛で、信頼と援助を集める力があります。",light:["礼儀正しく品がある","統率力・管理能力が高い","人縁に恵まれ大きな成功を得やすい"],shadow:["猜疑心が強く頑固で閉鎖的","身内には流されやすく依怙贔屓","対人関係が狭くなりやすい"]},
+  天機:{no:"02",type:"思考過多・知的探求型",color:"#c8a96e",colorDark:"#2a1a5e",desc:"豊かな想像力と知略を持つ智慧の星。考えることが好きで、深く物事を探求します。ただし考えすぎて動けなくなることも。",light:["頭脳明晰で想像力豊か","幅広い知的探求者","科学・文学・宗教など活躍分野が広い"],shadow:["考えすぎて動けなくなりやすい","神経質で精神的に傷つきやすい","考えが変わりやすい"]},
+  太陽:{no:"03",type:"自己プロデュース・リーダー型",color:"#e8a030",colorDark:"#2a1500",desc:"寛大で陽気な楽天家リーダーの星。活力にあふれ、人の世話をするのが好き。名声・財を得やすい反面、自己中心的な面も。",light:["寛大で陽気な楽天家","活力あるリーダー","世話好きで名声・財を得やすい"],shadow:["自己中心的・超マイペース","アバウトで大雑把な面も","一芸に秀でるが他は苦手"]},
+  武曲:{no:"04",type:"実力派・現実主義型",color:"#7ab8d4",colorDark:"#0a1a2e",desc:"決断力と実行力を持つ将軍の星。プロ意識が高く不屈の精神を持ちます。目的のためにクールに使い分けるしたたかさも。",light:["決断力・実行力・プロ意識が高い","頭脳明晰で不屈の精神","商売上手で現実対応力が高い"],shadow:["外面と内面を使い分ける","問題があると他者責任にしやすい","禍福を招きやすい"]},
+  天同:{no:"05",type:"平和主義・回避型",color:"#88c4a8",colorDark:"#0a2018",desc:"温和で慈悲深い福の星。愛されやすく社交運があります。争いを避けるうちに決断できず停滞してしまうことも。",light:["温和で穏やか・心やさしい楽天家","社交運があり愛されやすい","楽しむことに長けている"],shadow:["決断力・積極性に欠ける","スロースターターになりやすい","他者に依存しやすい"]},
+  廉貞:{no:"06",type:"改革派・攻撃型",color:"#c8604e",colorDark:"#3a0f1a",desc:"怖いもの知らずの勇猛な改革の星。意志が強く目的に向かって突き進みます。古い因習を嫌い、自らの道を切り開く力があります。",light:["志が高く意志が強い","目的達成まで諦めない実行力","商才に優れた改革派"],shadow:["つかみにくい性格","異性問題が起きやすい","凶意が出やすい大凶星の側面も"]},
+  天府:{no:"07",type:"安定・包容型",color:"#b8a060",colorDark:"#1a1500",desc:"寛容と賢さを象徴する安定の星。責任感が強く誠実で、どんな分野でも成果を出せます。包容力があり信頼を集める存在です。",light:["寛容で賢い包容力がある","責任感が強く誠実","財務・企画力に長け安定した成果を出せる"],shadow:["保守的すぎて変化に慎重","統率したがるが逆らわれると嫌う","無謀な冒険には踏み出せない"]},
+  太陰:{no:"08",type:"感受性消耗型",color:"#a8b8d8",colorDark:"#0a1030",desc:"豊かな感受性と芸術的センスを持つ月の星。人の気持ちを敏感に察知します。その繊細さゆえに、感じすぎて疲れてしまうことも。",light:["ロマンティックで芸術を愛する","優れた感受性と記憶力","気配り上手で思いやりがある"],shadow:["感受性が過剰になり消耗しやすい","気位が高く潔癖症な面も","読みすぎて小心になりやすい"]},
+  貪狼:{no:"09",type:"自由・魅力・欲望型",color:"#c890b0",colorDark:"#2a0a20",desc:"自由奔放で多芸多才な桃花の星。魅力的で欲望に素直、目標に向かって突き進む芯の強さがあります。",light:["自由奔放でユーモアあふれる多芸多才","目標に向かう芯の強さ","魅力的でおしゃれな働き者"],shadow:["ギャンブル・リスクを取りやすい","オカルティックな領域に進みやすい","異性問題が生じやすい"]},
+  巨門:{no:"10",type:"思考過多・言葉の星型",color:"#8898b8",colorDark:"#0a1028",desc:"弁舌に長けた分析の星。自尊心が強く勤勉で、知的職業に向きます。ただし頑固さと完全主義が、自分も相手も傷つけることも。",light:["弁舌に長けて説得力がある","分析力・把握力が優れている","勤勉で真面目"],shadow:["頑固さ・猜疑心がある","完全主義で口うるさくなりやすい","言葉で自分も相手も傷つけやすい"]},
+  天相:{no:"11",type:"自己犠牲消耗型",color:"#90b890",colorDark:"#0a1e0a",desc:"誠実でサポート力の高い幕僚の星。人のために尽くすことに喜びを感じますが、尽くしすぎて自分が空っぽになってしまうことも。",light:["温和で誠実・責任感がある","面倒見よく人から慕われる","衣食住に困らない強運"],shadow:["世話焼きが強引になることも","自己犠牲で疲弊しやすい","トップより縁の下が向いている"]},
+  天梁:{no:"12",type:"清廉・孤高型",color:"#c8c890",colorDark:"#1e1e00",desc:"清廉潔白で名誉を重んじる清廉の星。弱いものを助ける親分肌で、年長者から引き立てを受けやすい。ただし群れるのを嫌い孤高を好みます。",light:["清廉潔白で善良・高貴","弱いものを助ける親分肌","名誉を重んじ年長者から引き立てられる"],shadow:["プライドが高く我が道を行く","群れを嫌い対人関係が広くない","財を動かすのが下手"]},
+  七殺:{no:"13",type:"孤高の将軍・攻撃型",color:"#d0785a",colorDark:"#2a0a00",desc:"独立心旺盛な将軍の星。裸一貫から成功する力を持ちますが、短気で協調性に欠けるため孤独になりやすい面も。",light:["独立心旺盛で裸一貫から成功できる","目下への面倒見が良いリーダー","紫微星直下の将軍"],shadow:["短気で気性が激しい","協調性に欠け孤独になりやすい","目上からの束縛を嫌う"]},
+  破軍:{no:"14",type:"波乱万丈・冒険型",color:"#7ab0c8",colorDark:"#001828",desc:"思い立ったら行動する冒険の星。刺激を求め危険を楽しみ、反骨精神で自らの道を切り開きます。先に苦労し後に楽になるタイプ。",light:["冒険心・反骨精神がある","刺激を求め行動力がある","統率力があり後に楽になる"],shadow:["強引で孤独になりがち","損耗の星でやり過ぎる傾向","計画性が課題"]},
 };
 
 const LABELS = ["A","B","C","D"];
@@ -202,8 +280,12 @@ function selectOpt(i) {
 }
 
 function nextQ() {
-  if (current < questions.length-1) { current++; renderQ(); }
-  else { showResult(); }
+  if (current < questions.length-1) {
+    current++;
+    renderQ();
+  } else {
+    showResult();
+  }
 }
 
 function prevQ() {
@@ -220,12 +302,13 @@ function showResult() {
   const winner = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
   const d = stars[winner];
 
+  // Draw SVG card
   const svg = document.getElementById('starCardSvg');
   svg.innerHTML = `
     <defs>
       <radialGradient id="bg_r" cx="30%" cy="40%" r="70%">
         <stop offset="0%" stop-color="${d.colorDark}"/>
-        <stop offset="100%" stop-color="#08182a"/>
+        <stop offset="100%" stop-color="#0a0620"/>
       </radialGradient>
     </defs>
     <rect width="680" height="360" fill="url(#bg_r)" rx="4"/>
@@ -238,15 +321,15 @@ function showResult() {
     <circle cx="635" cy="25" r="1" fill="white" opacity="0.35"/>
     <rect x="40" y="72" width="2.5" height="210" fill="${d.color}" opacity="0.45" rx="1"/>
     <text x="62" y="98" font-family="'Noto Serif JP',serif" font-size="11" fill="${d.color}" letter-spacing="4" opacity="0.7">STAR No.${d.no}</text>
-    <text x="62" y="172" font-family="'Shippori Mincho',serif" font-size="72" fill="#f6dfb7" letter-spacing="12" font-weight="500">${winner}</text>
+    <text x="62" y="172" font-family="'Shippori Mincho',serif" font-size="72" fill="#e8d5a3" letter-spacing="12" font-weight="500">${winner}</text>
     <rect x="62" y="186" width="220" height="24" rx="2" fill="${d.color}" opacity="0.12"/>
     <text x="72" y="203" font-family="'Noto Serif JP',serif" font-size="11" fill="${d.color}" letter-spacing="2">${d.type}</text>
     <line x1="62" y1="228" x2="642" y2="228" stroke="${d.color}" stroke-width="0.5" stroke-opacity="0.25"/>
     <text x="62" y="254" font-family="'Noto Serif JP',serif" font-size="10" fill="${d.color}" letter-spacing="3" opacity="0.85">✦  表の顔</text>
-    <text x="152" y="254" font-family="'Noto Serif JP',serif" font-size="12" fill="#d0d8dc">${d.light.join('　／　')}</text>
+    <text x="152" y="254" font-family="'Noto Serif JP',serif" font-size="12" fill="#c4b8d8">${d.light.join('　／　')}</text>
     <line x1="62" y1="272" x2="642" y2="272" stroke="${d.color}" stroke-width="0.3" stroke-opacity="0.15"/>
     <text x="62" y="298" font-family="'Noto Serif JP',serif" font-size="10" fill="#a08cc8" letter-spacing="3" opacity="0.85">●  影の顔</text>
-    <text x="152" y="298" font-family="'Noto Serif JP',serif" font-size="12" fill="#d0d8dc" opacity="0.8">${d.shadow.join('　／　')}</text>
+    <text x="152" y="298" font-family="'Noto Serif JP',serif" font-size="12" fill="#c4b8d8" opacity="0.8">${d.shadow.join('　／　')}</text>
     <text x="642" y="342" font-family="'Shippori Mincho',serif" font-size="10" fill="${d.color}" letter-spacing="3" opacity="0.4" text-anchor="end">月のしずく ／ 紫微斗数</text>
   `;
 
@@ -264,6 +347,6 @@ function restart() {
   window.scrollTo(0,0);
 }
 </script>
-
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
