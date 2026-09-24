@@ -1,0 +1,105 @@
+
+:root{--navy:#08182a;--navy-2:#0c2036;--navy-3:#102a43;--gold:#ddbb84;--gold-light:#f6dfb7;--text:#f5f1e9;--muted:#d0d8dc;--line:rgba(221,187,132,.28)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--navy);color:var(--text);font-family:'Noto Serif JP',serif;line-height:1.85}a{color:inherit}img{max-width:100%}
+.nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:.85rem clamp(1rem,3vw,3.2rem);min-height:72px;background:rgba(5,17,31,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav-logo{flex:none;font-family:'Shippori Mincho',serif;font-size:1.38rem;letter-spacing:.18em;color:var(--gold-light);text-decoration:none}.nav-links{display:flex;gap:clamp(.7rem,1.55vw,1.8rem);align-items:center}.nav-links a{white-space:nowrap;font-size:.77rem;text-decoration:none;color:#e9e1d4;letter-spacing:.03em}.nav-links a:hover,.nav-links a:focus-visible{color:var(--gold-light)}.nav-links a:last-child{border:1px solid var(--gold);border-radius:50px;padding:.45rem 1rem;color:var(--gold-light)}
+.hero{position:relative;min-height:min(780px,calc(100svh - 72px));display:flex;align-items:center;justify-content:flex-end;background:linear-gradient(90deg,transparent 25%,rgba(5,17,30,.12) 44%,rgba(5,17,30,.58) 100%),url('assets/hero-night.webp') 36% center/cover no-repeat;background-color:var(--navy);overflow:hidden}.hero-content{position:relative;width:min(50%,750px);padding:4rem clamp(2rem,5vw,6rem) 5rem 1rem;text-align:center}.hero-eyebrow{font-size:.83rem;letter-spacing:.25em;color:var(--gold);margin:0 0 1.3rem}.site-title{font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(2.8rem,5.7vw,5.2rem);letter-spacing:.13em;line-height:1.3;color:#fff5e6;margin:0 0 1.2rem;text-shadow:0 3px 25px rgba(0,0,0,.55)}.hero-subtitle{font-family:'Shippori Mincho',serif;font-size:clamp(1rem,1.8vw,1.5rem);letter-spacing:.04em;color:var(--gold-light);line-height:1.7;margin:0}.hero-rule{height:1px;max-width:300px;margin:1.5rem auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}.hero-copy{font-size:clamp(.86rem,1.2vw,1.03rem);color:#f3f0e9;line-height:2.2;text-shadow:0 2px 12px #08182a;margin:0}.hero-cta,.contact-btn{display:inline-flex;align-items:center;justify-content:center;gap:1rem;margin-top:2.4rem;min-height:54px;padding:.75rem 2.3rem;border:1px solid var(--gold);border-radius:40px;text-decoration:none;color:var(--gold-light);background:rgba(6,20,35,.78);font-family:'Shippori Mincho',serif;letter-spacing:.12em;transition:background .2s,transform .2s}.hero-cta:hover,.contact-btn:hover{background:#163650;transform:translateY(-2px)}
+.page-band{border-top:1px solid rgba(221,187,132,.13);background:var(--navy)}.page-band:nth-of-type(odd){background:var(--navy-2)}.about-bg{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(135deg,#0a1d32,#102a43 54%,#0a1d32)}.section{width:min(1080px,100%);margin:auto;padding:clamp(4rem,8vw,7rem) 1.5rem}.section-label{font-size:.73rem;text-transform:uppercase;letter-spacing:.32em;color:var(--gold);margin:0 0 .85rem}.section-title{font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(1.6rem,3vw,2.25rem);letter-spacing:.08em;color:var(--gold-light);margin:.2rem 0 1rem}.section-lead{font-size:.91rem;line-height:2.2;color:var(--muted);margin:0 0 2rem}.section[style]{position:relative}.section>img{display:block}.page-band:first-of-type .section{text-align:center;position:relative;isolation:isolate}.page-band:first-of-type .section>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;z-index:-1}.page-band:first-of-type .section a[href*="hoshi_shindan"]{display:inline-block;border:1px solid var(--gold);border-radius:30px;padding:.8rem 2rem;color:var(--gold-light);text-decoration:none}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}.about-inner img{display:block;width:min(100%,440px);margin:auto;border-radius:10px;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.22)}.chart-figure{margin:1.7rem 0 0}.chart-figure img{display:block;width:100%;border-radius:12px;border:1px solid var(--line)}.chart-figure figcaption{font-size:.72rem;color:var(--muted);margin-top:.8rem;text-align:right}
+.menu-cards,.testimonials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}.menu-card,.testimonial,.note-box,.contact-box{background:linear-gradient(145deg,rgba(33,72,101,.62),rgba(11,34,56,.75));border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 38px rgba(0,0,0,.1)}.menu-card{padding:2rem;position:relative}.menu-card.featured{border-color:rgba(221,187,132,.62)}.badge{position:absolute;top:0;right:1.2rem;background:var(--gold);color:var(--navy);padding:.2rem .85rem;border-radius:0 0 6px 6px;font-size:.73rem}.menu-icon{font-size:1.65rem}.menu-name{font-family:'Shippori Mincho',serif;color:var(--gold-light);font-size:1.25rem;margin:.5rem 0}.price-row{display:flex;align-items:baseline;gap:.6rem}.price-num{color:var(--gold-light);font-size:1.25rem}.price-time,.menu-desc,.note-box,.testimonial-text{color:var(--muted);font-size:.86rem;line-height:2}.divider-thin{height:1px;background:var(--line);margin:1rem 0}.note-box{padding:1.4rem 1.7rem;margin-top:1.5rem}.note-box strong{color:var(--gold-light)}.testimonials{margin-top:2rem}.testimonial{padding:1.6rem;border-left:2px solid var(--gold)}.testimonial-text{margin-bottom:1rem}.testimonial-author{font-size:.73rem;letter-spacing:.06em;color:var(--gold)}.contact-box{text-align:center;padding:3rem 1.5rem;margin-top:2rem}.contact-box p{color:var(--muted);line-height:2.2}.contact-btn{margin-top:.5rem}.footer{text-align:center;padding:2.4rem 1rem;background:#061525;border-top:1px solid var(--line);color:var(--muted);font-size:.75rem}
+
+/* 命盤グリッド */
+.meihai-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,auto);border:1px solid var(--line);margin:1.5rem 0 .5rem}.meihai-cell{border:1px solid rgba(221,187,132,.18);padding:.9rem .8rem;background:rgba(255,255,255,.015)}.cell-palace{font-size:.62rem;color:var(--gold);letter-spacing:.12em;margin-bottom:.5rem}.cell-stars{font-size:.78rem;color:var(--muted);line-height:1.7}.main-star{display:inline-block;font-family:'Shippori Mincho',serif;font-size:.88rem;color:var(--gold-light);margin-bottom:.2rem}.center-logo{grid-column:2/4;grid-row:2/4;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--line);background:linear-gradient(135deg,rgba(16,42,67,.9),rgba(12,32,54,.95));padding:1.5rem}.center-logo-text{font-family:'Shippori Mincho',serif;font-size:1.1rem;color:var(--gold-light);letter-spacing:.2em;margin-bottom:.4rem}.center-logo-sub{font-size:.62rem;color:var(--gold);letter-spacing:.25em}.meihai-caption{font-size:.72rem;color:var(--muted);text-align:right;margin-bottom:0}
+@media(max-width:1050px){.nav{display:block}.nav-links{overflow-x:auto;padding:.6rem 0 .2rem;scrollbar-width:thin}.nav-links a{font-size:.75rem}.hero{min-height:670px}.hero-content{width:54%}}
+@media(max-width:700px){.nav{padding:.75rem 1rem}.nav-logo{font-size:1.1rem}.nav-links{gap:1rem}.hero{min-height:740px;align-items:flex-end;background:linear-gradient(0deg,#07192d 0%,rgba(7,25,45,.88) 28%,rgba(7,25,45,.07) 67%),url('assets/hero-night.webp') 26% top/auto 68% no-repeat;background-color:#081a2c}.hero-content{width:100%;padding:0 1.2rem 3.2rem}.site-title{font-size:2.8rem}.hero-subtitle{font-size:1.05rem}.hero-copy br{display:none}.about-inner{grid-template-columns:1fr;gap:1rem}.menu-cards,.testimonials{grid-template-columns:1fr}.section{padding:4.5rem 1.25rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+
+/* ブログ用 */
+.insta-banner{max-width:860px;margin:0 auto 2rem;padding:0}.insta-inner{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);background:rgba(221,187,132,.04);padding:1rem 1.5rem;gap:1rem;border-radius:8px}.insta-left{display:flex;align-items:center;gap:1rem}.insta-icon{font-size:1.4rem}.insta-text strong{color:var(--gold-light);font-size:.85rem;display:block;margin-bottom:.2rem}.insta-text p{font-size:.78rem;color:var(--muted);line-height:1.7;margin:0}.insta-btn{display:inline-block;padding:.5rem 1.2rem;border:1px solid var(--gold);border-radius:30px;color:var(--gold-light);font-family:'Shippori Mincho',serif;font-size:.75rem;letter-spacing:.15em;text-decoration:none;white-space:nowrap;background:rgba(221,187,132,.06);transition:all .3s}.insta-btn:hover{background:rgba(221,187,132,.15)}.insta-sub{margin-top:.8rem;padding:.8rem 1.5rem;border:1px solid var(--line);border-top:none;background:rgba(221,187,132,.03);border-radius:0 0 8px 8px;font-size:.72rem;color:rgba(208,216,220,.6)}.insta-sub a{color:rgba(221,187,132,.6);text-decoration:none}.insta-sub a:hover{color:var(--gold)}
+.articles{max-width:860px;margin:0 auto;padding:0 0 clamp(4rem,8vw,6rem)}.article-card{border-bottom:1px solid rgba(221,187,132,.13);padding:2.2rem 0;cursor:pointer;transition:all .3s;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start}.article-card:first-child{border-top:1px solid rgba(221,187,132,.13)}.article-card:hover .card-title{color:var(--gold-light)}.article-card:hover .card-arrow{opacity:1;transform:translateX(4px)}.card-no{font-size:.65rem;color:var(--gold);letter-spacing:.3em;margin-bottom:.6rem}.card-title{font-family:'Shippori Mincho',serif;font-size:clamp(1rem,2.5vw,1.15rem);color:var(--muted);letter-spacing:.08em;margin-bottom:.7rem;transition:color .3s;line-height:1.6}.card-excerpt{font-size:.8rem;line-height:2;color:rgba(208,216,220,.7)}.card-arrow{font-size:1rem;color:var(--gold);opacity:.4;transition:all .3s;margin-top:.4rem}.card-tag{display:inline-block;font-size:.6rem;letter-spacing:.15em;color:var(--gold);border:1px solid rgba(221,187,132,.3);padding:2px 8px;margin-right:4px;margin-top:.8rem;border-radius:3px}
+.article-page{max-width:680px;margin:0 auto;padding:3rem 1.5rem clamp(4rem,8vw,6rem)}.back-btn{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--gold);letter-spacing:.15em;cursor:pointer;margin-bottom:3rem;border:none;background:none}.article-no{font-size:.65rem;color:var(--gold);letter-spacing:.35em;margin-bottom:1rem}.article-title{font-family:'Shippori Mincho',serif;font-size:clamp(1.3rem,4vw,1.8rem);color:var(--gold-light);letter-spacing:.1em;line-height:1.6;margin-bottom:1rem;font-weight:500}.article-date{font-size:.7rem;color:rgba(221,187,132,.6);letter-spacing:.2em;margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(221,187,132,.15)}.article-body h2{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--gold-light);letter-spacing:.08em;margin:2.5rem 0 1rem;font-weight:500;padding-left:.8rem;border-left:2px solid var(--gold)}.article-body p{font-size:.88rem;line-height:2.4;color:var(--muted);margin-bottom:1rem}.item{margin-bottom:1.5rem}.item-no{font-size:.72rem;color:var(--gold);letter-spacing:.15em;margin-bottom:.3rem}.item-title{font-family:'Shippori Mincho',serif;font-size:.95rem;color:var(--gold-light);margin-bottom:.5rem}.article-footer{margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(221,187,132,.15)}.article-tags span{display:inline-block;font-size:.6rem;letter-spacing:.15em;color:var(--gold);border:1px solid rgba(221,187,132,.3);padding:3px 10px;margin-right:6px;margin-bottom:1.5rem;border-radius:3px}.next-article{background:rgba(221,187,132,.04);border:1px solid var(--line);border-radius:8px;padding:1.5rem;cursor:pointer;transition:all .3s;margin-bottom:2rem}.next-article:hover{background:rgba(221,187,132,.08)}.next-label{font-size:.62rem;color:var(--gold);letter-spacing:.3em;margin-bottom:.5rem}.next-title{font-family:'Shippori Mincho',serif;font-size:.95rem;color:var(--muted)}.cta-box{text-align:center;border:1px solid var(--line);padding:2rem;background:rgba(221,187,132,.03);border-radius:8px}.cta-box p{font-size:.82rem;color:var(--muted);line-height:2;margin-bottom:1.2rem}.cta-btn{display:inline-block;padding:.75rem 2rem;border:1px solid var(--gold);border-radius:30px;color:var(--gold-light);font-family:'Shippori Mincho',serif;font-size:.82rem;letter-spacing:.2em;text-decoration:none;background:rgba(221,187,132,.06);transition:all .3s}.cta-btn:hover{background:rgba(221,187,132,.15)}
+/* 予約フォーム用 */
+.wrap{max-width:660px;margin:0 auto;padding:clamp(3rem,6vw,5rem) 1.5rem clamp(4rem,8vw,6rem)}.page-label{font-size:.7rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}.page-title{font-family:'Shippori Mincho',serif;font-size:clamp(1.4rem,4vw,2rem);color:var(--gold-light);letter-spacing:.1em;margin-bottom:.8rem}.divider-form{width:60px;height:1px;background:linear-gradient(to right,var(--gold),transparent);margin:1.5rem 0 2rem}.page-desc{font-size:.85rem;line-height:2.2;color:var(--muted);margin-bottom:2.5rem}
+.form-group{margin-bottom:1.8rem}.form-label{display:block;font-size:.78rem;color:var(--gold);letter-spacing:.2em;margin-bottom:.6rem}.required{color:#e07070;font-size:.65rem;margin-left:.4rem}.form-input,.form-select,.form-textarea{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(221,187,132,.22);color:var(--text);font-family:'Noto Serif JP',serif;font-size:.88rem;padding:.9rem 1rem;outline:none;transition:border-color .3s;-webkit-appearance:none;border-radius:4px}.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}.form-textarea{resize:vertical;min-height:120px;line-height:1.8}.form-note{font-size:.72rem;color:rgba(208,216,220,.6);margin-top:.6rem;letter-spacing:.05em}
+.radio-group{display:flex;gap:1rem;flex-wrap:wrap}.radio-label{display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.85rem;color:var(--muted)}.radio-label input{display:none}.radio-custom{width:16px;height:16px;border:1px solid rgba(221,187,132,.4);border-radius:50%;position:relative;flex-shrink:0;transition:border-color .3s}.radio-label input:checked + .radio-custom{border-color:var(--gold)}.radio-label input:checked + .radio-custom::after{content:'';position:absolute;top:3px;left:3px;width:8px;height:8px;background:var(--gold);border-radius:50%}.radio-label input:checked ~ span{color:var(--gold-light)}
+.birth-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+.submit-btn{width:100%;padding:1.1rem;border:1px solid var(--gold);border-radius:40px;background:rgba(221,187,132,.08);color:var(--gold-light);font-family:'Shippori Mincho',serif;font-size:.95rem;letter-spacing:.25em;cursor:pointer;transition:all .3s}.submit-btn:hover{background:rgba(221,187,132,.18);transform:translateY(-1px)}.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* 北斗星の背景をセクションの夜紺へ自然につなぐ */
+.about-inner img[src$="hokuto-star.webp"]{
+  width:min(100%,480px); border:0; border-radius:0; box-shadow:none;
+  -webkit-mask-image:radial-gradient(ellipse 68% 70% at 50% 50%,#000 56%,rgba(0,0,0,.88) 72%,transparent 100%);
+  mask-image:radial-gradient(ellipse 68% 70% at 50% 50%,#000 56%,rgba(0,0,0,.88) 72%,transparent 100%);
+}
+
+/* 予約案内を周囲の夜紺に自然になじませる */
+.note-box{background:rgba(255,255,255,.025);border:0;border-left:2px solid var(--gold);border-radius:0;box-shadow:none;padding:1rem 1.45rem;margin-top:1.8rem;color:var(--muted)}
+.note-box strong{color:var(--gold-light)}
+
+/* お客様の声は控えめな囲みで背景とつなぐ */
+.testimonial{background:rgba(255,255,255,.025);border:1px solid rgba(221,187,132,.18);border-radius:8px;box-shadow:none}
+
+/* 一色の背景に枠のみ */
+.testimonial,.note-box{background:transparent;border:1px solid var(--line);border-radius:8px;box-shadow:none}
+
+/* 北斗星の暗い地色をページ背景に溶け込ませる */
+.about-inner img[src$="hokuto-star.webp"]{mix-blend-mode:screen;opacity:.85;filter:contrast(1.08) saturate(.84);border:0;border-radius:0;box-shadow:none;-webkit-mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,#000 55%,transparent 100%)}
+
+/* ご予約案内は囲まず、ページの背景に直接置く */
+.note-box{background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;margin-top:2rem}
+
+/* 鑑定メニュー：背景は一色、カードは枠と細い金のアクセントのみ */
+.menu-card,.menu-card.featured{background:transparent;border:1px solid var(--line);border-radius:8px;box-shadow:none}
+.menu-card.featured{border-color:rgba(221,187,132,.48)}
+.menu-icon{display:none}
+.menu-name{margin-top:1rem}
+
+/* 全ページの装飾パネルは共通の背景に直接置く */
+.menu-card,.menu-card.featured,.testimonial,.contact-box,.note-box,.insta-inner,.cta-box,.kanso-box,.event-card,.guest-card,.event-menu-box,.star-card{background:transparent;border:0;border-radius:0;box-shadow:none}
+.menu-card,.menu-card.featured,.testimonial{padding:1.5rem 0}
+
+.menu-icon{display:none}.drop-mark{display:block;width:22px;height:29px;color:var(--gold);margin-bottom:.9rem}
+.contact-box,.cta-box{padding:2rem 0}.insta-inner{padding:1rem 0}
+
+/* 全ページの地色を夜紺一色に統一。ヒーロー画像だけは残す */
+html,body{background:#08182a}
+.nav,.page-band,.page-band:nth-of-type(odd),.about-bg,.footer,.page-hero,.section-wrap,.shindan-wrap,.shindan-intro,.wrap,.guest-section,.idou-section{background:#08182a;background-image:none}
+.page-band,.about-bg{border:0}
+/* 背景色を合わせて編集した北斗星画像。古い画像用のフィルターを解除 */
+.about-inner img[src$="hokuto-star-v2.webp"]{mix-blend-mode:normal;opacity:1;filter:none;border:0;border-radius:0;box-shadow:none;-webkit-mask-image:none;mask-image:none}
+
+/* 命盤中央の色をページ背景と完全に一致させる */
+.center-logo{background:#08182a;background-image:none}
+
+/* 初回鑑定・スポット鑑定だけを細い金枠で囲む */
+.menu-card,.menu-card.featured{background:transparent;border:1px solid rgba(221,187,132,.54);border-radius:8px;box-shadow:none;padding:2rem}
+
+/* 北斗星は画像の端をそのまま背景へつなぐ。枠なし */
+.about-inner img[src$="hokuto-star-v2.webp"]{border:0;border-radius:0;box-shadow:none;outline:0}
+/* 月と星は共通の金線アイコン */
+.mystic-mark{display:block;width:31px;height:31px;color:var(--gold);margin-bottom:.85rem}
+
+/* お客様の声もメニューと同じ細い金枠 */
+.testimonial{background:transparent;border:1px solid rgba(221,187,132,.54);border-radius:8px;box-shadow:none;padding:1.6rem}
+
+/* 確認済みの月・命盤と月・シンキングボウルの金線アイコン */
+.mystic-art{display:block;width:112px;height:112px;background-image:url('assets/menu-emblems.webp');background-repeat:no-repeat;background-size:224px 112px;mix-blend-mode:screen;margin:-.4rem 0 .5rem}
+.mystic-art.moon{background-position:left center}.mystic-art.bowl{background-position:right center}
+
+/* お客様の声：セクションと枠の内側を同一色に固定 */
+#voice,#voice .section,#voice .testimonials,#voice .testimonial{background-color:#08182a!important;background-image:none!important}
+#voice .testimonial{border:1px solid rgba(221,187,132,.54);border-radius:8px;box-shadow:none}
+
+/* Hokuto image: no frame */
+.about-inner img[src$="hokuto-star-v2.webp"]{border:0!important;outline:0!important;box-shadow:none!important;border-radius:0!important}
+
+
+/* お客様の声 確定スタイル */
+#voice .testimonial {
+  border: 1px solid #ddbb84 !important;
+  border-radius: 12px !important;
+  padding: 2rem !important;
+}
+/* 星タイプ診断：背景命盤をもう少しはっきり */
+.page-band:first-of-type .section > img {
+  opacity: .28 !important;
+}
