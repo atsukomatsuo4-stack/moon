@@ -24,11 +24,6 @@
 
 <div id="root"></div>
 
-<footer class="footer">
-  <p>占い師　月のしずく ／ 紫微斗数</p>
-  <p>© 2026 Tsuki no Shizuku All Rights Reserved.</p>
-</footer>
-
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -203,7 +198,7 @@ function App() {
   };
 
   const goPrev = () => { if (current > 0) setCurrent((c) => c - 1); };
-  const restart = () => { setCurrent(0); setAnswers({}); setResult(null); setPhase("intro"); };
+  const restart = () => { setCurrent(0); setAnswers({}); setResult(null); setPhase("quiz"); };
   const progress = Math.round(((current + 1) / questions.length) * 100);
 
   return (
