@@ -98,3 +98,6 @@ html,body{background:#08182a}
 
 /* Hokuto image: no frame */
 .about-inner img[src$="hokuto-star-v2.png"]{border:0!important;outline:0!important;box-shadow:none!important;border-radius:0!important}
+
+/* 北斗星を濃く表示 */
+.about-inner img[src$="hokuto-star-v2.png"]{filter:brightness(1.3) contrast(1.2) saturate(1.1);border:0!important;border-radius:0!important;box-shadow:none!important;outline:0!important}
