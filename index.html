@@ -6,6 +6,39 @@
   <title>月のしずく｜紫微斗数占い師</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="theme.css">
+  <style>
+    /* 命盤の金装飾だけを調整。地色と他のページ要素は変更しない。 */
+    .meihai-grid {
+      position: relative;
+      border: 1px solid #d9b979;
+      box-shadow: inset 0 0 0 4px #08182a, inset 0 0 0 5px rgba(221,187,132,.48);
+    }
+    .meihai-grid::before, .meihai-grid::after {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      border-color: #edcf93;
+      border-style: solid;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .meihai-grid::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+    .meihai-grid::after { right: -2px; bottom: -2px; border-width: 0 2px 2px 0; }
+    .meihai-grid .meihai-cell {
+      background: #08182a;
+      border-color: rgba(221,187,132,.4);
+    }
+    .meihai-grid .cell-palace { color: #d9b979; }
+    .meihai-grid .main-star { color: #f0d8a8; }
+    .meihai-grid .center-logo {
+      background: #08182a;
+      background-image: none;
+      border: 1px solid rgba(221,187,132,.68);
+      box-shadow: inset 0 0 0 5px #08182a, inset 0 0 0 6px rgba(221,187,132,.35);
+    }
+    .meihai-grid .center-logo-text { color: #f0d8a8; }
+  </style>
 </head>
 <body>
 
