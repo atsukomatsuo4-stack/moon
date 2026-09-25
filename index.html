@@ -7,33 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="theme.css">
   <style>
-    /* 参考画像の金の枠のみ。背景はサイトと同じ紺。 */
-    .meihai-grid {
-      position: relative;
-      grid-template-rows: repeat(4,minmax(0,1fr));
-      border: 0;
-      background: #08182a;
-    }
-    .meihai-grid .meihai-cell {
-      background: #08182a;
-      border: 0;
-    }
     .meihai-grid .cell-palace { color: #d9b979; }
-    .meihai-grid .main-star { color: #f0d8a8; }
-    .meihai-grid .center-logo {
-      background: #08182a;
-      background-image: none;
-      border: 0;
-    }
+    .meihai-grid .main-star,
     .meihai-grid .center-logo-text { color: #f0d8a8; }
-    .meihai-grid .meihai-ornament {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-    }
   </style>
 </head>
 <body>
@@ -84,19 +60,6 @@
     <h2 class="section-title">命盤のイメージ</h2>
     <p class="section-lead">紫微斗数では、生年月日・出生時刻から12宮の命盤を作成し、星の配置を読み解きます。</p>
     <div class="meihai-grid">
-      <svg class="meihai-ornament" viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true">
-        <defs><filter id="meihai-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="2"/></filter></defs>
-        <g fill="none" stroke="#d9b979" stroke-width=".9" vector-effect="non-scaling-stroke">
-          <rect x="2" y="2" width="396" height="396"/>
-          <rect x="6" y="6" width="388" height="388" opacity=".64"/>
-          <path d="M100 6V100H6 M200 6V100 M300 6V100H394 M6 200H100 M300 200H394 M6 300H100V394 M200 300V394 M394 300H300V394 M100 100V300H300V100H100 M200 100H300 M100 200H6 M100 300H6 M300 100H394 M300 300H394"/>
-        </g>
-        <g fill="#f5d99c" stroke="#d9b979" stroke-width=".8">
-          <path d="M100 94l6 6-6 6-6-6z M300 94l6 6-6 6-6-6z M100 294l6 6-6 6-6-6z M300 294l6 6-6 6-6-6z"/>
-          <path d="M200 97l3 3-3 3-3-3z M100 197l3 3-3 3-3-3z M300 197l3 3-3 3-3-3z M200 297l3 3-3 3-3-3z"/>
-        </g>
-        <g fill="#f5d99c" opacity=".7" filter="url(#meihai-glow)"><circle cx="100" cy="100" r="6"/><circle cx="300" cy="100" r="6"/><circle cx="100" cy="300" r="6"/><circle cx="300" cy="300" r="6"/></g>
-      </svg>
       <div class="meihai-cell"><div class="cell-palace">巳宮 ／ 田宅宮</div><div class="cell-stars"><span class="main-star">天同星</span><br>文昌・右弼</div></div>
       <div class="meihai-cell"><div class="cell-palace">午宮 ／ 官禄宮</div><div class="cell-stars"><span class="main-star">武曲星</span><br>天魁・龍池</div></div>
       <div class="meihai-cell"><div class="cell-palace">未宮 ／ 奴僕宮</div><div class="cell-stars"><span class="main-star">太陽星</span><br>天鉞・鳳閣</div></div>
