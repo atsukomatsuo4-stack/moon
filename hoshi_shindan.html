@@ -217,26 +217,26 @@ function App() {
         .fade-in { animation:fadeIn 0.5s ease forwards; }
         @keyframes moonGlow { 0%,100%{filter:drop-shadow(0 0 8px rgba(221,187,132,0.4))} 50%{filter:drop-shadow(0 0 24px rgba(221,187,132,0.7))} }
         .moon { animation:moonGlow 4s ease-in-out infinite; display:inline-block; }
-        .diagnosis-intro { position:relative; isolation:isolate; overflow:hidden; max-width:900px; min-height:500px; margin:2.5rem auto 0; padding:4rem 1.25rem; background:#08182a; text-align:center; display:flex; align-items:center; justify-content:center; }
+        .diagnosis-intro { position:relative; isolation:isolate; overflow:hidden; width:100%; min-height:460px; margin:0; padding:4rem 1.25rem; background:#08182a; text-align:center; display:flex; align-items:center; justify-content:center; }
         .diagnosis-intro::before { content:""; position:absolute; inset:0; z-index:-1; background:url("star-chart.webp") center right/cover no-repeat; opacity:.75; mix-blend-mode:screen; -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 38%,#000 85%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0%,#000 38%,#000 85%,transparent 100%); }
         .diagnosis-intro::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(8,24,42,.30),transparent 58%); pointer-events:none; }
         .diagnosis-intro-content { position:relative; z-index:1; }
-        .diagnosis-intro-kicker { color:#ddbb84; font-size:.8rem; letter-spacing:.4em; margin:0 0 1.5rem; }
+        .diagnosis-intro-kicker { color:#ddbb84; font-size:.72rem; letter-spacing:.32em; margin:0 0 1.5rem; }
         .diagnosis-intro h1 { font-family:'Shippori Mincho',serif; font-size:clamp(2rem,4vw,3rem); font-weight:500; color:#f6dfb7; letter-spacing:.08em; margin:0; }
         .diagnosis-intro-rule { width:60px; height:1px; background:linear-gradient(to right,transparent,#ddbb84,transparent); margin:1.5rem auto; }
         .diagnosis-intro-lead { color:#d0d8dc; font-size:.88rem; line-height:2.4; margin:0 0 2.5rem; }
-        @media(max-width:480px) { .diagnosis-intro { min-height:520px; margin:0 auto; padding:3rem 1rem; } .diagnosis-intro-lead br { display:none; } }
+        @media(max-width:480px) { .diagnosis-intro { min-height:470px; margin:0; padding:3rem 1rem; } .diagnosis-intro-lead br { display:none; } }
 
       `}</style>
 
       {phase === "intro" && (
         <section className="diagnosis-intro fade-in" aria-labelledby="diagnosis-title">
           <div className="diagnosis-intro-content">
-            <p className="diagnosis-intro-kicker">星が導く、あなたの物語</p>
+            <p className="diagnosis-intro-kicker">DIAGNOSIS</p>
             <h1 id="diagnosis-title">あなたの星タイプ診断</h1>
             <div className="diagnosis-intro-rule" />
-            <p className="diagnosis-intro-lead">10の質問に答えて、紫微斗数14主星の<br/>あなたのタイプを診断します。<br/>直感で選んでください。</p>
-            <button type="button" className="nav-btn" onClick={() => setPhase("quiz")}>診断をはじめる →</button>
+            <p className="diagnosis-intro-lead">10の質問に答えて、紫微斗数14主星のあなたのタイプを診断します。<br/>表の顔と影の顔、両面でお伝えします。</p>
+            <button type="button" className="nav-btn" onClick={() => setPhase("quiz")}>診断してみる →</button>
           </div>
         </section>
       )}
