@@ -27,7 +27,7 @@
     .list-view { display: block; }
     #articleView { display: none; }
 
-    .blog-header { padding: 4rem 2rem 1.5rem; max-width: 860px; margin: 0 auto; }
+    .blog-header { position: relative; isolation: isolate; overflow: hidden; min-height: 330px; padding: 5rem 2rem 3.5rem; width: 100%; margin: 0 auto 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #08182a url('blog-header-night.png') center / cover no-repeat; }
     .section-label { font-size: 0.7rem; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
     .section-title { font-family: 'Shippori Mincho', serif; font-size: clamp(1.4rem,4vw,2rem); color: var(--pale-gold); letter-spacing: 0.1em; font-weight: 500; margin-bottom: 0.5rem; }
     .divider { width: 60px; height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin: 1.5rem 0; }
@@ -78,6 +78,7 @@
 
     @media (max-width: 600px) {
       .nav { padding: 1rem 1.2rem; }
+      .blog-header { min-height: 215px; padding: 3rem 1rem 2rem; background-position: center; }
       .insta-inner { flex-direction: column; align-items: flex-start; }
       .article-card { grid-template-columns: 1fr; }
       .card-arrow { display: none; }
