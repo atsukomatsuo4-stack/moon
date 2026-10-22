@@ -149,6 +149,15 @@
   </div>
 
   <div class="articles">
+    <div class="article-card" onclick="showArticle(23)">
+      <div>
+        <div class="card-no">No.24 ／ 2026.10.22</div>
+        <div class="card-title">10月の勉強会と、マルシェのお礼</div>
+        <div class="card-excerpt">10月の勉強会では、命術から卜占へのつなげ方や、鑑定結果の伝え方・表現について練習しました。10月18日のマルシェでお立ち寄りくださった皆さまへのお礼も綴っています。</div>
+        <div><span class="card-tag">紫微斗数</span><span class="card-tag">勉強会</span><span class="card-tag">イベント</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
     <div class="article-card" onclick="showArticle(22)">
       <div>
         <div class="card-no">No.23 ／ 2026.10.05</div>
@@ -1151,17 +1160,41 @@
       <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
     </div>
   </div>
+  <div class="article-page" id="article23">
+    <p class="article-no">No.24 ／ 2026.10.22</p>
+    <h1 class="article-title">10月の勉強会と、マルシェのお礼</h1>
+    <p class="article-date">2026年10月22日</p>
+    <div class="article-body">
+      <h2>10月の勉強会</h2>
+      <p>10月の勉強会では、命術から卜占へのつなげ方や、命術で読み取った結果の伝え方・表現について練習しました。</p>
+      <p>命術で分かったことを、ご相談内容に合わせてどのように卜占へつなげていくか。実際に鑑定するときの流れを考える時間になりました。</p>
+      <p>お客様に伝える言葉は、それぞれの言葉でいいと思っています。同じ結果でも、表現の仕方は人それぞれです。</p>
+      <p>大切なのは、自分なりの伝え方を見つけること。そして、その言葉をお客様がどのように受け取っているかを考えることだと思います。</p>
+      <p>私自身も、皆さんが実践しながら学べるよう、勉強会の進め方を振り返り、次回につなげていきたいと思います。</p>
+      <p>ご参加くださった皆さま、ありがとうございました。</p>
+      <h2>10月18日のマルシェ</h2>
+      <p>10月18日のマルシェでお立ち寄りくださった皆さま、ありがとうございました。</p>
+      <p>大切なお話を聞かせていただき、ご縁をいただけたことに感謝しています。鑑定の時間が、気持ちを整理したり、一歩踏み出したりするきっかけになっていましたら、うれしいです。</p>
+      <p>主催者の皆さま、ご一緒した出店者の皆さまにも、心よりお礼申し上げます。</p>
+      <p>これからも大阪を拠点に、学びの場と鑑定の時間を大切にしていきたいと思います。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>紫微斗数</span><span>勉強会</span><span>イベント</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(221,187,132,0.2);background:rgba(221,187,132,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(221,187,132,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 </div>
 <script>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22','article23'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22','article23'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
