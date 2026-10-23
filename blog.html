@@ -149,6 +149,15 @@
   </div>
 
   <div class="articles">
+    <div class="article-card" onclick="showArticle(24)">
+      <div>
+        <div class="card-no">No.25 ／ 2026.10.23</div>
+        <div class="card-title">鑑定料金改定のお知らせ</div>
+        <div class="card-excerpt">紫微斗数の鑑定メニューと料金を改定しました。通常鑑定は60分 8,000円（税込）となり、新たに「開運ご提案」を加えています。</div>
+        <div><span class="card-tag">お知らせ</span><span class="card-tag">紫微斗数</span><span class="card-tag">鑑定料金</span><span class="card-tag">大阪</span></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
     <div class="article-card" onclick="showArticle(23)">
       <div>
         <div class="card-no">No.24 ／ 2026.10.22</div>
@@ -1184,17 +1193,39 @@
       <div class="cta-box"><p>あなたの命盤の星も、一緒に読み解いていきます。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
     </div>
   </div>
+  <div class="article-page" id="article24">
+    <p class="article-no">No.25 ／ 2026.10.23</p>
+    <h1 class="article-title">鑑定料金改定のお知らせ</h1>
+    <p class="article-date">2026年10月23日</p>
+    <div class="article-body">
+      <p>いつも月のしずくをご利用いただき、ありがとうございます。</p>
+      <p>このたび、紫微斗数の鑑定メニューと料金を改定いたしました。より多くの方に、気軽に命盤にふれていただけるよう見直しています。</p>
+      <h2>新しい鑑定メニュー</h2>
+      <div class="item"><p class="item-title">通常鑑定　60分　8,000円（税込）</p><p>命盤の作成から始まり、命宮・身宮・大限・流年まで、あなたの全体像を丁寧に読み解きます。初めて紫微斗数に触れる方も安心してご参加ください。</p></div>
+      <div class="item"><p class="item-title">スポット鑑定　30分　5,000円（税込）</p><p>今年の運気・恋愛・仕事・人間関係など、気になるテーマに絞ってご相談いただけます。初回鑑定を受けた方が対象です。</p></div>
+      <div class="item"><p class="item-title">開運ご提案　5,000円（税込）</p><p>奇門遁甲・吉日・風水。これらをお客様に合わせてご提案させていただきます。</p></div>
+      <h2>ご予約について</h2>
+      <p>初回の方は、生年月日・出生時刻・出生地をご用意ください。出生時刻が分からない場合もご相談いただけます。</p>
+      <p>鑑定はオンライン（Zoom）または対面にて承っております。</p>
+      <p>これからも、お一人おひとりのお話を大切に、命盤と向き合ってまいります。今後とも月のしずくをよろしくお願いいたします。</p>
+    </div>
+    <div class="article-footer">
+      <div class="article-tags"><span>お知らせ</span><span>紫微斗数</span><span>鑑定料金</span><span>大阪</span></div>
+      <div style="margin:2rem 0;text-align:center;padding:1.5rem;border:0.5px solid rgba(221,187,132,0.2);background:rgba(221,187,132,0.04);"><p style="font-size:0.82rem;color:var(--silver);line-height:2;margin-bottom:1.2rem;">この記事へのご感想・コメントをお待ちしています。</p><a href="https://docs.google.com/forms/d/e/1FAIpQLSe3ar0IWe2qsdWSZbaSoZ3Vvh04zVP48MoZSb1phXaBVsmJZw/viewform" target="_blank" style="display:inline-block;padding:0.75rem 2rem;border:1px solid var(--gold);color:var(--pale-gold);font-family:Shippori Mincho,serif;font-size:0.82rem;letter-spacing:0.2em;text-decoration:none;background:rgba(221,187,132,0.06);">ご感想・コメントを送る →</a></div>
+      <div class="cta-box"><p>新しいメニューでのご予約を承っています。<br>気になる方はお気軽にご予約ください。</p><a class="cta-btn" href="yoyaku.html">鑑定を予約する</a></div>
+    </div>
+  </div>
 </div>
 <script>
 function showList(){
   document.getElementById('listView').style.display='block';
   document.getElementById('articleView').style.display='none';
-  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22','article23'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22','article23','article24'].forEach(id=>{document.getElementById(id).style.display='none';});
 }
 function showArticle(n){
   document.getElementById('listView').style.display='none';
   document.getElementById('articleView').style.display='block';
-  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22','article23'].forEach(id=>{document.getElementById(id).style.display='none';});
+  ['article0','article1','article2','article3','article4','article5','article6','article7','article8','article9','article10','article11','article12','article13','article14','article15','article16','article17','article18','article19','article20','article21','article22','article23','article24'].forEach(id=>{document.getElementById(id).style.display='none';});
   document.getElementById('article'+n).style.display='block';
   window.scrollTo(0,0);
 }
